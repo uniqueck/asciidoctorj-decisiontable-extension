@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.09.26 at 00:01:29 CEST" saveUser="constantin">
+  <Conditions>
+    <Condition uId="11443124863866955">
+      <Title language="English" value="condition type is occurence table"/>
+    </Condition>
+    <Condition uId="15691821661607471">
+      <Title language="English" value="condition state is"/>
+    </Condition>
+    <Condition uId="15691829000737479">
+      <Title language="English" value="current occ entry is *"/>
+    </Condition>
+    <Condition uId="15691829640747488">
+      <Title language="English" value="current occ entry is last"/>
+    </Condition>
+    <Condition uId="15691832883587498">
+      <Title language="English" value="current occ entry is first"/>
+    </Condition>
+    <Condition uId="15691833849187509">
+      <Title language="English" value="has more conditions"/>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="11443124863976962">
+      <Title language="English" value="if with condition title and label yes"/>
+    </Action>
+    <Action uId="11443124877466972">
+      <Title language="English" value="else with label no"/>
+    </Action>
+    <Action uId="15691829544667485">
+      <Title language="English" value="else"/>
+    </Action>
+    <Action uId="15691832322447495">
+      <Title language="English" value="else if condition title with occ entry and label yes"/>
+    </Action>
+    <Action uId="15691833117897506">
+      <Title language="English" value="if condition title with occ entry and label yes"/>
+    </Action>
+    <Action uId="15691835587717532">
+      <Title language="English" value="add list of actions"/>
+    </Action>
+    <Action uId="15694487175966350">
+      <Title language="English" value="endif"/>
+    </Action>
+  </Actions>
+  <Rules lastId="16">
+    <Rule id="3">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="true"/>
+      <ActionLink link="15691829544667485"/>
+      <ConditionLink link="15691833849187509" conditionState="true"/>
+    </Rule>
+    <Rule id="4">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="true"/>
+      <ActionLink link="15691829544667485"/>
+      <ConditionLink link="15691833849187509" conditionState="false"/>
+      <ActionLink link="15691835587717532"/>
+    </Rule>
+    <Rule id="5">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="false"/>
+      <ConditionLink link="15691829640747488" conditionState="true"/>
+      <ActionLink link="15691832322447495"/>
+      <ConditionLink link="15691833849187509" conditionState="true"/>
+    </Rule>
+    <Rule id="6">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="false"/>
+      <ConditionLink link="15691829640747488" conditionState="true"/>
+      <ActionLink link="15691832322447495"/>
+      <ConditionLink link="15691833849187509" conditionState="false"/>
+      <ActionLink link="15691835587717532"/>
+    </Rule>
+    <Rule id="7">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="false"/>
+      <ConditionLink link="15691829640747488" conditionState="false"/>
+      <ConditionLink link="15691832883587498" conditionState="true"/>
+      <ActionLink link="15691833117897506"/>
+      <ConditionLink link="15691833849187509" conditionState="true"/>
+    </Rule>
+    <Rule id="8">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="false"/>
+      <ConditionLink link="15691829640747488" conditionState="false"/>
+      <ConditionLink link="15691832883587498" conditionState="true"/>
+      <ActionLink link="15691833117897506"/>
+      <ConditionLink link="15691833849187509" conditionState="false"/>
+      <ActionLink link="15691835587717532"/>
+    </Rule>
+    <Rule id="12">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="false"/>
+      <ConditionLink link="15691829640747488" conditionState="false"/>
+      <ConditionLink link="15691832883587498" conditionState="false"/>
+      <ActionLink link="15691832322447495"/>
+      <ConditionLink link="15691833849187509" conditionState="true"/>
+    </Rule>
+    <Rule id="13">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15691829000737479" conditionState="false"/>
+      <ConditionLink link="15691829640747488" conditionState="false"/>
+      <ConditionLink link="15691832883587498" conditionState="false"/>
+      <ActionLink link="15691832322447495"/>
+      <ConditionLink link="15691833849187509" conditionState="false"/>
+      <ActionLink link="15691835587717532"/>
+    </Rule>
+    <Rule id="14">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ConditionLink link="15691821661607471" conditionState="true"/>
+      <ActionLink link="11443124863976962"/>
+      <ConditionLink link="15691833849187509" conditionState="true"/>
+    </Rule>
+    <Rule id="16">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ConditionLink link="15691821661607471" conditionState="true"/>
+      <ActionLink link="11443124863976962"/>
+      <ConditionLink link="15691833849187509" conditionState="false"/>
+      <ActionLink link="15691835587717532"/>
+      <ActionLink link="15694487175966350"/>
+    </Rule>
+    <Rule id="11">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ConditionLink link="15691821661607471" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+    </Rule>
+  </Rules>
+  <Title language="English" value="condition to plant uml activity diagram representation"/>
+  <UrlsOut>
+    <Url title="Folder" url="file:///./"/>
+  </UrlsOut>
+  <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="// $$Package=org.uniqueck.asciidoctorj.extension.decisiontable.lfet&lt;br/&gt;// $$InterfaceTraceAfterRule=true&lt;br/&gt;// $$InterfaceRuleGroups = true&lt;br/&gt;// $$InterfaceName=I$$dtname&lt;br/&gt;// $$InterfaceRulesClassname=$$dtnameRules"/>
+</LFET>

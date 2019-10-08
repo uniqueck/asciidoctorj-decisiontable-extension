@@ -1,0 +1,12 @@
+[plantuml, smallestDecisionTable.lfet]
+----
+title smallestDecisionTable
+
+start
+if (Condition1) then (true)
+-Action1
+else (false)
+-Action2
+endif
+stop
+----

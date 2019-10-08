@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.10.08 at 12:43:14 CEST" saveUser="constantin">
+  <Conditions>
+    <Condition uId="11443124863866955">
+      <Title language="English" value="Condition1"/>
+    </Condition>
+    <Condition uId="15705305202684788">
+      <Title language="English" value="Condition2"/>
+    </Condition>
+    <Condition uId="15705305667014790">
+      <Title language="English" value="Condition3"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="15705305750254832">
+          <Symbol language="English" value="="/>
+          <Title language="English" value="Equal"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="15705305750274834">
+          <Symbol language="English" value="&lt;"/>
+          <Title language="English" value="Lower"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="15705306495804839">
+          <Symbol language="English" value="&gt;"/>
+          <Title language="English" value="Greater"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="11443124863976962">
+      <Title language="English" value="Action1"/>
+    </Action>
+    <Action uId="11443124877466972">
+      <Title language="English" value="Action2"/>
+    </Action>
+  </Actions>
+  <Rules lastId="11">
+    <Rule id="3">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ActionLink link="11443124863976962"/>
+    </Rule>
+    <Rule id="11">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+      <ConditionLink link="15705305202684788" conditionState="true"/>
+    </Rule>
+    <Rule id="8">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+      <ConditionLink link="15705305202684788" conditionState="false"/>
+      <ConditionOccurrenceLink link="15705305750254832"/>
+    </Rule>
+    <Rule id="9">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+      <ConditionLink link="15705305202684788" conditionState="false"/>
+      <ConditionOccurrenceLink link="15705305750274834"/>
+      <ActionLink link="11443124863976962"/>
+    </Rule>
+    <Rule id="10">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+      <ConditionLink link="15705305202684788" conditionState="false"/>
+      <ConditionOccurrenceLink link="15705306495804839"/>
+    </Rule>
+  </Rules>
+  <Title language="English" value="decisionTableWithMultipleConditions"/>
+  <UrlsOut>
+    <Url title="Folder" url="file:///./"/>
+  </UrlsOut>
+</LFET>

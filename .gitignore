@@ -1,0 +1,10 @@
+/build/
+/*.iml
+/*.ipr
+/*.iws
+/*.gradle
+/.idea
+/target/
+/.asciidoctor/
+**/*/*.lfet.*.$bak
+**/*/*.lfet_$temp
