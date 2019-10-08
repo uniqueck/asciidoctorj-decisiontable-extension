@@ -9,7 +9,7 @@
 // profile LFET.Java.Prolog.Standard.Interface.ini not found
 // used LF-ET 2.1.5 (190905b) build in default
 
-package org.uniqueck.asciidoctorj.extension.decisiontable.lfet;
+package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 public interface IConditionToPlantUMLActivityDiagram
 {

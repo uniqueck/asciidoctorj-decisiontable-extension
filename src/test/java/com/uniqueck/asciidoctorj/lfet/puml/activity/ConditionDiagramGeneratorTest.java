@@ -1,5 +1,6 @@
-package org.uniqueck.asciidoctorj.extension.decisiontable;
+package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
+import com.uniqueck.asciidoctorj.lfet.puml.activity.IConditionDiagramGenerator;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;

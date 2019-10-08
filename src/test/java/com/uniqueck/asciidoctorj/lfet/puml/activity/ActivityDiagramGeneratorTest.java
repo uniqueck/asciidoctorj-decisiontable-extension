@@ -1,6 +1,8 @@
-package org.uniqueck.asciidoctorj.extension.decisiontable;
+package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
+import com.uniqueck.asciidoctorj.lfet.puml.activity.ActivityDiagramGenerator;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -11,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ActivityDiagramGeneratorTest {
 
+    @Disabled
     @Test
     void testGenerate() throws IOException {
         String generate = new ActivityDiagramGenerator().generate("src/test/resources/smallestDecisionTable.lfet");

@@ -1,12 +1,10 @@
-package org.uniqueck.asciidoctorj.extension.decisiontable;
+package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jdom2.DataConversionException;
 import org.jdom2.Element;
-import org.uniqueck.asciidoctorj.extension.decisiontable.lfet.ConditionToPlantUMLActivityDiagramRules;
-import org.uniqueck.asciidoctorj.extension.decisiontable.lfet.IConditionToPlantUMLActivityDiagram;
 
 import java.util.ArrayList;
 import java.util.List;

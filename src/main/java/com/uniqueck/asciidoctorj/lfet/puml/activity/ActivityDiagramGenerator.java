@@ -1,11 +1,9 @@
-package org.uniqueck.asciidoctorj.extension.decisiontable;
+package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
-import org.uniqueck.asciidoctorj.extension.decisiontable.lfet.DecisionTableToPlantUMLActivityDiagramRules;
-import org.uniqueck.asciidoctorj.extension.decisiontable.lfet.IDecisionTableToPlantUMLActivityDiagram;
 
 import java.io.File;
 import java.util.ArrayList;

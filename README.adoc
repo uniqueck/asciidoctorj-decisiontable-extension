@@ -5,8 +5,11 @@ image:https://circleci.com/gh/uniqueck/asciidoctorj-decisiontable-extension/tree
 image:https://img.shields.io/badge/License-MIT-yellow.svg["MIT License", link="https://opensource.org/licenses/MIT"]
 image:https://api.bintray.com/packages/uniqueck/asciidoctorj/asciidoctorj-decisiontable-extension/images/download.svg[link="https://bintray.com/uniqueck/asciidoctorj/asciidoctorj-decisiontable-extension/_latestVersion"]
 
-
 This AsciidoctorJ extension helps you to integrate https://www.lohrfink.de/de/startseite/[decision tables] in your AsciiDoc toolchain.
+
+Currently supported decision table formats
+
+* https://www.lohrfink.de/de/startseite/[lohrfink decision tables]
 
 == Installation
 

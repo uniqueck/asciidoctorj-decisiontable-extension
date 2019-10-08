@@ -1,4 +1,4 @@
-package org.uniqueck.asciidoctorj.extension.decisiontable;
+package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 public interface IActivityDiagramGenerator {
 
