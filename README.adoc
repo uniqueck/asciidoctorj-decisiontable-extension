@@ -34,16 +34,16 @@ The extension is available in https://bintray.com/bintray/jcenter[JCenter]. To u
 		</execution>
 	</executions>
 	<dependencies>
-		<dependency> (1)
+		<dependency> <!--1-->
 			<groupId>com.uniqueck</groupId>
 			<artifactId>asciidoctorj-decisiontable-extension</artifactId>
-			<version>1.0-SNAPSHOT</version> (2)
+			<version>1.0-SNAPSHOT</version> <!--2-->
 		</dependency>
 	</dependencies>
 </plugin>
 ----
 
-<1> asciidoctorj-office-extension is added
+<1> asciidoctorj-decisiontables-extension is added
 <2> check for the latest version at https://bintray.com/bintray/jcenter[JCenter]
 
 == lfet macro
