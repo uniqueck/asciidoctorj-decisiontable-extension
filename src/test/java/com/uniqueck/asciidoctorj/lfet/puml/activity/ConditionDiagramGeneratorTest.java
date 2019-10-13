@@ -1,6 +1,5 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
-import com.uniqueck.asciidoctorj.lfet.puml.activity.IConditionDiagramGenerator;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -41,7 +39,12 @@ class ConditionDiagramGeneratorTest {
         List<String> generate = underTest.generate();
         assertNotNull(generate);
         assertFalse(generate.isEmpty());
-        System.out.println(generate.stream().collect(Collectors.joining(System.lineSeparator())));
+        assertEquals(3, generate.size());
+
+        assertEquals("if (Condition1) then (yes)", generate.get(0));
+        assertEquals("-Action1", generate.get(1));
+        assertEquals("endif", generate.get(2));
+
     }
 
 }

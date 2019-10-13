@@ -22,12 +22,15 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
     private Element currentCondition;
     private Iterator<Element> rulesIt;
 
+    ActivityDiagramGenerator(File lfetFile) {
+        this.lfetFile = lfetFile;
+    }
+
     @Override
-    public String generate(String lfetFile) {
+    public List<String> generate() {
         this.sb = new ArrayList<>();
-        this.lfetFile = new File(lfetFile);
         new DecisionTableToPlantUMLActivityDiagramRules().execute(this);
-        return sb.stream().collect(Collectors.joining(System.lineSeparator()));
+        return sb;
     }
 
 
@@ -122,8 +125,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doGetFirstRule() {
-        List<Element> rules = getRootElement().getChild("Rules").getChildren("Rule");
-        firstRule = rules.get(0);
+        firstRule = rulesIt.next();
     }
 
     @Override
@@ -145,7 +147,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doAddElse() {
-        sb.add("else");
+        sb.add("else (false)");
     }
 
     @Override

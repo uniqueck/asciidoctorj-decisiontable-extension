@@ -73,7 +73,7 @@ class ConditionDiagramGenerator extends AbstractLFETTraceLogging implements ICon
 
     @Override
     public void doIfWithConditionTitleAndLabelYes() {
-        add("if (" + getConditionTitle() + ") then (yes) ");
+        add("if (" + getConditionTitle() + ") then (yes)");
     }
 
     @Override

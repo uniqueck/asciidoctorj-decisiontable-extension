@@ -70,12 +70,12 @@ public class LFETAsciiDocTableGenerator {
 
             Element condition = conditions.get(conditionIndex);
 
-            content.add(String.format("h|%s%02d", getLfetLanguage().getLabelCondition(), conditionIndex+1));
-            content.add(String.format("h|%s", condition.getChild(ELEMENT_TITLE).getAttributeValue(ATTR_VALUE)));
+            content.add(String.format("^.^h|%s%02d", getLfetLanguage().getLabelCondition(), conditionIndex+1));
+            content.add(String.format(".^h|%s", condition.getChild(ELEMENT_TITLE).getAttributeValue(ATTR_VALUE)));
 
             for (Element rule : rules) {
 
-                content.add("^|" + getConditionSymbol(rule, condition));
+                content.add("^.^|" + getConditionSymbol(rule, condition));
 
             }
 
@@ -88,12 +88,12 @@ public class LFETAsciiDocTableGenerator {
 
             Element action = actions.get(actionIndex);
 
-            content.add(String.format("h|A%02d", actionIndex+1));
-            content.add(String.format("h|%s", action.getChild(ELEMENT_TITLE).getAttributeValue(ATTR_VALUE)));
+            content.add(String.format("^.^h|A%02d", actionIndex+1));
+            content.add(String.format(".^h|%s", action.getChild(ELEMENT_TITLE).getAttributeValue(ATTR_VALUE)));
 
             for (Element rule : rules) {
 
-                content.add("^|" + getActionSymbol(rule, action));
+                content.add("^.^|" + getActionSymbol(rule, action));
 
             }
 
@@ -147,7 +147,7 @@ public class LFETAsciiDocTableGenerator {
         List<String> content = new ArrayList<>();
         content.add("2+|");
         for (int i = 0; i < ruleCount; i++) {
-            content.add(String.format("^|R%02d", i + 1));
+            content.add(String.format("^.^|R%02d", i + 1));
         }
         return content;
     }

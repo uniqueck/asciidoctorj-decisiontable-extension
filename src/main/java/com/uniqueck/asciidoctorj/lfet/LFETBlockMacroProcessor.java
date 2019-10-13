@@ -4,7 +4,6 @@ import com.uniqueck.asciidoctorj.exceptions.AsciiDoctorDecisionTableRuntimeExcep
 import org.asciidoctor.ast.StructuralNode;
 import org.asciidoctor.extension.BlockMacroProcessor;
 import org.asciidoctor.extension.Name;
-import org.asciidoctor.jruby.internal.AsciidoctorCoreException;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -43,6 +42,7 @@ public class LFETBlockMacroProcessor extends BlockMacroProcessor {
                 content.addAll(new LFETAsciiDocTableGenerator(decisionTableFile).generate());
                 break;
             case ACTIVITY_DIAGRAM:
+                // content.addAll(IActivityDiagramGenerator.newGenerator(decisionTableFile).generate());
                 break;
             default:
                 throw new AsciiDoctorDecisionTableRuntimeException("style '" + getStyle(attributes) + "' is not supported");
