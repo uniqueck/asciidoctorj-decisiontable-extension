@@ -1,0 +1,21 @@
+[plantuml, smallestDecisionTable.lfet]
+----
+title smallestDecisionTable
+
+start
+if (Condition1) then (true)
+-Action1
+elseif (Condition2) then (true)
+-Action2
+elseif (Condition3\n=) then (true)
+-Action2
+elseif (Condition3\n<) then (true)
+-Action1
+-Action2
+elseif (Condition3\n>) then (true)
+-Action2
+else
+stop
+endif
+stop
+----

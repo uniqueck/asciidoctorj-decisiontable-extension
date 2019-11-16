@@ -1,0 +1,12 @@
+[plantuml, smallestDecisionTable_German.lfet]
+----
+title smallestDecisionTable_German
+
+start
+if (Condition1) then (Ja)
+-Action1
+else (Nein)
+-Action2
+endif
+stop
+----

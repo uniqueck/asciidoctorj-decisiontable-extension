@@ -1,6 +1,7 @@
 package com.uniqueck.asciidoctorj.lfet;
 
 import com.uniqueck.asciidoctorj.exceptions.AsciiDoctorDecisionTableRuntimeException;
+import com.uniqueck.asciidoctorj.lfet.puml.activity.Language;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.jdom2.Document;
@@ -18,22 +19,6 @@ public class LFETAsciiDocTableGenerator {
     public static final String ATTR_VALUE = "value";
     public static final String ELEMENT_ACTIONS = "Actions";
     public static final String ELEMENT_ACTION = "Action";
-
-    @Getter
-    enum Language {
-        German("J", "N", "B"), English("Y", "N", "C");
-
-
-        private final String labelTrue;
-        private final String labelFalse;
-        private String labelCondition;
-
-        Language(String labelTrue, String labelFalse, String labelCondition) {
-            this.labelTrue = labelTrue;
-            this.labelFalse = labelFalse;
-            this.labelCondition = labelCondition;
-        }
-    }
 
     public static final String TABLE_START_END_TAG = "|====";
     private final Document lfetDocument;

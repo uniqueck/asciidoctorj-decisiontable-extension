@@ -1,5 +1,7 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -13,6 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Getter(AccessLevel.PACKAGE)
 class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDecisionTableToPlantUMLActivityDiagram, IActivityDiagramGenerator {
 
     private List<String> sb;
@@ -21,6 +24,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
     private Element firstRule;
     private Element currentCondition;
     private Iterator<Element> rulesIt;
+    private Language laguage;
 
     ActivityDiagramGenerator(File lfetFile) {
         this.lfetFile = lfetFile;
@@ -33,16 +37,25 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
         return sb;
     }
 
+    @Override
+    public void doExtractLanguage() {
+        this.laguage = Language.valueOf(getRootElement().getAttributeValue("language"));
+    }
+
+
+    private List<String> getConditionLinksOrConditionsOccurencesLinks(Element rule) {
+        return rule.getChildren().stream().filter(e -> e.getName().equals("ConditionLink") || e.getName().equals("ConditionOccurrenceLink")).map(e -> e.getAttributeValue("link")).collect(Collectors.toList());
+    }
 
     @Override
     public boolean isLastConditionOfRule() {
-        List<Element> conditionLinks = firstRule.getChildren("ConditionLink");
-        return conditionLinks.get(conditionLinks.size()-1).getAttributeValue("link").equals(currentCondition.getAttributeValue("uId"));
+        List<String> conditionLinks = getConditionLinksOrConditionsOccurencesLinks(getFirstRule());
+        return conditionLinks.get(conditionLinks.size()-1).equals(getCurrentCondition().getAttributeValue("uId"));
     }
 
     @Override
     public boolean isHasMoreRules() {
-        return !getRuleId().equalsIgnoreCase(getLastRuleId());
+        return getRulesIt().hasNext();
     }
 
     @Override
@@ -112,15 +125,30 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doGetFirstConditionOfFirstRule() {
-        List<Element> conditions = this.document.getRootElement().getChild("Conditions").getChildren("Condition");
-        String link2Condition = firstRule.getChildren("ConditionLink").get(0).getAttributeValue("link");
-        String conditionState = firstRule.getChildren("ConditionLink").get(0).getAttributeValue("conditionState");
-        Optional<Element> founded = conditions.stream().filter(c -> c.getAttributeValue("uId").equals(link2Condition)).findFirst();
-        if (founded.isPresent()) {
-            currentCondition = founded.get();
-            String conditionTitle = currentCondition.getChild("Title").getAttributeValue("value");
-            sb.add("if (" + conditionTitle + ") then (" + conditionState + ")");
+        List<Element> conditions = getConditions();
+        List<Element> conditionsOfFirstRule = getFirstRule().getChildren().stream().filter(e -> e.getName().equals("ConditionLink") || e.getName().equals("ConditionOccurrenceLink")).collect(Collectors.toList());
+        Element conditionOrOccLink = conditionsOfFirstRule.get(0);
+        String link2Condition = conditionOrOccLink.getAttributeValue("link");
+        if (conditionOrOccLink.getName().equals("ConditionLink")) {
+            boolean conditionState = Boolean.parseBoolean(conditionOrOccLink.getAttributeValue("conditionState"));
+            Optional<Element> founded = conditions.stream().filter(c -> c.getAttributeValue("uId").equals(link2Condition)).findFirst();
+            if (founded.isPresent()) {
+                currentCondition = founded.get();
+                String conditionTitle = currentCondition.getChild("Title").getAttributeValue("value");
+                sb.add("if (" + conditionTitle + ") then (" + getLaguage().getActivtyLabel(conditionState)+ ")");
+            }
+        } else {
+            Optional<Element> founded = conditions.stream().filter(c -> c.getChild("ConditionOccurrences") != null).flatMap(c -> c.getChild("ConditionOccurrences").getChildren("ConditionOccurrence").stream()).filter(c -> c.getAttributeValue("uId").equals(link2Condition)).findFirst();
+            if (founded.isPresent()) {
+                currentCondition = founded.get();
+                String conditionTitle = currentCondition.getParentElement().getParentElement().getChild("Title").getAttributeValue("value");
+                String conditionOccTitle = currentCondition.getChild("Symbol").getAttributeValue("value");
+                sb.add("if (" + conditionTitle + "\\n" + conditionOccTitle + ") then (" + getLaguage().getActvityLabelTrue()+ ")");
+            }
         }
+
+
+
     }
 
     @Override
@@ -130,12 +158,20 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doAddActionsOfRule() {
-        List<Element> actionLinks = firstRule.getChildren("ActionLink");
         List<Element> actions = this.document.getRootElement().getChild("Actions").getChildren("Action");
-        for (Element eachActionLink : actionLinks) {
-            Optional<Element> founded = actions.stream().filter(a -> a.getAttributeValue("uId").equalsIgnoreCase(eachActionLink.getAttributeValue("link"))).findFirst();
-            if (founded.isPresent()) {
-                sb.add("-" + founded.get().getChild("Title").getAttributeValue("value"));
+        for (Element eachElement : firstRule.getChildren()) {
+            if (eachElement.getName().equals("ActionLink")) {
+                Optional<Element> founded = actions.stream().filter(a -> a.getAttributeValue("uId").equalsIgnoreCase(eachElement.getAttributeValue("link"))).findFirst();
+                founded.ifPresent(element -> sb.add("-" + element.getChild("Title").getAttributeValue("value")));
+            } else if (eachElement.getName().equals("ActionOccurrenceLink")) {
+                String link = eachElement.getAttributeValue("link");
+                Optional<Element> optionalElement = actions.stream().filter(a -> a.getChild("ActionOccurrences") != null).flatMap(a -> a.getChild("ActionOccurrences").getChildren("ActionOccurrence").stream()).filter(a -> a.getAttributeValue("uId").equals(link)).findFirst();
+                if (optionalElement.isPresent()) {
+                    // TODO ggf. auch nur Text von ActionOcc als Anzeige verwenden
+                    String actionOccTitle = optionalElement.get().getChild("Symbol").getAttributeValue("value");
+                    String actionTitle = optionalElement.get().getParentElement().getParentElement().getChild("Title").getAttributeValue("value");
+                    sb.add("-" + actionTitle +"\\n" + actionOccTitle);
+                }
             }
         }
     }
@@ -147,12 +183,16 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doAddElse() {
-        sb.add("else (false)");
+        sb.add("else ("+getLaguage().getActivtiyLabelFalse() +")");
     }
 
     @Override
     public void doNextRule() {
         firstRule = rulesIt.next();
+    }
+
+    private List<Element> getConditions() {
+        return getRootElement().getChild("Conditions").getChildren("Condition");
     }
 
 
