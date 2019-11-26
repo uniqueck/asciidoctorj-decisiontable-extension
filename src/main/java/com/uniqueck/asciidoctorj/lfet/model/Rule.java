@@ -2,10 +2,7 @@ package com.uniqueck.asciidoctorj.lfet.model;
 
 import java.util.List;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import org.simpleframework.xml.*;
 
 @Root(strict = false)
 public class Rule {
@@ -15,17 +12,22 @@ public class Rule {
 	@Element(name = "Text", required = false)
 	private Text text;
 	
-	@ElementList(entry = "ConditionLink", required = false, inline = true)
-	private List<ConditionLink> conditionLinks;
+	@ElementListUnion(
+			{
+					@ElementList(entry = "ConditionLink", inline = true, required = false, type = ConditionLink.class),
+					@ElementList(entry = "ConditionOccurrenceLink", inline = true, required = false, type = ConditionOccurrenceLink.class)
+			}
+	)
+	private List<AbstractLink<?>> conditionLinks;
 
-	@ElementList(entry = "ActionLink", required = false, inline = true)
-	private List<ActionLink> actionLinks;
+	@ElementListUnion(
+			{
+					@ElementList(entry = "ActionLink", inline = true, required = false, type = ActionLink.class),
+					@ElementList(entry = "ActionOccurrenceLink", inline = true, required = false, type = ActionOccurrenceLink.class)
+			}
+	)
+	private List<AbstractLink<?>> actionLinks;
 
-	@ElementList(entry = "ConditionOccurrenceLink", required = false, inline = true)
-	private List<ConditionOccurrenceLink> conditionOccurrenceLinks;
-	
-	@ElementList(entry = "ActionOccurrenceLink", required = false, inline = true)
-	private List<ActionOccurrenceLink> actionOccurrenceLinks;
 
 	public Rule(
 			@Attribute(name = "id") 
@@ -33,24 +35,28 @@ public class Rule {
 			
 			@Element(name = "Text", required = false)
 			Text text,
-			
-			@ElementList(entry = "ConditionLink", required = false, inline = true)
-			List<ConditionLink> conditionLinks,
 
-			@ElementList(entry = "ActionLink", required = false, inline = true)
-			List<ActionLink> actionLinks,
+			@ElementListUnion(
+					{
+							@ElementList(entry = "ConditionLink", inline = true, required = false, type = ConditionLink.class),
+							@ElementList(entry = "ConditionOccurrenceLink", inline = true, required = false, type = ConditionOccurrenceLink.class)
+					}
+			)
+			List<AbstractLink<?>> conditionLinks,
 
-			@ElementList(entry = "ConditionOccurrenceLink", required = false, inline = true)
-			List<ConditionOccurrenceLink> conditionOccurrenceLinks,
-			
-			@ElementList(entry = "ActionOccurrenceLink", required = false, inline = true)
-			List<ActionOccurrenceLink> actionOccurrenceLinks
+			@ElementListUnion(
+					{
+							@ElementList(entry = "ActionLink", inline = true, required = false, type = ActionLink.class),
+							@ElementList(entry = "ActionOccurrenceLink", inline = true, required = false, type = ActionOccurrenceLink.class)
+					}
+			)
+			List<AbstractLink<?>> actionLinks
+
+
 		) {
 		this.id = id; 
 		this.text = text;
-		this.actionOccurrenceLinks = actionOccurrenceLinks;
 		this.actionLinks = actionLinks;
-		this.conditionOccurrenceLinks = conditionOccurrenceLinks;
 		this.conditionLinks = conditionLinks;
 	}
 
@@ -62,19 +68,12 @@ public class Rule {
 		return text;
 	}
 	
-	public List<ConditionLink> getConditionLinks() {
+	public List<AbstractLink<?>> getConditionLinks() {
 		return conditionLinks;
 	}
 	
-	public List<ConditionOccurrenceLink> getConditionOccurrenceLinks() {
-		return conditionOccurrenceLinks;
-	}
-	
-	public List<ActionLink> getActionLinks() {
+	public List<AbstractLink<?>> getActionLinks() {
 		return actionLinks;
 	}
 	
-	public List<ActionOccurrenceLink> getActionOccurrenceLinks() {
-		return actionOccurrenceLinks;
-	}
 }

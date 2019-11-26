@@ -9,17 +9,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class RuleTest extends AbstractLfdtTest<Rule>{
-	private Rule createUnderTest(String id, Text text, List<ConditionLink> conditionLinks, List<ActionLink> actionLinks,
-			List<ConditionOccurrenceLink> conditionOccurrenceLinks, List<ActionOccurrenceLink> actionOccurrenceLinks) {
-		return new Rule(id, text, conditionLinks, actionLinks, conditionOccurrenceLinks, actionOccurrenceLinks);
+	private Rule createUnderTest(String id, Text text, List<AbstractLink<?>> conditionLinks, List<AbstractLink<?>> actionLinks) {
+		return new Rule(id, text, conditionLinks, actionLinks);
 	}
 
 	private String createExpectedXml() {
 		String xml = "<rule id='10'>" + NEW_LINE
 				   + "   <Text value='docuText' language='English'/>" + NEW_LINE
 				   + "   <ConditionLink link='condId' conditionState='false'/>" + NEW_LINE
-				   + "   <ActionLink link='actionId'/>" + NEW_LINE
 				   + "   <ConditionOccurrenceLink link='condOccId'/>" + NEW_LINE
+				   + "   <ActionLink link='actionId'/>" + NEW_LINE
 				   + "   <ActionOccurrenceLink link='actionOccId'/>" + NEW_LINE
 				   + "</rule>";
 		xml = xml.replaceAll("'", "\"");
@@ -30,19 +29,15 @@ public class RuleTest extends AbstractLfdtTest<Rule>{
 	public void testRule() throws Exception {
 		String id = "10";
 		Text text = new Text("English", "docuText");
-		List<ConditionLink> conditionLinks = new ArrayList<ConditionLink>();
-		List<ActionLink> actionLinks = new ArrayList<ActionLink>();
-		List<ConditionOccurrenceLink> conditionOccurrenceLinks = new ArrayList<ConditionOccurrenceLink>();
-		List<ActionOccurrenceLink> actionOccurrenceLinks = new ArrayList<ActionOccurrenceLink>();
-		
-		Rule rule = createUnderTest(id, text, conditionLinks, actionLinks, conditionOccurrenceLinks, actionOccurrenceLinks);
+		List<AbstractLink<?>> conditionLinks = new ArrayList<AbstractLink<?>>();
+		List<AbstractLink<?>> actionLinks = new ArrayList<AbstractLink<?>>();
+
+		Rule rule = createUnderTest(id, text, conditionLinks, actionLinks);
 
 		assertEquals(id, rule.getId());
 		assertSame(text, rule.getText());
 		assertSame(actionLinks, rule.getActionLinks());
-		assertSame(actionOccurrenceLinks, rule.getActionOccurrenceLinks());
 		assertSame(conditionLinks, rule.getConditionLinks());
-		assertSame(conditionOccurrenceLinks, rule.getConditionOccurrenceLinks());
 	}
 
 	@Test
@@ -58,31 +53,32 @@ public class RuleTest extends AbstractLfdtTest<Rule>{
 		
 		Text text = new Text("English", "docuText");
 
-		List<ConditionLink> conditionLinks = new ArrayList<ConditionLink>();
+		List<AbstractLink<?>> conditionLinks = new ArrayList<AbstractLink<?>>();
 		ConditionLink conditionLink = new ConditionLink();
 		conditionLink.setLinkedModel(condition);
 		conditionLink.setLink(condition.getUId());
 		conditionLinks.add(conditionLink);
-		
-		List<ActionLink> actionLinks = new ArrayList<ActionLink>();
+
+		ConditionOccurrenceLink conditionOccurrenceLink = new ConditionOccurrenceLink();
+		conditionOccurrenceLink.setLinkedModel(conditionOccurrence);
+		conditionOccurrenceLink.setLink(conditionOccurrence.getUId());
+
+
+		conditionLinks.add(conditionOccurrenceLink);
+
+		List<AbstractLink<?>> actionLinks = new ArrayList<AbstractLink<?>>();
 		ActionLink actionLink = new ActionLink();
 		actionLink.setLinkedModel(action);
 		actionLink.setLink(action.getUId());
 		actionLinks.add(actionLink);
-		
-		List<ConditionOccurrenceLink> conditionOccurrenceLinks = new ArrayList<ConditionOccurrenceLink>();
-		ConditionOccurrenceLink conditionOccurrenceLink = new ConditionOccurrenceLink();
-		conditionOccurrenceLink.setLinkedModel(conditionOccurrence);
-		conditionOccurrenceLink.setLink(conditionOccurrence.getUId());
-		conditionOccurrenceLinks.add(conditionOccurrenceLink);
-		
-		List<ActionOccurrenceLink> actionOccurrenceLinks = new ArrayList<ActionOccurrenceLink>();
+
 		ActionOccurrenceLink actionOccurrenceLink = new ActionOccurrenceLink();
 		actionOccurrenceLink.setLinkedModel(actionOccurrence);
 		actionOccurrenceLink.setLink(actionOccurrence.getUId());
-		actionOccurrenceLinks.add(actionOccurrenceLink);
+
+		actionLinks.add(actionOccurrenceLink);
 		
-		Rule rule = createUnderTest(id, text, conditionLinks, actionLinks, conditionOccurrenceLinks, actionOccurrenceLinks);
+		Rule rule = createUnderTest(id, text, conditionLinks, actionLinks);
 
 		String xml = persist(rule);
 		assertEquals(createExpectedXml(), xml);

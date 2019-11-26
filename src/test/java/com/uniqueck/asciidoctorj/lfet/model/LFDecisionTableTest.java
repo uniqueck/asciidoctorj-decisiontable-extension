@@ -183,25 +183,15 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 		Rule rule = lfet.getRules().get(0);
 		assertNotNull(rule);
 		assertNotNull(rule.getConditionLinks());
-		assertEquals(1, rule.getConditionLinks().size());
-		ConditionLink conditionLink = rule.getConditionLinks().get(0);
-		assertNotNull(conditionLink);
-		assertNotNull(conditionLink.getLinkedModel());
-		assertSame(lfet.getConditions().get(1), conditionLink.getLinkedModel());
-		assertTrue(conditionLink.getConditionState());
-		
-		assertNotNull(rule.getConditionOccurrenceLinks());
-		assertEquals(1, rule.getConditionOccurrenceLinks().size());
-		ConditionOccurrenceLink conditionOccurenceLink = rule.getConditionOccurrenceLinks().get(0);
-		assertNotNull(conditionOccurenceLink);
-		assertNotNull(conditionOccurenceLink.getLinkedModel());
-		assertSame(lfet.getConditions().get(0).getOccurrences().get(0), conditionOccurenceLink.getLinkedModel());
-		
-		assertNull(rule.getActionLinks());
-		
-		assertNotNull(rule.getActionOccurrenceLinks());
-		assertEquals(1, rule.getActionOccurrenceLinks().size());
-		ActionOccurrenceLink actionOccurrenceLink = rule.getActionOccurrenceLinks().get(0);
+		assertEquals(2, rule.getConditionLinks().size());
+		ConditionOccurrenceLink conditionOccurrenceLink = (ConditionOccurrenceLink) rule.getConditionLinks().get(0);
+		assertNotNull(conditionOccurrenceLink);
+		assertNotNull(conditionOccurrenceLink.getLinkedModel());
+		assertSame(lfet.getConditions().get(0).getOccurrences().get(0), conditionOccurrenceLink.getLinkedModel());
+
+		assertNotNull(rule.getActionLinks());
+		assertEquals(1, rule.getActionLinks().size());
+		ActionOccurrenceLink actionOccurrenceLink = (ActionOccurrenceLink) rule.getActionLinks().get(0);
 		assertNotNull(actionOccurrenceLink);
 		assertNotNull(actionOccurrenceLink.getLinkedModel());
 		assertSame(lfet.getActions().get(1).getOccurrences().get(1), actionOccurrenceLink.getLinkedModel());
@@ -209,11 +199,15 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 		rule = lfet.getRules().get(2);
 		assertNotNull(rule);
 		assertNotNull(rule.getActionLinks());
-		assertEquals(1, rule.getActionLinks().size());
-		ActionLink actionLink = rule.getActionLinks().get(0);
+		assertEquals(2, rule.getActionLinks().size());
+		ActionLink actionLink = (ActionLink) rule.getActionLinks().get(0);
 		assertNotNull(actionLink);
 		assertNotNull(actionLink.getLinkedModel());
 		assertSame(lfet.getActions().get(0), actionLink.getLinkedModel());
+		actionOccurrenceLink = (ActionOccurrenceLink) rule.getActionLinks().get(1);
+		assertNotNull(actionOccurrenceLink);
+		assertNotNull(actionOccurrenceLink.getLinkedModel());
+		assertSame(lfet.getActions().get(1).getOccurrences().get(0), actionOccurrenceLink.getLinkedModel());
 	}
 	
 	@Test
@@ -406,75 +400,64 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 		assertEquals("17", rule.getId());
 		assertText(rule.getText(), "Beschreibung für Regel 01", "German");
 		assertEquals(2, rule.getConditionLinks().size());
-		assertConditionLink(rule.getConditionLinks().get(0), lfet.getConditions().get(0), true);
-		assertConditionLink(rule.getConditionLinks().get(1), lfet.getConditions().get(1), true);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(0), lfet.getConditions().get(0), true);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(1), lfet.getConditions().get(1), true);
 		assertEquals(1, rule.getActionLinks().size());
-		assertActionLink(rule.getActionLinks().get(0), lfet.getActions().get(0));		
-		assertNull(rule.getConditionOccurrenceLinks());
-		assertNull(rule.getActionOccurrenceLinks());
-		
+		assertActionLink((ActionLink) rule.getActionLinks().get(0), lfet.getActions().get(0));
+
 		rule = rules.get(1);
 		assertEquals("18", rule.getId());
 		assertText(rule.getText(), "Beschreibung für Regel 02", "German");
 		assertEquals(2, rule.getConditionLinks().size());
-		assertConditionLink(rule.getConditionLinks().get(0), lfet.getConditions().get(0), true);
-		assertConditionLink(rule.getConditionLinks().get(1), lfet.getConditions().get(1), false);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(0), lfet.getConditions().get(0), true);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(1), lfet.getConditions().get(1), false);
 		assertEquals(1, rule.getActionLinks().size());
-		assertActionLink(rule.getActionLinks().get(0), lfet.getActions().get(1));		
-		assertNull(rule.getConditionOccurrenceLinks());
-		assertNull(rule.getActionOccurrenceLinks());
-		
+		assertActionLink((ActionLink) rule.getActionLinks().get(0), lfet.getActions().get(1));
+
 		rule = rules.get(2);
 		assertEquals("13", rule.getId());
 		assertText(rule.getText(), "Beschreibung für Regel 03", "German");
 		assertEquals(2, rule.getConditionLinks().size());
-		assertConditionLink(rule.getConditionLinks().get(0), lfet.getConditions().get(0), false);
-		assertConditionLink(rule.getConditionLinks().get(1), lfet.getConditions().get(1), true);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(0), lfet.getConditions().get(0), false);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(1), lfet.getConditions().get(1), true);
 		assertEquals(2, rule.getActionLinks().size());
-		assertActionLink(rule.getActionLinks().get(0), lfet.getActions().get(1));
-		assertActionLink(rule.getActionLinks().get(1), lfet.getActions().get(0));
-		assertNull(rule.getConditionOccurrenceLinks());
-		assertNull(rule.getActionOccurrenceLinks());
-		
+		assertActionLink((ActionLink) rule.getActionLinks().get(0), lfet.getActions().get(1));
+		assertActionLink((ActionLink) rule.getActionLinks().get(1), lfet.getActions().get(0));
+
 		rule = rules.get(3);
 		assertEquals("14", rule.getId());
 		assertText(rule.getText(), "Beschreibung für Regel 04", "German");
-		assertEquals(1, rule.getConditionOccurrenceLinks().size());
-		assertConditionOccurrenceLink(rule.getConditionOccurrenceLinks().get(0), lfet.getConditions().get(2).getOccurrences().get(0));
-		assertEquals(2, rule.getConditionLinks().size());
-		assertConditionLink(rule.getConditionLinks().get(0), lfet.getConditions().get(1), false);
-		assertConditionLink(rule.getConditionLinks().get(1), lfet.getConditions().get(0), false);
+		assertEquals(3, rule.getConditionLinks().size());
+		assertConditionOccurrenceLink((ConditionOccurrenceLink) rule.getConditionLinks().get(0), lfet.getConditions().get(2).getOccurrences().get(0));
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(1), lfet.getConditions().get(1), false);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(2), lfet.getConditions().get(0), false);
 		assertEquals(2, rule.getActionLinks().size());
-		assertActionLink(rule.getActionLinks().get(0), lfet.getActions().get(0));
-		assertActionLink(rule.getActionLinks().get(1), lfet.getActions().get(1));
-		assertNull(rule.getActionOccurrenceLinks());
-		
+		assertActionLink((ActionLink) rule.getActionLinks().get(0), lfet.getActions().get(0));
+		assertActionLink((ActionLink) rule.getActionLinks().get(1), lfet.getActions().get(1));
+
 		rule = rules.get(4);
 		assertEquals("15", rule.getId());
 		assertText(rule.getText(), "Beschreibung für Regel 05", "German");
-		assertEquals(1, rule.getConditionOccurrenceLinks().size());
-		assertConditionOccurrenceLink(rule.getConditionOccurrenceLinks().get(0), lfet.getConditions().get(2).getOccurrences().get(1));
-		assertEquals(2, rule.getConditionLinks().size());
-		assertConditionLink(rule.getConditionLinks().get(0), lfet.getConditions().get(1), false);
-		assertConditionLink(rule.getConditionLinks().get(1), lfet.getConditions().get(0), false);
-		assertEquals(2, rule.getActionOccurrenceLinks().size());
-		assertActionOccurrenceLink(rule.getActionOccurrenceLinks().get(0), lfet.getActions().get(2).getOccurrences().get(0));
-		assertActionOccurrenceLink(rule.getActionOccurrenceLinks().get(1), lfet.getActions().get(3).getOccurrences().get(0));
-		assertNull(rule.getActionLinks());
+		assertEquals(3, rule.getConditionLinks().size());
+		assertConditionOccurrenceLink((ConditionOccurrenceLink) rule.getConditionLinks().get(0), lfet.getConditions().get(2).getOccurrences().get(1));
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(1), lfet.getConditions().get(1), false);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(2), lfet.getConditions().get(0), false);
+		assertEquals(2, rule.getActionLinks().size());
+		assertActionOccurrenceLink((ActionOccurrenceLink) rule.getActionLinks().get(0), lfet.getActions().get(2).getOccurrences().get(0));
+		assertActionOccurrenceLink((ActionOccurrenceLink) rule.getActionLinks().get(1), lfet.getActions().get(3).getOccurrences().get(0));
+		assertNotNull(rule.getActionLinks());
 		
 		rule = rules.get(5);
 		assertEquals("16", rule.getId());
 		assertText(rule.getText(), "Beschreibung für Regel 06", "German");
-		assertEquals(1, rule.getConditionOccurrenceLinks().size());
-		assertConditionOccurrenceLink(rule.getConditionOccurrenceLinks().get(0), lfet.getConditions().get(2).getOccurrences().get(2));
-		assertEquals(2, rule.getConditionLinks().size());
-		assertConditionLink(rule.getConditionLinks().get(0), lfet.getConditions().get(1), false);
-		assertConditionLink(rule.getConditionLinks().get(1), lfet.getConditions().get(0), false);
-		assertEquals(2, rule.getActionOccurrenceLinks().size());
-		assertActionOccurrenceLink(rule.getActionOccurrenceLinks().get(0), lfet.getActions().get(2).getOccurrences().get(1));
-		assertActionOccurrenceLink(rule.getActionOccurrenceLinks().get(1), lfet.getActions().get(3).getOccurrences().get(1));
-		assertEquals(2, rule.getActionLinks().size());
-		assertActionLink(rule.getActionLinks().get(0), lfet.getActions().get(0));
-		assertActionLink(rule.getActionLinks().get(1), lfet.getActions().get(1));
+		assertEquals(3, rule.getConditionLinks().size());
+		assertConditionOccurrenceLink((ConditionOccurrenceLink) rule.getConditionLinks().get(0), lfet.getConditions().get(2).getOccurrences().get(2));
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(1), lfet.getConditions().get(1), false);
+		assertConditionLink((ConditionLink) rule.getConditionLinks().get(2), lfet.getConditions().get(0), false);
+		assertEquals(4, rule.getActionLinks().size());
+		assertActionOccurrenceLink((ActionOccurrenceLink) rule.getActionLinks().get(2), lfet.getActions().get(2).getOccurrences().get(1));
+		assertActionOccurrenceLink((ActionOccurrenceLink) rule.getActionLinks().get(3), lfet.getActions().get(3).getOccurrences().get(1));
+		assertActionLink((ActionLink) rule.getActionLinks().get(0), lfet.getActions().get(0));
+		assertActionLink((ActionLink) rule.getActionLinks().get(1), lfet.getActions().get(1));
 	}	
 }
