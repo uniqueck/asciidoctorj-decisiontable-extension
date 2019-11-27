@@ -7,7 +7,16 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class AbstractLinkTest extends AbstractLfdtTest<AbstractLink<String>>{
 	private AbstractLink<String> createUnderTest() {
-		return new AbstractLink<String>() {};
+		return new AbstractLink<String>() {
+
+			@Override
+			public boolean isOccurencesLink() {
+				return false;
+			}
+		};
+
+
+
 	}
 
 	private String createExpectedXml() {

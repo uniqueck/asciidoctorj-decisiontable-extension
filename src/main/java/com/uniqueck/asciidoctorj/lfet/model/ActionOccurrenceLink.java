@@ -7,4 +7,9 @@ public class ActionOccurrenceLink extends AbstractLink<ActionOccurrence> {
 	public ActionOccurrenceLink() {
 		super();
 	}
+
+	@Override
+	public boolean isOccurencesLink() {
+		return true;
+	}
 }

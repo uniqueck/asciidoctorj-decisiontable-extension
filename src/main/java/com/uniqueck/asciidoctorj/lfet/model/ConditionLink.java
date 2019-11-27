@@ -16,4 +16,9 @@ public class ConditionLink extends AbstractLink<Condition> {
 	public boolean getConditionState() {
 		return conditionState;
 	}
+
+	@Override
+	public boolean isOccurencesLink() {
+		return false;
+	}
 }

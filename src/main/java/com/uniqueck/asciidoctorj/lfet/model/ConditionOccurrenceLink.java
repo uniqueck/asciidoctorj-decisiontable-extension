@@ -7,4 +7,9 @@ public class ConditionOccurrenceLink extends AbstractLink<ConditionOccurrence> {
 	public ConditionOccurrenceLink() {
 		super();
 	}
+
+	@Override
+	public boolean isOccurencesLink() {
+		return true;
+	}
 }

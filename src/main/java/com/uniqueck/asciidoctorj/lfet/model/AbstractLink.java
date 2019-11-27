@@ -49,4 +49,6 @@ public abstract class AbstractLink<LINKED_MODEL> {
 		Object condition = session.get(getLink());
 		setLinkedModel((LINKED_MODEL) condition);
 	}
+
+	public abstract boolean isOccurencesLink();
 }
