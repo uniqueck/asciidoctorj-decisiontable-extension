@@ -51,6 +51,11 @@
         <asciidoctorj.version>2.1.0</asciidoctorj.version>
         <jruby.version>9.2.7.0</jruby.version>
         <asciidoctorj.diagram.version>1.5.18</asciidoctorj.diagram.version>
+
+        <sonar.projectKey>uniqueck_asciidoctorj-decisiontable-extension</sonar.projectKey>
+        <sonar.organization>uniqueck-github</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
     </properties>
 
 

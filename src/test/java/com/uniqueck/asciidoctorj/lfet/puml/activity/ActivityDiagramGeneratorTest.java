@@ -1,20 +1,18 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
-import com.uniqueck.asciidoctorj.lfet.puml.activity.ActivityDiagramGenerator;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@Disabled
 class ActivityDiagramGeneratorTest {
 
     @ParameterizedTest
