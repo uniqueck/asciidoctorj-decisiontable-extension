@@ -16,8 +16,8 @@ public class Action extends AbstractRulePart<ActionOccurrence> {
 			@Attribute(name = "uId") 
 			String uid, 
 			
-			@Element(name = "Title") 
-			Title title,
+			@ElementList(entry = "Title", inline = true, required = true)
+			List<Title> title,
 			
 			@Element(name = "Text", required = false) 
 			Text text,

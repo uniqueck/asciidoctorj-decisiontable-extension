@@ -1,7 +1,11 @@
 package com.uniqueck.asciidoctorj.lfet.model;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.uniqueck.asciidoctorj.lfet.puml.activity.Language;
+import lombok.Getter;
+import lombok.Setter;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -13,8 +17,10 @@ public abstract class AbstractRulePart<T extends AbstractOccurrence> {
 	@Attribute(name = "uId")
 	private String uId;
 
-	@Element(name = "Title")
-	private Title title;
+	@Getter
+	@Setter
+	@ElementList(entry = "Title", inline =  true, required =  true)
+	private List<Title> title;
 
 	private List<T> occurrences;
 
@@ -28,7 +34,7 @@ public abstract class AbstractRulePart<T extends AbstractOccurrence> {
 	@ElementList(entry = "Url", required = false, inline = true) 
 	private List<Url> urls;
 
-	public AbstractRulePart(String uid, Title title, Text text, List<SourceCode> sourceCodes, List<T> occurrences, List<Url> urls) {
+	public AbstractRulePart(String uid, List<Title> title, Text text, List<SourceCode> sourceCodes, List<T> occurrences, List<Url> urls) {
 		this.uId = uid;
 		this.title = title;
 		this.text = text;
@@ -45,12 +51,9 @@ public abstract class AbstractRulePart<T extends AbstractOccurrence> {
 		this.uId = uId;
 	}
 
-	public Title getTitle() {
-		return title;
-	}
-
-	public void setTitle(Title title) {
-		this.title = title;
+	public Title getTitle(Language language) {
+		Optional<Title> optionalTitle = getTitle().stream().filter(t -> t.getLanguage().equals(language.name())).findFirst();
+		return optionalTitle.orElse(null);
 	}
 
 	public Text getText() {

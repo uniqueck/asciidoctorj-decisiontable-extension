@@ -10,7 +10,6 @@ elseif (Condition1\nB) then (yes)
 elseif (Condition1\nC) then (yes)
 -Action1
 -Action2
-else (no)
 endif
 stop
 ----

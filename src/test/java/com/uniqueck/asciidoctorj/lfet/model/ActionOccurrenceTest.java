@@ -3,6 +3,7 @@ package com.uniqueck.asciidoctorj.lfet.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ActionOccurrenceTest extends AbstractLfdtTest<ActionOccurrence> {
 	private ActionOccurrence createUnderTest(String uid, Symbol symbol, Title title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
-		return new ActionOccurrence(uid, symbol, title, text, sourceCodes, urls);
+		return new ActionOccurrence(uid, symbol, Arrays.asList(title), text, sourceCodes, urls);
 	}
 
 	private String createExpectedXml() {
@@ -49,7 +50,7 @@ public class ActionOccurrenceTest extends AbstractLfdtTest<ActionOccurrence> {
 		ActionOccurrence occurrence = createUnderTest(uid, symbol, title, text, sourceCodes, urls);
 		assertSame(uid, occurrence.getUId());
 		assertSame(symbol, occurrence.getSymbol());
-		assertSame(title, occurrence.getTitle());
+		assertEquals(Arrays.asList(title), occurrence.getTitle());
 		assertSame(text, occurrence.getText());
 		assertSame(sourceCodes, occurrence.getSourceCodes());
 		assertSame(urls, occurrence.getUrls());

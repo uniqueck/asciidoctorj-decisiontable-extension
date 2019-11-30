@@ -2,6 +2,9 @@ package com.uniqueck.asciidoctorj.lfet.model;
 
 import java.util.List;
 
+import com.uniqueck.asciidoctorj.lfet.puml.activity.Language;
+import lombok.Getter;
+import lombok.Setter;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -16,8 +19,9 @@ public abstract class AbstractOccurrence {
 	@Element(name = "Symbol")
 	private Symbol symbol;
 
-	@Element(name = "Title")
-	private Title title;
+	@Getter
+	@ElementList(entry = "Title", inline = true, required = true)
+	private List<Title> title;
 	
 	@Element(name = "Text", required = false)
 	private Text text;
@@ -29,7 +33,7 @@ public abstract class AbstractOccurrence {
 	@ElementList(entry = "Url", required = false, inline = true) 
 	private List<Url> urls;
 
-	public AbstractOccurrence(String uId, Symbol symbol, Title title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
+	public AbstractOccurrence(String uId, Symbol symbol, List<Title> title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
 		this.uId = uId;
 		this.symbol = symbol;
 		this.title = title;
@@ -46,8 +50,8 @@ public abstract class AbstractOccurrence {
 		return symbol;
 	}
 	
-	public Title getTitle() {
-		return title;
+	public Title getTitle(Language language) {
+		return title.stream().filter(t -> t.getLanguage().equals(language.name())).findFirst().orElse(null);
 	}
 	
 	public Text getText() {

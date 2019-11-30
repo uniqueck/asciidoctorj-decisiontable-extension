@@ -3,6 +3,8 @@ package com.uniqueck.asciidoctorj.lfet.model;
 import org.junit.jupiter.api.Test;
 import org.simpleframework.xml.core.AttributeException;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TitleTest extends AbstractLfdtTest<Title> {
@@ -21,10 +23,10 @@ public class TitleTest extends AbstractLfdtTest<Title> {
 	@Test
 	public void testTitle() throws Exception {
 		Title title = createUnderTest("English", null);
-		assertTitle(title, null, "English");
+		assertTitle(Arrays.asList(title), null, "English");
 		
 		title = createUnderTest();
-		assertTitle(title, "myTitle", "English");
+		assertTitle(Arrays.asList(title), "myTitle", "English");
 	}
 	
 	@Test
@@ -61,6 +63,6 @@ public class TitleTest extends AbstractLfdtTest<Title> {
 	@Test
 	public void testConvertTitleXML() throws Exception {
 		Title title = convertToModel(createExpectedXml());
-		assertTitle(title, "myTitle", "English");
+		assertTitle(Arrays.asList(title), "myTitle", "English");
 	}
 }

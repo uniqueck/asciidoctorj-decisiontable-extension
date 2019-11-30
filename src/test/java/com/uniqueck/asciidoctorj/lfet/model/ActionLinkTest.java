@@ -2,6 +2,8 @@ package com.uniqueck.asciidoctorj.lfet.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -23,7 +25,7 @@ public class ActionLinkTest extends AbstractLfdtTest<ActionLink> {
 
 	@Test
 	public void testPersistActionLink() throws Exception {
-		Action action = new Action("actionId", new Title("English", "title"), new Text("English", "text"), null, null, null);
+		Action action = new Action("actionId", Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null, null);
 
 		ActionLink actionLink = createUnderTest();
 		actionLink.setLinkedModel(action);

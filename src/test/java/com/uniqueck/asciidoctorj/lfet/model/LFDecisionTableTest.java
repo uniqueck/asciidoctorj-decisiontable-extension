@@ -5,6 +5,7 @@ import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,7 +14,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	private LFDecisionTable createUnderTest(String version, String language, String saveUser, String saveDate,
 			Title title, Text text, List<SourceCode> sourceCodes, List<Condition> conditions, List<Action> actions,
 			List<Rule> rules, List<Url> urls, String lastId, List<Snapshot> snapshots) {
-		return new LFDecisionTable(version, language, saveUser, saveDate, title, text, sourceCodes, conditions, actions,
+		return new LFDecisionTable(version, language, saveUser, saveDate, Arrays.asList(title), text, sourceCodes, conditions, actions,
 				lastId, rules, urls, snapshots);
 	}
 
@@ -47,7 +48,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 		assertEquals("English", dt.getLanguage());
 		assertEquals("user", dt.getSaveUser());
 		assertEquals("date", dt.getSaveDate());
-		assertSame(title, dt.getTitle());
+		assertEquals(Arrays.asList(title), dt.getTitle());
 		assertSame(text, dt.getText());
 		assertSame(sourceCodes, dt.getSourceCodes());
 		assertSame(conditions, dt.getConditions());

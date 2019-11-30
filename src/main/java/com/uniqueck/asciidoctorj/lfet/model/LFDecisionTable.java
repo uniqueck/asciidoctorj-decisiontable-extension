@@ -2,6 +2,8 @@ package com.uniqueck.asciidoctorj.lfet.model;
 
 import java.util.List;
 
+import com.uniqueck.asciidoctorj.lfet.puml.activity.Language;
+import lombok.Getter;
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
@@ -22,8 +24,9 @@ public class LFDecisionTable {
 	@Attribute(name = "saveDate")
 	private String saveDate;
 
-	@Element(name = "Title", required = false)
-	private Title title;
+	@Getter
+	@ElementList(entry = "Title", inline = true, required = false)
+	private List<Title> title;
 
 	@Element(name = "Text", required = false)
 	private Text text;
@@ -72,8 +75,8 @@ public class LFDecisionTable {
 			@Attribute(name = "saveDate") 
 			String saveDate,
 			
-			@Element(name = "Title", required = false) 
-			Title title,
+			@ElementList(entry = "Title", inline = true, required = false)
+			List<Title> title,
 			
 			@Element(name = "Text", required = false) 
 			Text text,
@@ -134,8 +137,8 @@ public class LFDecisionTable {
 		return saveDate;
 	}
 
-	public Title getTitle() {
-		return title;
+	public Title getTitle(Language language) {
+		return title.stream().filter(t -> t.getLanguage().equals(language.name())).findFirst().orElse(null);
 	}
 
 	public Text getText() {

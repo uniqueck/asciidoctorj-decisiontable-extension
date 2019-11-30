@@ -5,9 +5,11 @@ import org.simpleframework.xml.core.Persister;
 import java.io.StringWriter;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AbstractLfdtTest<MODELCLASS_UNDER_TEST> {
 	protected static String NEW_LINE = "\n";
@@ -78,9 +80,18 @@ public class AbstractLfdtTest<MODELCLASS_UNDER_TEST> {
 		assertEquals(expectedLanguage, symbol.getLanguage());
 	}
 	
+	protected void assertTitle(List<Title> titles, String expectedTitle, String expectedLanguage) {
+		Optional<Title> first = titles.stream().filter(t -> t.getLanguage().equals(expectedLanguage)).findFirst();
+		if (first.isPresent()) {
+			assertEquals(expectedTitle, first.get().getValue());
+			assertEquals(expectedLanguage, first.get().getLanguage());
+		} else {
+			fail("expected Title not present");
+		}
+	}
+
 	protected void assertTitle(Title title, String expectedTitle, String expectedLanguage) {
-		assertEquals(expectedTitle, title.getValue());
-		assertEquals(expectedLanguage, title.getLanguage());
+		assertTitle(Arrays.asList(title), expectedTitle, expectedLanguage);
 	}
 	
 	protected void assertText(Text text, String expectedDocuText, String expectedLanguage) {

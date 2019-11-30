@@ -3,13 +3,14 @@ package com.uniqueck.asciidoctorj.lfet.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConditionTest extends AbstractLfdtTest<Condition> {
 	private Condition createUnderTest(String uid, Title title, Text text, List<SourceCode> sourceCodes, List<ConditionOccurrence> occurences, List<Url> urls) {
-		return new Condition(uid, title, text, sourceCodes, occurences, urls);
+		return new Condition(uid, Arrays.asList(title), text, sourceCodes, occurences, urls);
 	}
 
 	private String createExpectedXml_withoutOccurencesAndUrls() {
@@ -82,7 +83,7 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 		Condition condition = createUnderTest(uid, title, text, sourceCodes, occurences, urls);
 		
 		assertSame(uid, condition.getUId());
-		assertSame(title, condition.getTitle());
+		assertEquals(Arrays.asList(title), condition.getTitle());
 		assertSame(text, condition.getText());
 		assertSame(sourceCodes, condition.getSourceCodes());
 		assertSame(occurences, condition.getOccurrences());
@@ -118,14 +119,14 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 		List<Url> urlsForConditionOccurrence1 = new ArrayList<Url>();
 		urlsForConditionOccurrence1.add(new Url("title11", "http://url11", null));
 		urlsForConditionOccurrence1.add(new Url("title21", "http://url21", null));
-		ConditionOccurrence occurence1 = new ConditionOccurrence("11111", new Symbol("English", "symbol1"), new Title("English", "title1"), new Text("English", "docuText1"), sourceCodesForConditionOccurrence1, urlsForConditionOccurrence1);
+		ConditionOccurrence occurence1 = new ConditionOccurrence("11111", new Symbol("English", "symbol1"), Arrays.asList(new Title("English", "title1")), new Text("English", "docuText1"), sourceCodesForConditionOccurrence1, urlsForConditionOccurrence1);
 		List<SourceCode> sourceCodesForCondtionOccurrence2 = new ArrayList<SourceCode>();
 		sourceCodesForCondtionOccurrence2.add(new SourceCode("Java", "sourceCodeType11", "value11"));
 		sourceCodesForCondtionOccurrence2.add(new SourceCode("Java", "sourceCodeType12", "value12"));
 		List<Url> urlsForConditionOccurrence2 = new ArrayList<Url>();
 		urlsForConditionOccurrence2.add(new Url("title12", "http://url12", null));
 		urlsForConditionOccurrence2.add(new Url("title22", "http://url22", null));
-		ConditionOccurrence occurence2 = new ConditionOccurrence("22222", new Symbol("English", "symbol2"), new Title("English", "title2"), new Text("English", "docuText2"), sourceCodesForCondtionOccurrence2, urlsForConditionOccurrence2);
+		ConditionOccurrence occurence2 = new ConditionOccurrence("22222", new Symbol("English", "symbol2"), Arrays.asList(new Title("English", "title2")), new Text("English", "docuText2"), sourceCodesForCondtionOccurrence2, urlsForConditionOccurrence2);
 		List<ConditionOccurrence> occurences = new ArrayList<ConditionOccurrence>();
 		occurences.add(occurence1);
 		occurences.add(occurence2);

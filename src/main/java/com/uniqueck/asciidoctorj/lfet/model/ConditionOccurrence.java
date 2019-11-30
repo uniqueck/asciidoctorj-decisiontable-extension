@@ -19,8 +19,8 @@ public class ConditionOccurrence extends AbstractOccurrence {
 			@Element(name = "Symbol") 
 			Symbol symbol,
 			
-			@Element(name = "Title") 
-			Title title,
+			@ElementList(entry = "Title", inline = true, required = true)
+			List<Title> title,
 
 			@Element(name = "Text", required = false)
 			Text text,

@@ -1,11 +1,14 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 import com.uniqueck.asciidoctorj.lfet.model.*;
+import com.uniqueck.asciidoctorj.lfet.model.Action;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.simpleframework.xml.core.Persister;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -16,132 +19,132 @@ import java.util.List;
 class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDecisionTableToPlantUMLActivityDiagram, IActivityDiagramGenerator {
 
     private List<String> sb;
-    private File lfetFile;
+    @Setter(AccessLevel.PACKAGE)
     private Rule currentRule;
+    @Setter(AccessLevel.PACKAGE)
     private AbstractLink<?> currentCondition;
-    private Iterator<Rule> rulesIt;
     private Language laguage;
     private LFDecisionTable lfDecisionTable;
 
-    ActivityDiagramGenerator(File lfetFile) {
-        this.lfetFile = lfetFile;
-    }
 
     @Override
-    public List<String> generate() {
+    public List<String> generate(File decisionTableFile) {
+        LFDecisionTable lfDecisionTable = null;
+        try {
+            lfDecisionTable = new Persister().read(LFDecisionTable.class, decisionTableFile);
+        } catch (Exception e) {
+            throw new RuntimeException("Fehler beim Lesen der XML der LFET", e);
+        }
+        Language language = Language.valueOf(lfDecisionTable.getLanguage());
+        List<String> sb = new ArrayList<>();
+        sb.add("[plantuml, " +  decisionTableFile.getName() + "]");
+        sb.add("----");
+        sb.add("title " + lfDecisionTable.getTitle(language).getValue());
+        sb.add("");
+        sb.add("start");
+        sb.addAll(generate(lfDecisionTable, language, lfDecisionTable.getRules().get(0)));
+        sb.add("stop");
+        sb.add("----");
+        return sb;
+    }
+
+    List<String> generate(LFDecisionTable lfDecisionTable, Language language, Rule currentRule) {
+        this.lfDecisionTable = lfDecisionTable;
+        this.laguage = language;
+        setCurrentRule(currentRule);
         this.sb = new ArrayList<>();
         new DecisionTableToPlantUMLActivityDiagramRules().execute(this);
         return sb;
     }
 
     @Override
-    public void doExtractLanguage() {
-        this.laguage = Language.valueOf(getLfDecisionTable().getLanguage());
-    }
-
-
-
-    @Override
-    public boolean isLastConditionOfRule() {
-        AbstractLink<?> abstractConditionLink = getCurrentRule().getConditionLinks().get(getCurrentRule().getConditionLinks().size() - 1);
-        if (abstractConditionLink.isOccurencesLink()) {
-            ConditionOccurrenceLink link = (ConditionOccurrenceLink) abstractConditionLink;
-            return getCurrentCondition().equals(link.getLinkedModel().getCondition());
-        } else {
-            ConditionLink link = (ConditionLink) abstractConditionLink;
-            return getCurrentCondition().getLinkedModel().equals(link.getLinkedModel());
-        }
+    public boolean isConditionTypeIsOccurenceTable() {
+        return getCurrentCondition().isOccurencesLink();
     }
 
     @Override
-    public boolean isHasMoreRules() {
-        return getRulesIt().hasNext();
+    public boolean isConditionStateIs() {
+        return ((ConditionLink)getCurrentCondition()).getConditionState();
     }
 
     @Override
-    public boolean isHasNextRuleSameCondition() {
-        int indexOfCurrentRule = getLfDecisionTable().getRules().indexOf(getCurrentRule());
-        Rule nextRule = getLfDecisionTable().getRules().get(indexOfCurrentRule + 1);
+    public boolean isCurrentOccEntryIs() {
+        return ((ConditionOccurrence)getCurrentCondition().getLinkedModel()).getSymbol().equals("*");
+    }
+
+    @Override
+    public boolean isCurrentOccEntryIsLast() {
+        ConditionOccurrence conOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
+        int indexOffCurrentConditionOcc = conOcc.getCondition().getOccurrences().indexOf(conOcc);
+        return indexOffCurrentConditionOcc == conOcc.getCondition().getOccurrences().size() - 1;
+    }
+
+    @Override
+    public boolean isCurrentOccEntryIsFirst() {
+        ConditionOccurrence conOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
+        int indexOffCurrentConditionOcc = conOcc.getCondition().getOccurrences().indexOf(conOcc);
+        return indexOffCurrentConditionOcc == 0;
+    }
+
+    @Override
+    public boolean isHasMoreConditions() {
         int indexOfCurrentCondition = getCurrentRule().getConditionLinks().indexOf(getCurrentCondition());
-        AbstractLink<?> conditionOfNextRule = nextRule.getConditionLinks().get(indexOfCurrentCondition);
-        if (getCurrentCondition().isOccurencesLink() ) {
-            return ((ConditionOccurrence)getCurrentCondition().getLinkedModel()).getCondition().equals(((ConditionOccurrence)conditionOfNextRule.getLinkedModel()).getCondition());
-        } else {
-            return getCurrentCondition().getLinkedModel().equals(conditionOfNextRule.getLinkedModel());
-        }
-
+        return indexOfCurrentCondition < (getCurrentRule().getConditionLinks().size() - 1);
     }
 
 
+    @Override
+    public void doNextCondition() {
+        int indexOfCurrentCondition = getCurrentRule().getConditionLinks().indexOf(getCurrentCondition());
+        setCurrentCondition(getCurrentRule().getConditionLinks().get(indexOfCurrentCondition + 1));
+    }
+
 
     @Override
-    public void doParseDecisionTable() {
-        try {
-            lfDecisionTable = new Persister().read(LFDecisionTable.class, this.lfetFile);
-            rulesIt = getLfDecisionTable().getRules().iterator();
-        } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Lesen der XML der LFET", e);
-        }
+    public void doGetFirstCondition() {
+        setCurrentCondition(getCurrentRule().getConditionLinks().get(0));
     }
 
     @Override
-    public void doAddPlantumlTag() {
-        sb.add("[plantuml, " +  getLfetFile().getName() + "]");
+    public void doIfWithConditionTitleAndLabelYes() {
+        Condition condition = (Condition) getCurrentCondition().getLinkedModel();
+        sb.add("if (" + condition.getTitle(getLaguage()).getValue() + ") then (" + getLaguage().getActvityLabelTrue() +")");
     }
 
     @Override
-    public void doAddStop() {
-        sb.add("stop");
+    public void doElseWithLabelNo() {
+        sb.add("else ("+getLaguage().getActivtiyLabelFalse() +")");
     }
 
     @Override
-    public void doAdd4TimesHyphen() {
-        sb.add("----");
+    public void doElse() {
+        sb.add("else");
     }
 
     @Override
-    public void doAddTitle() {
-        sb.add("title " + getLfDecisionTable().getTitle().getValue());
-        sb.add("");
+    public void doElseIfConditionTitleWithOccEntryAndLabelYes() {
+        ConditionOccurrence conditionOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
+        Condition condition = conditionOcc.getCondition();
+        sb.add("elseif (" + condition.getTitle(getLaguage()).getValue() + "\\n" + conditionOcc.getSymbol().getValue() + ") then (" + getLaguage().getActvityLabelTrue() + ")");
     }
 
     @Override
-    public void doAddStart() {
-        sb.add("start");
+    public void doIfConditionTitleWithOccEntryAndLabelYes() {
+        ConditionOccurrence conditionOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
+        Condition condition = conditionOcc.getCondition();
+        sb.add("if (" + condition.getTitle(getLaguage()).getValue()+ "\\n" + conditionOcc.getSymbol().getValue() + ") then (" + getLaguage().getActvityLabelTrue() + ")");
     }
 
     @Override
-    public void doGetFirstConditionOfFirstRule() {
-        this.currentCondition = getCurrentRule().getConditionLinks().get(0);
-        if (!this.currentCondition.isOccurencesLink()) {
-            boolean conditionState = ((ConditionLink)this.currentCondition).getConditionState();
-            String conditionTitle = ((ConditionLink)currentCondition).getLinkedModel().getTitle().getValue();
-            sb.add("if (" + conditionTitle + ") then (" + getLaguage().getActivtyLabel(conditionState)+ ")");
-        } else {
-            String conditionTitle = ((ConditionOccurrence)currentCondition.getLinkedModel()).getCondition().getTitle().getValue();
-            String conditionOccTitle = ((ConditionOccurrence)currentCondition.getLinkedModel()).getTitle().getValue();
-            sb.add("if (" + conditionTitle + "\\n" + conditionOccTitle + ") then (" + getLaguage().getActvityLabelTrue()+ ")");
-        }
-
-
-
-    }
-
-    @Override
-    public void doGetFirstRule() {
-        currentRule = getRulesIt().next();
-    }
-
-    @Override
-    public void doAddActionsOfRule() {
+    public void doAddListOfActions() {
         List<AbstractLink<?>> actionLinks = getCurrentRule().getActionLinks();
         for (AbstractLink<?> actionLink : actionLinks) {
             if (actionLink.isOccurencesLink()) {
                 String actionOccTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getSymbol().getValue();
-                String actionTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getAction().getTitle().getValue();
+                String actionTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getAction().getTitle(getLaguage()).getValue();
                 sb.add("-" + actionTitle +"\\n" + actionOccTitle);
             } else {
-                String actionTitle = ((Action)actionLink.getLinkedModel()).getTitle().getValue();
+                String actionTitle = ((Action)actionLink.getLinkedModel()).getTitle(getLaguage()).getValue();
                 sb.add("-" + actionTitle);
             }
 
@@ -149,20 +152,13 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
     }
 
     @Override
-    public void doAddEndif() {
+    public void doEndif() {
         sb.add("endif");
     }
 
     @Override
-    public void doAddElse() {
-        sb.add("else ("+getLaguage().getActivtiyLabelFalse() +")");
-    }
-
-    @Override
     public void doNextRule() {
-        currentRule = rulesIt.next();
+        int indexOf = getLfDecisionTable().getRules().indexOf(getCurrentRule());
+        this.sb.addAll(new ActivityDiagramGenerator().generate(getLfDecisionTable(), getLaguage(), getLfDecisionTable().getRules().get(indexOf + 1)));
     }
-
-
-
 }

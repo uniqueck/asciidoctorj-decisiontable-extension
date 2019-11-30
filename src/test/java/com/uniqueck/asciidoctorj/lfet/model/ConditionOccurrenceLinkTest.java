@@ -2,6 +2,8 @@ package com.uniqueck.asciidoctorj.lfet.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -23,7 +25,7 @@ public class ConditionOccurrenceLinkTest extends AbstractLfdtTest<ConditionOccur
 
 	@Test
 	public void testPersistConditionLink() throws Exception {
-		ConditionOccurrence conditionOccurrence = new ConditionOccurrence("condOccId", new Symbol("English", "symbol"), new Title("English", "title"), new Text("English", "text"), null, null);
+		ConditionOccurrence conditionOccurrence = new ConditionOccurrence("condOccId", new Symbol("English", "symbol"), Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null);
 
 		ConditionOccurrenceLink conditionOccurrenceLink = createUnderTest();
 		conditionOccurrenceLink.setLinkedModel(conditionOccurrence);

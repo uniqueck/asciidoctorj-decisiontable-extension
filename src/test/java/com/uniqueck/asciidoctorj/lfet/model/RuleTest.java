@@ -3,6 +3,7 @@ package com.uniqueck.asciidoctorj.lfet.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,12 +43,12 @@ public class RuleTest extends AbstractLfdtTest<Rule>{
 
 	@Test
 	public void testPersistRule() throws Exception {
-		Condition condition = new Condition("condId", new Title("English", "title"), new Text("English", "text"), null, null, null);
+		Condition condition = new Condition("condId", Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null, null);
 		ConditionOccurrence conditionOccurrence = new ConditionOccurrence("condOccId", new Symbol("English", "symbol"),
-				new Title("English", "title"), new Text("English", "text"), null, null);
-		Action action = new Action("actionId", new Title("English", "title"), new Text("English", "text"), null, null, null);
+				Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null);
+		Action action = new Action("actionId", Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null, null);
 		ActionOccurrence actionOccurrence = new ActionOccurrence("actionOccId", new Symbol("English", "symbol"),
-				new Title("English", "title"), new Text("English", "text"), null, null);
+				Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null);
 		
 		String id = "10";
 		

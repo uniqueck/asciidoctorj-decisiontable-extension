@@ -3,13 +3,14 @@ package com.uniqueck.asciidoctorj.lfet.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ActionTest extends AbstractLfdtTest<Action> {
 	private Action createUnderTest(String uid, Title title, Text text, List<SourceCode> sourceCodes, List<ActionOccurrence> occurences, List<Url> urls) {
-		return new Action(uid, title, text, sourceCodes, occurences, urls);
+		return new Action(uid, Arrays.asList(title), text, sourceCodes, occurences, urls);
 	}
 
 	private String createExpectedXml_withoutOccurencesAndUrls() {
@@ -83,7 +84,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 		Action action = createUnderTest(uid, title, text, sourceCodes, occurences, urls);
 		
 		assertSame(uid, action.getUId());
-		assertSame(title, action.getTitle());
+		assertEquals(Arrays.asList(title), action.getTitle());
 		assertSame(text, action.getText());
 		assertSame(sourceCodes, action.getSourceCodes());
 		assertSame(occurences, action.getOccurrences());
@@ -119,7 +120,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 		List<Url> urlsForConditionOccurrence1 = new ArrayList<Url>();
 		urlsForConditionOccurrence1.add(new Url("title11", "http://url11", null));
 		urlsForConditionOccurrence1.add(new Url("title21", "http://url21", null));
-		ActionOccurrence occurence1 = new ActionOccurrence("11111", new Symbol("English", "symbol1"), new Title("English", "title1"), new Text("English", "docuText1"), sourceCodesForActionOccurrence1, urlsForConditionOccurrence1);
+		ActionOccurrence occurence1 = new ActionOccurrence("11111", new Symbol("English", "symbol1"), Arrays.asList(new Title("English", "title1")), new Text("English", "docuText1"), sourceCodesForActionOccurrence1, urlsForConditionOccurrence1);
 		
 		List<SourceCode> sourceCodesForActionOccurrence2 = new ArrayList<SourceCode>();
 		sourceCodesForActionOccurrence2.add(new SourceCode("Java", "sourceCodeType11", "value11"));
@@ -127,7 +128,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 		List<Url> urlsForConditionOccurrence2 = new ArrayList<Url>();
 		urlsForConditionOccurrence2.add(new Url("title12", "http://url12", null));
 		urlsForConditionOccurrence2.add(new Url("title22", "http://url22", null));
-		ActionOccurrence occurence2 = new ActionOccurrence("22222", new Symbol("English", "symbol2"), new Title("English", "title2"), new Text("English", "docuText2"), sourceCodesForActionOccurrence2, urlsForConditionOccurrence2);			
+		ActionOccurrence occurence2 = new ActionOccurrence("22222", new Symbol("English", "symbol2"), Arrays.asList(new Title("English", "title2")), new Text("English", "docuText2"), sourceCodesForActionOccurrence2, urlsForConditionOccurrence2);
 		
 		List<ActionOccurrence> occurences = new ArrayList<ActionOccurrence>();
 		occurences.add(occurence1);

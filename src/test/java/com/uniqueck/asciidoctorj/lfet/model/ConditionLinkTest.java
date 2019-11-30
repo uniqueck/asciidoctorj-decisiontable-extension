@@ -2,6 +2,8 @@ package com.uniqueck.asciidoctorj.lfet.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ConditionLinkTest extends AbstractLfdtTest<ConditionLink> {
@@ -23,7 +25,7 @@ public class ConditionLinkTest extends AbstractLfdtTest<ConditionLink> {
 
 	@Test
 	public void testPersistConditionLink() throws Exception {
-		Condition condition = new Condition("condId", new Title("English", "title"), new Text("English", "text"), null, null, null);
+		Condition condition = new Condition("condId", Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null, null);
 
 		ConditionLink conditionLink = createUnderTest();
 		conditionLink.setLinkedModel(condition);
