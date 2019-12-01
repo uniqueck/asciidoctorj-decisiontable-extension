@@ -62,6 +62,7 @@ public class LFDecisionTable {
 		this(null, null, null, null, null, null, null, null, null, null, null, null, null);
 	}
 
+	@SuppressWarnings("squid:S00107")
 	public LFDecisionTable(
 			@Attribute(name = "version") 
 			String version,
@@ -138,7 +139,7 @@ public class LFDecisionTable {
 	}
 
 	public Title getTitle(Language language) {
-		return title.stream().filter(t -> t.getLanguage().equals(language.name())).findFirst().orElse(null);
+		return title.stream().filter(t -> Language.getEnum(t.getLanguage()).equals(language)).findFirst().orElse(null);
 	}
 
 	public Text getText() {

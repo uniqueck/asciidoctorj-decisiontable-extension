@@ -52,7 +52,7 @@ public abstract class AbstractRulePart<T extends AbstractOccurrence> {
 	}
 
 	public Title getTitle(Language language) {
-		Optional<Title> optionalTitle = getTitle().stream().filter(t -> t.getLanguage().equals(language.name())).findFirst();
+		Optional<Title> optionalTitle = getTitle().stream().filter(t -> Language.getEnum(t.getLanguage()).equals(language)).findFirst();
 		return optionalTitle.orElse(null);
 	}
 
