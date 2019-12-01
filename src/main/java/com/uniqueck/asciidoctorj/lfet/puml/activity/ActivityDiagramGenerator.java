@@ -69,7 +69,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public boolean isCurrentOccEntryIs() {
-        return ((ConditionOccurrence)getCurrentCondition().getLinkedModel()).getSymbol().equals("*");
+        return ((ConditionOccurrence)getCurrentCondition().getLinkedModel()).getSymbol().getValue().equals("*");
     }
 
     @Override
