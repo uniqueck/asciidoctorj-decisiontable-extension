@@ -9,11 +9,11 @@ import org.simpleframework.xml.core.PersistenceException;
 import org.simpleframework.xml.core.Validate;
 
 @Root
-public abstract class AbstractLink<LINKED_MODEL> {
+public abstract class AbstractLink<T> {
 	@Attribute(name = "link")
 	private String link;
 	
-	private LINKED_MODEL linkedModel;
+	private T linkedModel;
 	
 	public AbstractLink() {
 		this.link = null;
@@ -28,11 +28,11 @@ public abstract class AbstractLink<LINKED_MODEL> {
 		this.link = link;
 	}
 	
-	public LINKED_MODEL getLinkedModel() {
+	public T getLinkedModel() {
 		return linkedModel;
 	}
 
-	protected void setLinkedModel(LINKED_MODEL linkedModel) {
+	protected void setLinkedModel(T linkedModel) {
 		this.linkedModel = linkedModel;
 	}
 	
@@ -47,7 +47,7 @@ public abstract class AbstractLink<LINKED_MODEL> {
 	@SuppressWarnings("unchecked")
 	public void commit(Map<String, Object> session) {
 		Object condition = session.get(getLink());
-		setLinkedModel((LINKED_MODEL) condition);
+		setLinkedModel((T) condition);
 	}
 
 	public abstract boolean isOccurencesLink();

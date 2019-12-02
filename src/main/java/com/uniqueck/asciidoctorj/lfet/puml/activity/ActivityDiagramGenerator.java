@@ -1,24 +1,37 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 import com.uniqueck.asciidoctorj.lfet.model.*;
-import com.uniqueck.asciidoctorj.lfet.model.Action;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.simpleframework.xml.core.Persister;
 
-import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Slf4j
 @Getter(AccessLevel.PACKAGE)
 class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDecisionTableToPlantUMLActivityDiagram, IActivityDiagramGenerator {
 
-    private List<String> sb;
+    static final String LINE_SEPARATOR = "\\n";
+    static final String PLANTUML_ENDIF = "endif";
+    static final String PLANTUML_IF_CONDITION_OCC_TITLE = "if (%s" + LINE_SEPARATOR + "%s) then (%s)";
+    static final String PLANTUML_IF_CONDITION_TITLE = "if (%s) then (%s)";
+    static final String PLANTUML_ELSEIF_CONDITION_TITLE = "elseif (%s) then (%s)";
+    static final String PLANTUML_ELSEIF_CONDITION_OCC_TITLE = "elseif (%s" + LINE_SEPARATOR + "%s) then (%s)";
+    static final String PLANTUML_ELSE = "else";
+    static final String PLANTUML_ELSE_WITH_LABEL = "else (%s)";
+    static final String PLANTUML_ACTION = "-%s";
+    static final String PLANTUML_ACTION_OCC = "-%s" + LINE_SEPARATOR + "%s";
+    static final String PLANTUML_4TIMES_HYPHEN = "----";
+    static final String PLANTUML_STOP = "stop";
+    static final String PLANTUML_START = "start";
+    static final String PLANTUML_TAG  = "[plantuml, %s]";
+    static final String PLANTUML_TITLE = "title %s";
+
+    private List<String> plantUmlContent;
     @Setter(AccessLevel.PACKAGE)
     private Rule currentRule;
     @Setter(AccessLevel.PACKAGE)
@@ -29,32 +42,32 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public List<String> generate(File decisionTableFile) {
-        LFDecisionTable lfDecisionTable = null;
+        LFDecisionTable tempDecisionTable = null;
         try {
-            lfDecisionTable = new Persister().read(LFDecisionTable.class, decisionTableFile);
+            tempDecisionTable = new Persister().read(LFDecisionTable.class, decisionTableFile);
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Lesen der XML der LFET", e);
         }
-        Language language = Language.valueOf(lfDecisionTable.getLanguage());
-        List<String> sb = new ArrayList<>();
-        sb.add("[plantuml, " +  decisionTableFile.getName() + "]");
-        sb.add("----");
-        sb.add("title " + lfDecisionTable.getTitle(language).getValue());
-        sb.add("");
-        sb.add("start");
-        sb.addAll(generate(lfDecisionTable, language, lfDecisionTable.getRules().get(0)));
-        sb.add("stop");
-        sb.add("----");
-        return sb;
+        Language language = Language.getEnum(tempDecisionTable.getLanguage());
+        List<String> content = new ArrayList<>();
+        content.add(String.format(PLANTUML_TAG, decisionTableFile.getName()));
+        content.add(PLANTUML_4TIMES_HYPHEN);
+        content.add(String.format(PLANTUML_TITLE, tempDecisionTable.getTitle(language).getValue()));
+        content.add("");
+        content.add(PLANTUML_START);
+        content.addAll(generate(tempDecisionTable, language, tempDecisionTable.getRules().get(0)));
+        content.add(PLANTUML_STOP);
+        content.add(PLANTUML_4TIMES_HYPHEN);
+        return content;
     }
 
     List<String> generate(LFDecisionTable lfDecisionTable, Language language, Rule currentRule) {
         this.lfDecisionTable = lfDecisionTable;
         this.laguage = language;
         setCurrentRule(currentRule);
-        this.sb = new ArrayList<>();
+        this.plantUmlContent = new ArrayList<>();
         new DecisionTableToPlantUMLActivityDiagramRules().execute(this);
-        return sb;
+        return plantUmlContent;
     }
 
     @Override
@@ -108,31 +121,31 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
     @Override
     public void doIfWithConditionTitleAndLabelYes() {
         Condition condition = (Condition) getCurrentCondition().getLinkedModel();
-        sb.add("if (" + condition.getTitle(getLaguage()).getValue() + ") then (" + getLaguage().getActvityLabelTrue() +")");
+        addPlantUmlContent(PLANTUML_IF_CONDITION_TITLE, getConditionTitle(condition), getActivityLabelTrue());
     }
 
     @Override
     public void doElseWithLabelNo() {
-        sb.add("else ("+getLaguage().getActivtiyLabelFalse() +")");
+        addPlantUmlContent(PLANTUML_ELSE_WITH_LABEL, getLaguage().getActivtiyLabelFalse());
     }
 
     @Override
     public void doElse() {
-        sb.add("else");
+        addPlantUmlContent(PLANTUML_ELSE);
     }
 
     @Override
     public void doElseIfConditionTitleWithOccEntryAndLabelYes() {
         ConditionOccurrence conditionOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
         Condition condition = conditionOcc.getCondition();
-        sb.add("elseif (" + condition.getTitle(getLaguage()).getValue() + "\\n" + conditionOcc.getSymbol().getValue() + ") then (" + getLaguage().getActvityLabelTrue() + ")");
+        addPlantUmlContent(PLANTUML_ELSEIF_CONDITION_OCC_TITLE, getConditionTitle(condition), getConditionOccSymbol(conditionOcc), getActivityLabelTrue());
     }
 
     @Override
     public void doIfConditionTitleWithOccEntryAndLabelYes() {
         ConditionOccurrence conditionOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
         Condition condition = conditionOcc.getCondition();
-        sb.add("if (" + condition.getTitle(getLaguage()).getValue()+ "\\n" + conditionOcc.getSymbol().getValue() + ") then (" + getLaguage().getActvityLabelTrue() + ")");
+        addPlantUmlContent(PLANTUML_IF_CONDITION_OCC_TITLE, getConditionTitle(condition), getConditionOccSymbol(conditionOcc), getActivityLabelTrue());
     }
 
     @Override
@@ -142,10 +155,10 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
             if (actionLink.isOccurencesLink()) {
                 String actionOccTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getSymbol().getValue();
                 String actionTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getAction().getTitle(getLaguage()).getValue();
-                sb.add("-" + actionTitle +"\\n" + actionOccTitle);
+                addPlantUmlContent(PLANTUML_ACTION_OCC, actionTitle, actionOccTitle);
             } else {
                 String actionTitle = ((Action)actionLink.getLinkedModel()).getTitle(getLaguage()).getValue();
-                sb.add("-" + actionTitle);
+                addPlantUmlContent(PLANTUML_ACTION, actionTitle);
             }
 
         }
@@ -153,12 +166,28 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doEndif() {
-        sb.add("endif");
+        addPlantUmlContent(PLANTUML_ENDIF);
     }
 
     @Override
     public void doNextRule() {
         int indexOf = getLfDecisionTable().getRules().indexOf(getCurrentRule());
-        this.sb.addAll(new ActivityDiagramGenerator().generate(getLfDecisionTable(), getLaguage(), getLfDecisionTable().getRules().get(indexOf + 1)));
+        getPlantUmlContent().addAll(new ActivityDiagramGenerator().generate(getLfDecisionTable(), getLaguage(), getLfDecisionTable().getRules().get(indexOf + 1)));
+    }
+
+    private void addPlantUmlContent(String formatString, String... args) {
+        getPlantUmlContent().add(String.format(formatString, (Object[]) args));
+    }
+
+    private String getConditionTitle(Condition condition) {
+        return condition.getTitle(getLaguage()).getValue();
+    }
+
+    private String getConditionOccSymbol(ConditionOccurrence conditionOccurrence) {
+        return conditionOccurrence.getSymbol().getValue();
+    }
+
+    private String getActivityLabelTrue() {
+        return getLaguage().getActvityLabelTrue();
     }
 }

@@ -27,7 +27,7 @@ public class LFETAsciiDocTableGenerator {
     public LFETAsciiDocTableGenerator(File sourceFile) {
         try {
             lfetDocument = new SAXBuilder().build(sourceFile);
-            lfetLanguage = Language.valueOf(lfetDocument.getRootElement().getAttributeValue("language"));
+            lfetLanguage = Language.getEnum(lfetDocument.getRootElement().getAttributeValue("language"));
         } catch (Exception e) {
             throw new AsciiDoctorDecisionTableRuntimeException("Error on reading decision table file '" + sourceFile.getPath() + "'", e);
         }

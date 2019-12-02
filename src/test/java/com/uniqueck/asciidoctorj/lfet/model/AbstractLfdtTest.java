@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("squid:S2187")
 public class AbstractLfdtTest<MODELCLASS_UNDER_TEST> {
 	protected static String NEW_LINE = "\n";
 	
@@ -65,7 +66,7 @@ public class AbstractLfdtTest<MODELCLASS_UNDER_TEST> {
 	
 	protected void assertUrl(Url url, String expectedTitle, String expectedUrl, boolean expectedExecutable) {
 		assertEquals(expectedTitle, url.getTitle());
-		assertEquals(expectedUrl, url.getUrl());
+		assertEquals(expectedUrl, url.getLink());
 		assertEquals(expectedExecutable, url.isExecutable());
 	}
 	

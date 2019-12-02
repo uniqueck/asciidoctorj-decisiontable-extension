@@ -67,11 +67,13 @@ public class Rule {
 	public Text getText() {
 		return text;
 	}
-	
+
+	@SuppressWarnings("squid:S1452")
 	public List<AbstractLink<?>> getConditionLinks() {
 		return conditionLinks;
 	}
-	
+
+	@SuppressWarnings("squid:S1452")
 	public List<AbstractLink<?>> getActionLinks() {
 		return actionLinks;
 	}

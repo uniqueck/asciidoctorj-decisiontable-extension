@@ -2,9 +2,11 @@ package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
 import lombok.Getter;
 
+import java.util.Arrays;
+
 @Getter
 public enum Language {
-    German("J", "N", "B", "Ja", "Nein"), English("Y", "N", "C", "yes", "no");
+    GERMAN("J", "N", "B", "Ja", "Nein"), ENGLISH("Y", "N", "C", "yes", "no");
 
 
     private final String labelTrue;
@@ -23,5 +25,9 @@ public enum Language {
 
     public String getActivtyLabel(boolean conditionState)  {
         return conditionState ? getActvityLabelTrue() : getActivtiyLabelFalse();
+    }
+
+    public static Language getEnum(String value) {
+        return Arrays.asList(values()).stream().filter(e -> e.name().equalsIgnoreCase(value)).findAny().orElseThrow(() -> new IllegalArgumentException(value + " is not a valid PropName"));
     }
 }
