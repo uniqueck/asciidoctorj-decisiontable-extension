@@ -3,9 +3,9 @@
 title smallestDecisionTable
 
 start
-if (Condition1) then (true)
+if (Condition1) then (yes)
 -Action1
-else (false)
+else (no)
 -Action2
 endif
 stop

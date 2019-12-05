@@ -1,159 +1,194 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
+import com.uniqueck.asciidoctorj.lfet.model.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
+import org.simpleframework.xml.core.Persister;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
+@Getter(AccessLevel.PACKAGE)
 class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDecisionTableToPlantUMLActivityDiagram, IActivityDiagramGenerator {
 
-    private List<String> sb;
-    private File lfetFile;
-    private Document document;
-    private Element firstRule;
-    private Element currentCondition;
-    private Iterator<Element> rulesIt;
+    static final String LINE_SEPARATOR = "\\n";
+    static final String PLANTUML_ENDIF = "endif";
+    static final String PLANTUML_IF_CONDITION_OCC_TITLE = "if (%s" + LINE_SEPARATOR + "%s) then (%s)";
+    static final String PLANTUML_IF_CONDITION_TITLE = "if (%s) then (%s)";
+    static final String PLANTUML_ELSEIF_CONDITION_TITLE = "elseif (%s) then (%s)";
+    static final String PLANTUML_ELSEIF_CONDITION_OCC_TITLE = "elseif (%s" + LINE_SEPARATOR + "%s) then (%s)";
+    static final String PLANTUML_ELSE = "else";
+    static final String PLANTUML_ELSE_WITH_LABEL = "else (%s)";
+    static final String PLANTUML_ACTION = "-%s";
+    static final String PLANTUML_ACTION_OCC = "-%s" + LINE_SEPARATOR + "%s";
+    static final String PLANTUML_4TIMES_HYPHEN = "----";
+    static final String PLANTUML_STOP = "stop";
+    static final String PLANTUML_START = "start";
+    static final String PLANTUML_TAG  = "[plantuml, %s]";
+    static final String PLANTUML_TITLE = "title %s";
 
-    ActivityDiagramGenerator(File lfetFile) {
-        this.lfetFile = lfetFile;
-    }
+    private List<String> plantUmlContent;
+    @Setter(AccessLevel.PACKAGE)
+    private Rule currentRule;
+    @Setter(AccessLevel.PACKAGE)
+    private IConditionEntryLink currentCondition;
+    private Language laguage;
+    private LFDecisionTable lfDecisionTable;
 
-    @Override
-    public List<String> generate() {
-        this.sb = new ArrayList<>();
-        new DecisionTableToPlantUMLActivityDiagramRules().execute(this);
-        return sb;
-    }
-
-
-    @Override
-    public boolean isLastConditionOfRule() {
-        List<Element> conditionLinks = firstRule.getChildren("ConditionLink");
-        return conditionLinks.get(conditionLinks.size()-1).getAttributeValue("link").equals(currentCondition.getAttributeValue("uId"));
-    }
-
-    @Override
-    public boolean isHasMoreRules() {
-        return !getRuleId().equalsIgnoreCase(getLastRuleId());
-    }
 
     @Override
-    public boolean isHasNextRuleSameCondition() {
-        List<Element> rules = getRootElement().getChild("Rules").getChildren("Rule");
-        Optional<Element> founded = rules.stream().filter(r -> r.getAttributeValue("id").equalsIgnoreCase(firstRule.getAttributeValue("id"))).findFirst();
-        if (founded.isPresent()) {
-            Element nextRule = rules.get(rules.indexOf(founded.get()) + 1);
-            List<Element> conditionLink = nextRule.getChildren("ConditionLink");
-            return conditionLink.stream().anyMatch(cl -> cl.getAttributeValue("link").equalsIgnoreCase(currentCondition.getAttributeValue("uId")));
-        }
-        return false;
-    }
-
-    private Element getRootElement() {
-        return this.document.getRootElement();
-    }
-
-    private String getLastRuleId() {
-        return getRootElement().getChild("Rules").getAttributeValue("lastId");
-    }
-
-    private String getRuleId() {
-        return firstRule.getAttributeValue("id");
-    }
-
-    @Override
-    public void doParseDecisionTable() {
-        SAXBuilder builder = new SAXBuilder();
-        document = null;
+    public List<String> generate(File decisionTableFile) {
+        LFDecisionTable tempDecisionTable = null;
         try {
-            document = builder.build(lfetFile);
-            this.rulesIt = getRootElement().getChild("Rules").getChildren("Rule").iterator();
+            tempDecisionTable = new Persister().read(LFDecisionTable.class, decisionTableFile);
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Lesen der XML der LFET", e);
         }
+        Language language = Language.getEnum(tempDecisionTable.getLanguage());
+        List<String> content = new ArrayList<>();
+        content.add(String.format(PLANTUML_TAG, decisionTableFile.getName()));
+        content.add(PLANTUML_4TIMES_HYPHEN);
+        content.add(String.format(PLANTUML_TITLE, tempDecisionTable.getTitle(language).getValue()));
+        content.add("");
+        content.add(PLANTUML_START);
+        content.addAll(generate(tempDecisionTable, language, tempDecisionTable.getRules().get(0), null));
+        content.add(PLANTUML_STOP);
+        content.add(PLANTUML_4TIMES_HYPHEN);
+        return content;
+    }
 
+    List<String> generate(LFDecisionTable lfDecisionTable, Language language, Rule currentRule, IConditionEntryLink currentCondition) {
+        this.lfDecisionTable = lfDecisionTable;
+        this.laguage = language;
+        setCurrentRule(currentRule);
+        setCurrentCondition(currentCondition);
+        this.plantUmlContent = new ArrayList<>();
+        new DecisionTableToPlantUMLActivityDiagramRules().execute(this);
+        return plantUmlContent;
     }
 
     @Override
-    public void doAddPlantumlTag() {
-        sb.add("[plantuml, " +  lfetFile.getName() + "]");
+    public boolean isConditionTypeIsOccurenceTable() {
+        return getCurrentCondition().isOccurencesLink();
     }
 
     @Override
-    public void doAddStop() {
-        sb.add("stop");
+    public boolean isConditionStateIs() {
+        return ((ConditionLink)getCurrentCondition()).getConditionState();
     }
 
     @Override
-    public void doAdd4TimesHyphen() {
-        sb.add("----");
+    public boolean isCurrentOccEntryIs() {
+        return ((IConditionOccurrenceLink)getCurrentCondition()).getSymbol().equals("*");
     }
 
     @Override
-    public void doAddTitle() {
-        // <Title language="English" value="smallestDecisionTable"/>
-        String title = getRootElement().getChild("Title").getAttributeValue("value");
-        sb.add("title " + title);
-        sb.add("");
+    public boolean isCurrentOccEntryIsLast() {
+        return ((IConditionOccurrenceLink)getCurrentCondition()).isLastOccurrence();
     }
 
     @Override
-    public void doAddStart() {
-        sb.add("start");
+    public boolean isCurrentOccEntryIsFirst() {
+        return ((IConditionOccurrenceLink)getCurrentCondition()).isFirstOccurrence();
     }
 
     @Override
-    public void doGetFirstConditionOfFirstRule() {
-        List<Element> conditions = this.document.getRootElement().getChild("Conditions").getChildren("Condition");
-        String link2Condition = firstRule.getChildren("ConditionLink").get(0).getAttributeValue("link");
-        String conditionState = firstRule.getChildren("ConditionLink").get(0).getAttributeValue("conditionState");
-        Optional<Element> founded = conditions.stream().filter(c -> c.getAttributeValue("uId").equals(link2Condition)).findFirst();
-        if (founded.isPresent()) {
-            currentCondition = founded.get();
-            String conditionTitle = currentCondition.getChild("Title").getAttributeValue("value");
-            sb.add("if (" + conditionTitle + ") then (" + conditionState + ")");
-        }
+    public boolean isHasMoreConditions() {
+        int indexOfCurrentCondition = getCurrentRule().getConditionLinks().indexOf(getCurrentCondition());
+        return indexOfCurrentCondition < (getCurrentRule().getConditionLinks().size() - 1);
+    }
+
+
+    @Override
+    public void doNextCondition() {
+        int indexOfCurrentCondition = getCurrentRule().getConditionLinks().indexOf(getCurrentCondition());
+        setCurrentCondition(getCurrentRule().getConditionLinks().get(indexOfCurrentCondition + 1));
+    }
+
+
+    @Override
+    public void doIfWithConditionTitleAndLabelYes() {
+        Condition condition = getCurrentCondition().getCondition();
+        addPlantUmlContent(PLANTUML_IF_CONDITION_TITLE, getConditionTitle(condition), getActivityLabelTrue());
     }
 
     @Override
-    public void doGetFirstRule() {
-        firstRule = rulesIt.next();
+    public void doElseWithLabelNo() {
+        addPlantUmlContent(PLANTUML_ELSE_WITH_LABEL, getLaguage().getActivtiyLabelFalse());
     }
 
     @Override
-    public void doAddActionsOfRule() {
-        List<Element> actionLinks = firstRule.getChildren("ActionLink");
-        List<Element> actions = this.document.getRootElement().getChild("Actions").getChildren("Action");
-        for (Element eachActionLink : actionLinks) {
-            Optional<Element> founded = actions.stream().filter(a -> a.getAttributeValue("uId").equalsIgnoreCase(eachActionLink.getAttributeValue("link"))).findFirst();
-            if (founded.isPresent()) {
-                sb.add("-" + founded.get().getChild("Title").getAttributeValue("value"));
+    public void doElse() {
+        addPlantUmlContent(PLANTUML_ELSE);
+    }
+
+    @Override
+    public void doElseIfConditionTitleWithOccEntryAndLabelYes() {
+        Condition condition = getCurrentCondition().getCondition();
+        addPlantUmlContent(PLANTUML_ELSEIF_CONDITION_OCC_TITLE, getConditionTitle(condition), ((IConditionOccurrenceLink)getCurrentCondition()).getSymbol(), getActivityLabelTrue());
+    }
+
+    @Override
+    public void doIfConditionTitleWithOccEntryAndLabelYes() {
+        Condition condition = getCurrentCondition().getCondition();
+        addPlantUmlContent(PLANTUML_IF_CONDITION_OCC_TITLE, getConditionTitle(condition), ((IConditionOccurrenceLink)getCurrentCondition()).getSymbol(), getActivityLabelTrue());
+    }
+
+    @Override
+    public void doAddListOfActions() {
+        List<IActionEntryLink> actionLinks = getLfDecisionTable().getSortedListOfActionLinksBasedOnActions(getCurrentRule().getActionLinks());
+        for (IActionEntryLink actionLink : actionLinks) {
+            if (actionLink.isOccurencesLink()) {
+                String actionOccTitle = ((ActionOccurrenceLink)actionLink).getSymbol();
+                String actionTitle = actionLink.getAction().getTitle(getLaguage()).getValue();
+                addPlantUmlContent(PLANTUML_ACTION_OCC, actionTitle, actionOccTitle);
+            } else {
+                String actionTitle = actionLink.getAction().getTitle(getLaguage()).getValue();
+                addPlantUmlContent(PLANTUML_ACTION, actionTitle);
             }
+
         }
     }
 
     @Override
-    public void doAddEndif() {
-        sb.add("endif");
-    }
-
-    @Override
-    public void doAddElse() {
-        sb.add("else (false)");
+    public void doEndif() {
+        addPlantUmlContent(PLANTUML_ENDIF);
     }
 
     @Override
     public void doNextRule() {
-        firstRule = rulesIt.next();
+        int indexOf = getLfDecisionTable().getRules().indexOf(getCurrentRule());
+        getPlantUmlContent().addAll(new ActivityDiagramGenerator().generate(getLfDecisionTable(), getLaguage(), getLfDecisionTable().getRules().get(indexOf + 1), getCurrentCondition()));
     }
 
+    private void addPlantUmlContent(String formatString, String... args) {
+        getPlantUmlContent().add(String.format(formatString, (Object[]) args));
+    }
 
+    private String getConditionTitle(Condition condition) {
+        return condition.getTitle(getLaguage()).getValue();
+    }
+
+    private String getActivityLabelTrue() {
+        return getLaguage().getActvityLabelTrue();
+    }
+
+    @Override
+    public boolean isConditionIsAlreadySet() {
+        return getCurrentCondition() != null;
+    }
+
+    @Override
+    public void doSetCondition_FCR() {
+        setCurrentCondition(getCurrentRule().getConditionLinks().get(0));
+    }
+
+    @Override
+    public void doSetCondition_CCE() {
+        setCurrentCondition(getCurrentRule().getConditionLinkBasedOnCondition(getCurrentCondition().getCondition()));
+    }
 }

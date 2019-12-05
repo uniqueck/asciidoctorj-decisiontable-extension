@@ -26,10 +26,14 @@ jobs:
           path: ~/test-results
       - store_artifacts:
           path: ~/test-results/junit
-      #- persist_to_workspace:
-      #    root: target
-      #    paths:
-      #      - generated-docs
+      - run:
+          name: PITTest
+          command: mvn -B org.pitest:pitest-maven:mutationCoverage
+      - store_artifacts:
+          path: ~/target/pit-reports/**/*.*
+      - run:
+          name: Analyze on SonarCloud
+          command: mvn -B verify sonar:sonar
   release:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -79,6 +83,7 @@ workflows:
   build-n-deploy:
     jobs:
       - build:
+          context: SonarCloud
           filters:
             tags:
               only: /.*/

@@ -1,0 +1,17 @@
+[plantuml, decisionTableWithTwoConditions.lfet]
+----
+title decisionTableWithTwoConditions
+
+start
+if (Condition1) then (yes)
+-Action1
+else (no)
+if (Condition2) then (yes)
+-Action2
+else (no)
+-Action1
+-Action2
+endif
+endif
+stop
+----

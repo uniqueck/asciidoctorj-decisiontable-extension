@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface IActivityDiagramGenerator {
 
-    static IActivityDiagramGenerator newGenerator(File lfetFile) {
-        return new ActivityDiagramGenerator(lfetFile);
+    static IActivityDiagramGenerator newGenerator() {
+        return new ActivityDiagramGenerator();
     }
 
-    List<String> generate();
+    List<String> generate(File decisionTableFile);
 }

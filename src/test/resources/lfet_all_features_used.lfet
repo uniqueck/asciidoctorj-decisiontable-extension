@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.1.5 (160720a)" language="German" saveDate="2018.02.25 at 22:19:21 CET" saveUser="bg">
+  <Conditions>
+    <Condition uId="11446800829457960">
+      <Title language="German" value="Titel Bedingung 1 ohne Wertemenge"/>
+      <Text language="German" value="Beschreibung Bedingung 1 ohne Wertemenge"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="Java Prolog für B01"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="LogArg" value="Java LogArg für B01"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="Prolog" value="Natural Prolog für B01"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="LogArg" value="Natural LogArg für B01"/>
+      <UrlsOut>
+        <Url title="urlB01_1" url="http://urlB01_1"/>
+        <Url title="urlB01_2" url="http://urlB01_2" executable="true"/>
+      </UrlsOut>
+    </Condition>
+    <Condition uId="15195899594471067">
+      <Title language="German" value="Titel Bedingung 2 ohne Wertemenge"/>
+      <Text language="German" value="Beschreibung Bedingung 2 ohne Wertemenge"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="Java Prolog für B02"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="LogArg" value="Java LogArg für B02"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="Prolog" value="Natural Prolog für B02"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="LogArg" value="Natural LogArg für B02"/>
+    </Condition>
+    <Condition uId="151958646949658">
+      <Title language="German" value="Titel Bedingung 3 mit Wertemenge"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="151958653655596">
+          <Symbol language="German" value="COND_SYMBOL_1"/>
+          <Title language="German" value="Titel ConditionOccurrence COND_SYMBOL_1"/>
+          <Text language="German" value="Beschreibung Bedingung 3 mit Wertemenge - COND_SYMBOL_1"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="LogArg" value="Java LogArg für B03 - COND_SYMBOL_1"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="LogArg" value="Natural LogArg für B03 - COND_SYMBOL_1"/>
+          <UrlsOut>
+            <Url title="urlB01_COND_SYMBOL_1_1" url="http://urlB01_COND_SYMBOL_1_1"/>
+            <Url title="urlB01_COND_SYMBOL_1_2" url="http://urlB01_COND_SYMBOL_1_2" executable="true"/>
+          </UrlsOut>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="151958653655598">
+          <Symbol language="German" value="COND_SYMBOL_2"/>
+          <Title language="German" value="Titel ConditionOccurrence COND_SYMBOL_2"/>
+          <Text language="German" value="Beschreibung Bedingung 3 mit Wertemenge - COND_SYMBOL_2"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="LogArg" value="Java LogArg für B03 - COND_SYMBOL_2"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="LogArg" value="Natural LogArg für B03 - COND_SYMBOL_2"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="1519587362581737">
+          <Symbol language="German" value="COND_SYMBOL_3"/>
+          <Title language="German" value="Titel ConditionOccurrence COND_SYMBOL_3"/>
+          <Text language="German" value="Beschreibung Bedingung 3 mit Wertemenge - COND_SYMBOL_3"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="LogArg" value="Java LogArg für B03 - COND_SYMBOL_3"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="LogArg" value="Natural LogArg für B03 - COND_SYMBOL_3"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+      <Text language="German" value="Beschreibung Bedingung 3 mit Wertemenge"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="Java Prolog für B03"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="Prolog" value="Natural Prolog für B03"/>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="11446800828767967">
+      <Title language="German" value="Titel für Aktion 1 ohne Wertemenge"/>
+      <Text language="German" value="Beschreibung Aktion 1 ohne Wertemenge"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="StmtSeq" value="Java StmtSeq für A01"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="StmtSeq" value="Natural StmtSeq für A01"/>
+      <UrlsOut>
+        <Url title="urlA01_1" url="http://urlA01_1"/>
+        <Url title="urlA01_2" url="http://urlA01_2" executable="true"/>
+      </UrlsOut>      
+    </Action>
+    <Action uId="11446800829627977">
+      <Title language="German" value="Titel für Aktion 2 ohne Wertemenge"/>
+      <Text language="German" value="Beschreibung Aktion 2 ohne Wertemenge"/>
+      <SourceCode codeLanguage="Java" sourceCodeType="StmtSeq" value="Java StmtSeq für A02"/>
+      <SourceCode codeLanguage="Natural" sourceCodeType="StmtSeq" value="Natural StmtSeq für A02"/>
+    </Action>
+    <Action uId="1519586943356295">
+      <Title language="German" value="Titel für Aktion 3 mit Wertemenge"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="1519587010174351">
+          <Symbol language="German" value="ACTION_SYMBOL_1"/>
+          <Title language="German" value="Titel für ActionOccurrence ACTION_SYMBOL_1"/>
+          <Text language="German" value="Beschreibung Aktion 3 mit Wertemenge - ACTION_SYMBOL_1"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="StmtSeq" value="Java StmtSeq für A03 - ACTION_SYMBOL_1"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="StmtSeq" value="Natural StmtSeq für A03 - ACTION_SYMBOL_1"/>
+          <UrlsOut>
+            <Url title="urlA01_ACTION_SYMBOL_1_1" url="http://urlA01_ACTION_SYMBOL_1_1"/>
+            <Url title="urlA01_ACTION_SYMBOL_1_2" url="http://urlA01_ACTION_SYMBOL_1_2" executable="true"/>
+          </UrlsOut>
+        </ActionOccurrence>
+        <ActionOccurrence uId="1519587178751524">
+          <Symbol language="German" value="ACTION_SYMBOL_2"/>
+          <Title language="German" value="Titel für ActionOccurrence ACTION_SYMBOL_2"/>
+          <Text language="German" value="Beschreibung Aktion 3 mit Wertemenge - ACTION_SYMBOL_2"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="StmtSeq" value="Java StmtSeq für A03 - ACTION_SYMBOL_2"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="StmtSeq" value="Natural StmtSeq für A03 - ACTION_SYMBOL_2"/>
+        </ActionOccurrence>        
+      </ActionOccurrences>
+      <Text language="German" value="Beschreibung Aktion 3 mit Wertemenge"/>
+    </Action>
+    <Action uId="1519586986576297">
+      <Title language="German" value="Titel für Aktion 4 mit Wertemenge"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="1519587452100799">
+          <Symbol language="German" value="ACTION_SYMBOL_3"/>
+          <Title language="German" value="Titel für ActionOccurrence ACTION_SYMBOL_3"/>
+          <Text language="German" value="Beschreibung Aktion 4 mit Wertemenge - ACTION_SYMBOL_3"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="StmtSeq" value="Java StmtSeq für A04 - ACTION_SYMBOL_3"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="StmtSeq" value="Natural StmtSeq für A04 - ACTION_SYMBOL_3"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="1519587464385883">
+          <Symbol language="German" value="ACTION_SYMBOL_4"/>
+          <Title language="German" value="Titel für ActionOccurrence ACTION_SYMBOL_4"/>
+          <Text language="German" value="Beschreibung Aktion 4 mit Wertemenge - ACTION_SYMBOL_4"/>
+          <SourceCode codeLanguage="Java" sourceCodeType="StmtSeq" value="Java StmtSeq für A04 - ACTION_SYMBOL_4"/>
+          <SourceCode codeLanguage="Natural" sourceCodeType="StmtSeq" value="Natural StmtSeq für A04 - ACTION_SYMBOL_4"/>
+        </ActionOccurrence>        
+      </ActionOccurrences>
+      <Text language="German" value="Beschreibung Aktion 4 mit Wertemenge"/>
+    </Action>
+  </Actions>
+  <Rules lastId="18">
+    <Rule id="17">
+      <ConditionLink link="11446800829457960" conditionState="true"/>
+      <Text language="German" value="Beschreibung für Regel 01"/>
+      <ConditionLink link="15195899594471067" conditionState="true"/>
+      <ActionLink link="11446800828767967"/>
+    </Rule>
+    <Rule id="18">
+      <ConditionLink link="11446800829457960" conditionState="true"/>
+      <ConditionLink link="15195899594471067" conditionState="false"/>
+      <Text language="German" value="Beschreibung für Regel 02"/>
+      <ActionLink link="11446800829627977"/>
+    </Rule>
+    <Rule id="13">
+      <ConditionLink link="11446800829457960" conditionState="false"/>
+      <ActionLink link="11446800829627977"/>
+      <Text language="German" value="Beschreibung für Regel 03"/>
+      <ConditionLink link="15195899594471067" conditionState="true"/>
+      <ActionLink link="11446800828767967"/>
+    </Rule>
+    <Rule id="14">
+      <ConditionOccurrenceLink link="151958653655596"/>
+      <ActionLink link="11446800828767967"/>
+      <ActionLink link="11446800829627977"/>
+      <Text language="German" value="Beschreibung für Regel 04"/>
+      <ConditionLink link="15195899594471067" conditionState="false"/>
+      <ConditionLink link="11446800829457960" conditionState="false"/>
+    </Rule>
+    <Rule id="15">
+      <ConditionOccurrenceLink link="151958653655598"/>
+      <ActionOccurrenceLink link="1519587010174351"/>
+      <ActionOccurrenceLink link="1519587452100799"/>
+      <Text language="German" value="Beschreibung für Regel 05"/>
+      <ConditionLink link="15195899594471067" conditionState="false"/>
+      <ConditionLink link="11446800829457960" conditionState="false"/>
+    </Rule>
+    <Rule id="16">
+      <ConditionOccurrenceLink link="1519587362581737"/>
+      <ActionLink link="11446800828767967"/>
+      <ActionLink link="11446800829627977"/>
+      <ActionOccurrenceLink link="1519587178751524"/>
+      <ActionOccurrenceLink link="1519587464385883"/>
+      <Text language="German" value="Beschreibung für Regel 06"/>
+      <ConditionLink link="15195899594471067" conditionState="false"/>
+      <ConditionLink link="11446800829457960" conditionState="false"/>
+    </Rule>
+  </Rules>
+  <Title language="German" value="Titel Entscheidungstabelle"/>
+  <UrlsOut>
+    <Url title="urlET1" url="file:///./" executable="true"/>
+    <Url title="urlET2" url="http://urlET2" executable="true"/>
+    <Url title="urlET3" url="http://urlET3"/>
+  </UrlsOut>
+  <Text language="German" value="Text für Entscheidungstabelle&lt;br/&gt;über mehrere&lt;br/&gt;Zeilen hinweg."/>
+  <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="Java Prolog für ET"/>
+  <SourceCode codeLanguage="Java" sourceCodeType="Epilog" value="Java Epilog für ET"/>
+  <SourceCode codeLanguage="Java" sourceCodeType="Trace" value="Java Trace für ET"/>
+  <SourceCode codeLanguage="Java" sourceCodeType="Error" value="Java Error für ET"/>
+  <SourceCode codeLanguage="Natural" sourceCodeType="Prolog" value="Natural Prolog für ET"/>
+  <SourceCode codeLanguage="Natural" sourceCodeType="Epilog" value="Natural Epilog für ET"/>
+  <SourceCode codeLanguage="Natural" sourceCodeType="Trace" value="Natural Trace für ET"/>
+  <SourceCode codeLanguage="Natural" sourceCodeType="Error" value="Natural Error für ET"/>
+  <Snapshots>
+    <Snapshot crDat="2018.02.25 at 21:58:49 CET" rSeq="17:18 13:16"/>
+    <Snapshot crDat="2018.02.25 at 22:02:34 CET" rSeq="17:18 13:16" scm="16" cars="13" focR="13" focCA="11446800829457960"/>    
+  </Snapshots>  
+</LFET>

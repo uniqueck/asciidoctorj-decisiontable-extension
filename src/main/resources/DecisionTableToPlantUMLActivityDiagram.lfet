@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.09.22 at 12:32:31 CEST" saveUser="constantin">
+<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.12.04 at 21:36:17 CET" saveUser="constantin">
   <Conditions>
     <Condition uId="15688742557431853">
       <Title language="English" value="Step"/>
@@ -10,61 +10,76 @@
           <Title language="English" value="Init state"/>
         </ConditionOccurrence>
         <ConditionOccurrence uId="15690209963653472">
-          <Symbol language="English" value="Rule"/>
-          <Title language="English" value="Rule state"/>
-        </ConditionOccurrence>
-        <ConditionOccurrence uId="15688743152261893">
-          <Symbol language="English" value="End"/>
-          <Title language="English" value="End State"/>
+          <Symbol language="English" value="Cond"/>
+          <Title language="English" value="Condition state"/>
         </ConditionOccurrence>
       </ConditionOccurrences>
     </Condition>
-    <Condition uId="15691021063388698">
-      <Title language="English" value="last condition of rule"/>
+    <Condition uId="15754904539056703">
+      <Title language="English" value="condition is already set"/>
     </Condition>
-    <Condition uId="15691068175707031">
-      <Title language="English" value="has more rules"/>
+    <Condition uId="15751514609240045">
+      <Title language="English" value="condition type is occurence table"/>
     </Condition>
-    <Condition uId="15691067449956931">
-      <Title language="English" value="has next rule same condition"/>
+    <Condition uId="15751514872270052">
+      <Title language="English" value="condition state is"/>
+    </Condition>
+    <Condition uId="15751515288830057">
+      <Title language="English" value="current occ entry is *"/>
+    </Condition>
+    <Condition uId="15751515360190061">
+      <Title language="English" value="current occ entry is last"/>
+    </Condition>
+    <Condition uId="15751515411950065">
+      <Title language="English" value="current occ entry is first"/>
+    </Condition>
+    <Condition uId="15751515467020069">
+      <Title language="English" value="has more conditions"/>
     </Condition>
   </Conditions>
   <Actions>
-    <Action uId="11443124877466972">
-      <Title language="English" value="parse decision table"/>
+    <Action uId="15751543055813827">
+      <Title language="English" value="set condition"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="15754916910367116">
+          <Symbol language="English" value="FCR"/>
+          <Title language="English" value="first condition of rule"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="15754917094507122">
+          <Symbol language="English" value="CCE"/>
+          <Title language="English" value="current condition entry"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
     </Action>
-    <Action uId="15690978843668243">
-      <Title language="English" value="add plantuml tag"/>
+    <Action uId="15751518086190537">
+      <Title language="English" value="if with condition title and label yes"/>
     </Action>
-    <Action uId="15688744787761927">
-      <Title language="English" value="add stop"/>
+    <Action uId="15751518185200542">
+      <Title language="English" value="else with label no"/>
     </Action>
-    <Action uId="15690979181528327">
-      <Title language="English" value="add 4 times hyphen"/>
+    <Action uId="15751518246860546">
+      <Title language="English" value="else"/>
     </Action>
-    <Action uId="15690979370178329">
-      <Title language="English" value="add title"/>
+    <Action uId="15751518304570550">
+      <Title language="English" value="else if condition title with occ entry and label yes"/>
     </Action>
-    <Action uId="15690980290298425">
-      <Title language="English" value="add start"/>
+    <Action uId="15751518369310554">
+      <Title language="English" value="if condition title with occ entry and label yes"/>
     </Action>
-    <Action uId="15690998515808602">
-      <Title language="English" value="get first rule"/>
+    <Action uId="15751518426400558">
+      <Title language="English" value="add list of actions"/>
     </Action>
-    <Action uId="15690936187637904">
-      <Title language="English" value="get first condition of first rule"/>
-    </Action>
-    <Action uId="15691021482418707">
-      <Title language="English" value="add actions of rule"/>
+    <Action uId="15751544357574048">
+      <Title language="English" value="next rule"/>
+      <UrlsOut>
+        <Url title="next rule with same condition" url="file:///./DecisionTableToPlantUMLActivityDiagram.lfet"/>
+      </UrlsOut>
     </Action>
     <Action uId="15691068712907049">
-      <Title language="English" value="add endif"/>
+      <Title language="English" value="endif"/>
     </Action>
-    <Action uId="15691069537967054">
-      <Title language="English" value="add else"/>
-    </Action>
-    <Action uId="15691482372667311">
-      <Title language="English" value="next rule"/>
+    <Action uId="15751532623271556">
+      <Title language="English" value="next condition"/>
     </Action>
     <Action uId="15688746675712105">
       <Title language="English" value="next step"/>
@@ -73,71 +88,149 @@
           <Symbol language="English" value="Exit"/>
           <Title language="English" value="Finished"/>
         </ActionOccurrence>
-        <ActionOccurrence uId="15688746766522114">
-          <Symbol language="English" value="End"/>
-          <Title language="English" value="End State"/>
-        </ActionOccurrence>
-        <ActionOccurrence uId="15690210208863597">
-          <Symbol language="English" value="Rule"/>
-          <Title language="English" value="Rule state"/>
+        <ActionOccurrence uId="15751516864250437">
+          <Symbol language="English" value="Cond"/>
+          <Title language="English" value="Condition state"/>
         </ActionOccurrence>
       </ActionOccurrences>
     </Action>
   </Actions>
-  <Rules lastId="21">
-    <Rule id="15">
+  <Rules lastId="72">
+    <Rule id="71">
       <ConditionOccurrenceLink link="15688743152241891"/>
-      <ActionLink link="11443124877466972"/>
-      <ActionOccurrenceLink link="15690210208863597"/>
-      <ActionLink link="15690978843668243"/>
-      <ActionLink link="15690979370178329"/>
-      <ActionLink link="15690979181528327"/>
-      <ActionLink link="15690980290298425"/>
-      <ActionLink link="15690998515808602"/>
-      <ActionLink link="15690936187637904"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ConditionLink link="15754904539056703" conditionState="true"/>
+      <ActionOccurrenceLink link="15754917094507122"/>
     </Rule>
-    <Rule id="21">
+    <Rule id="72">
+      <ConditionOccurrenceLink link="15688743152241891"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ConditionLink link="15754904539056703" conditionState="false"/>
+      <ActionOccurrenceLink link="15754916910367116"/>
+    </Rule>
+    <Rule id="36">
       <ConditionOccurrenceLink link="15690209963653472"/>
-      <ActionOccurrenceLink link="15690210208863597"/>
-      <ConditionLink link="15691021063388698" conditionState="true"/>
-      <ActionLink link="15691021482418707"/>
-      <ConditionLink link="15691068175707031" conditionState="true"/>
-      <ConditionLink link="15691067449956931" conditionState="true"/>
-      <ActionLink link="15691069537967054"/>
-      <ActionLink link="15691482372667311"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="true"/>
+      <ActionLink link="15751518246860546"/>
+      <ActionLink link="15751532623271556"/>
     </Rule>
-    <Rule id="19">
+    <Rule id="51">
       <ConditionOccurrenceLink link="15690209963653472"/>
-      <ActionOccurrenceLink link="15688746766522114"/>
-      <ConditionLink link="15691021063388698" conditionState="true"/>
-      <ActionLink link="15691021482418707"/>
-      <ConditionLink link="15691068175707031" conditionState="true"/>
-      <ConditionLink link="15691067449956931" conditionState="false"/>
-      <ActionLink link="15691068712907049"/>
-    </Rule>
-    <Rule id="20">
-      <ConditionOccurrenceLink link="15690209963653472"/>
-      <ActionOccurrenceLink link="15688746766522114"/>
-      <ConditionLink link="15691021063388698" conditionState="true"/>
-      <ActionLink link="15691021482418707"/>
-      <ConditionLink link="15691068175707031" conditionState="false"/>
-      <ActionLink link="15691068712907049"/>
-    </Rule>
-    <Rule id="17">
-      <ConditionOccurrenceLink link="15690209963653472"/>
-      <ActionOccurrenceLink link="15688746766522114"/>
-      <ConditionLink link="15691021063388698" conditionState="false"/>
-    </Rule>
-    <Rule id="11">
-      <ConditionOccurrenceLink link="15688743152261893"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="false"/>
+      <ActionLink link="15751518246860546"/>
+      <ActionLink link="15751518426400558"/>
       <ActionOccurrenceLink link="15688746764202107"/>
-      <ActionLink link="15688744787761927"/>
-      <ActionLink link="15690979181528327"/>
+    </Rule>
+    <Rule id="52">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="false"/>
+      <ConditionLink link="15751515360190061" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="true"/>
+      <ActionLink link="15751518304570550"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+    </Rule>
+    <Rule id="53">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="false"/>
+      <ConditionLink link="15751515360190061" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="false"/>
+      <ActionLink link="15751518304570550"/>
+      <ActionLink link="15751518426400558"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+    </Rule>
+    <Rule id="54">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="false"/>
+      <ConditionLink link="15751515360190061" conditionState="false"/>
+      <ConditionLink link="15751515411950065" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="true"/>
+      <ActionLink link="15751518369310554"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+    </Rule>
+    <Rule id="66">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="false"/>
+      <ConditionLink link="15751515360190061" conditionState="false"/>
+      <ConditionLink link="15751515411950065" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="false"/>
+      <ActionLink link="15751518369310554"/>
+      <ActionLink link="15751518426400558"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+      <ActionLink link="15751544357574048"/>
+      <ActionLink link="15691068712907049"/>
+    </Rule>
+    <Rule id="56">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="false"/>
+      <ConditionLink link="15751515360190061" conditionState="false"/>
+      <ConditionLink link="15751515411950065" conditionState="false"/>
+      <ConditionLink link="15751515467020069" conditionState="true"/>
+      <ActionLink link="15751518304570550"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+    </Rule>
+    <Rule id="67">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="true"/>
+      <ConditionLink link="15751515288830057" conditionState="false"/>
+      <ConditionLink link="15751515360190061" conditionState="false"/>
+      <ConditionLink link="15751515411950065" conditionState="false"/>
+      <ConditionLink link="15751515467020069" conditionState="false"/>
+      <ActionLink link="15751518304570550"/>
+      <ActionLink link="15751518426400558"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+      <ActionLink link="15751544357574048"/>
+    </Rule>
+    <Rule id="58">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ConditionLink link="15751514609240045" conditionState="false"/>
+      <ConditionLink link="15751514872270052" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="true"/>
+      <ActionLink link="15751518086190537"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+    </Rule>
+    <Rule id="59">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+      <ConditionLink link="15751514609240045" conditionState="false"/>
+      <ConditionLink link="15751514872270052" conditionState="true"/>
+      <ConditionLink link="15751515467020069" conditionState="false"/>
+      <ActionLink link="15751518086190537"/>
+      <ActionLink link="15751518426400558"/>
+      <ActionLink link="15691068712907049"/>
+      <ActionLink link="15751544357574048"/>
+    </Rule>
+    <Rule id="64">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ConditionLink link="15751514609240045" conditionState="false"/>
+      <ConditionLink link="15751514872270052" conditionState="false"/>
+      <ActionLink link="15751518185200542"/>
+      <ConditionLink link="15751515467020069" conditionState="true"/>
+      <ActionLink link="15751532623271556"/>
+    </Rule>
+    <Rule id="63">
+      <ConditionOccurrenceLink link="15690209963653472"/>
+      <ActionOccurrenceLink link="15688746764202107"/>
+      <ConditionLink link="15751514609240045" conditionState="false"/>
+      <ConditionLink link="15751514872270052" conditionState="false"/>
+      <ConditionLink link="15751515467020069" conditionState="false"/>
+      <ActionLink link="15751518426400558"/>
+      <ActionLink link="15751518185200542"/>
     </Rule>
   </Rules>
   <Title language="English" value="generate a plantuml activtiy diagram for a given decisiontable"/>
   <UrlsOut>
     <Url title="Folder" url="file:///./"/>
   </UrlsOut>
-  <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="// $$Package=org.uniqueck.asciidoctorj.extension.decisiontable.lfet&lt;br/&gt;// $$InterfaceTraceAfterRule=true&lt;br/&gt;// $$InterfaceRuleGroups = true&lt;br/&gt;// $$InterfaceName=I$$dtname&lt;br/&gt;// $$InterfaceRulesClassname=$$dtnameRules"/>
+  <SourceCode codeLanguage="Java" sourceCodeType="Prolog" value="// $$Package=com.uniqueck.asciidoctorj.lfet.puml.activity&lt;br/&gt;// $$InterfaceTraceAfterRule=true&lt;br/&gt;// $$InterfaceRuleGroups = true&lt;br/&gt;// $$InterfaceName=I$$dtname&lt;br/&gt;// $$InterfaceRulesClassname=$$dtnameRules"/>
 </LFET>

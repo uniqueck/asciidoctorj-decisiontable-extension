@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.1.5 (171120a)" language="English" saveDate="2018.02.19 at 00:16:45 CET" saveUser="constantin">
+  <Conditions>
+    <Condition uId="11443124863866955">
+      <Title language="English" value="State"/>
+      <Text language="English" value="documentation for C01"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="1518044440864158">
+          <Symbol language="English" value="INIT"/>
+          <Title language="English" value="Init State"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="1518044440865160">
+          <Symbol language="English" value="CHECK"/>
+          <Title language="English" value="Check State"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="151899487706545">
+      <Title language="English" value="Useless Condition"/>
+      <Text language="English" value="documentation for C02"/>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="11443124863976962">
+      <Title language="English" value="Useless Action"/>
+      <Text language="English" value="documentation for A01"/>
+    </Action>
+    <Action uId="11443124877466972">
+      <Title language="English" value="State"/>
+      <Text language="English" value="documentation for A02"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="1518044470207309">
+          <Symbol language="English" value="EXIT"/>
+          <Title language="English" value="Exit State"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="1518044517087765">
+          <Symbol language="English" value="CHECK"/>
+          <Title language="English" value="Check State"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+  </Actions>
+  <Rules lastId="13">
+    <Rule id="10">
+      <ConditionOccurrenceLink link="1518044440864158"/>
+      <ActionOccurrenceLink link="1518044517087765"/>
+      <ConditionLink link="151899487706545" conditionState="true"/>
+    </Rule>
+    <Rule id="11">
+      <ConditionOccurrenceLink link="1518044440864158"/>
+      <ActionOccurrenceLink link="1518044517087765"/>
+      <ConditionLink link="151899487706545" conditionState="false"/>
+    </Rule>
+    <Rule id="12">
+      <ActionLink link="11443124863976962"/>
+      <ConditionOccurrenceLink link="1518044440865160"/>
+      <ActionOccurrenceLink link="1518044470207309"/>
+      <ConditionLink link="151899487706545" conditionState="true"/>
+    </Rule>
+    <Rule id="13">
+      <ActionLink link="11443124863976962"/>
+      <ConditionOccurrenceLink link="1518044440865160"/>
+      <ActionOccurrenceLink link="1518044470207309"/>
+      <ConditionLink link="151899487706545" conditionState="false"/>
+    </Rule>
+  </Rules>
+  <Title language="English" value="A Statemachine, only for testing purpose"/>
+  <UrlsOut>
+    <Url title="Folder" url="file:///./"/>
+  </UrlsOut>
+  <Text language="English" value="a long documentation"/>
+</LFET>

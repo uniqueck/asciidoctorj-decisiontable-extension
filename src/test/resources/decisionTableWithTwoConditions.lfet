@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.12.03 at 00:47:11 CET" saveUser="constantin">
+  <Conditions>
+    <Condition uId="11443124863866955">
+      <Title language="English" value="Condition1"/>
+    </Condition>
+    <Condition uId="15705305202684788">
+      <Title language="English" value="Condition2"/>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="11443124863976962">
+      <Title language="English" value="Action1"/>
+    </Action>
+    <Action uId="11443124877466972">
+      <Title language="English" value="Action2"/>
+    </Action>
+  </Actions>
+  <Rules lastId="12">
+    <Rule id="3">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ActionLink link="11443124863976962"/>
+    </Rule>
+    <Rule id="11">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+      <ConditionLink link="15705305202684788" conditionState="true"/>
+    </Rule>
+    <Rule id="12">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+      <ConditionLink link="15705305202684788" conditionState="false"/>
+      <ActionLink link="11443124863976962"/>
+    </Rule>
+  </Rules>
+  <Title language="English" value="decisionTableWithTwoConditions"/>
+  <UrlsOut>
+    <Url title="Folder" url="file:///./"/>
+  </UrlsOut>
+</LFET>

@@ -1,0 +1,13 @@
+[plantuml, smallestDecisionTableWithActionOcc.lfet]
+----
+title smallestDecisionTableWithActionOcc
+
+start
+if (Condition1) then (yes)
+-Action1\nA
+-Action2\nC
+else (no)
+-Action2\nB
+endif
+stop
+----
