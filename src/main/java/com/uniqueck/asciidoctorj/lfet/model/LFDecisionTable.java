@@ -1,5 +1,6 @@
 package com.uniqueck.asciidoctorj.lfet.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.uniqueck.asciidoctorj.lfet.puml.activity.Language;
@@ -177,4 +178,13 @@ public class LFDecisionTable {
 	public List<Snapshot> getSnapshots() {
 		return snapshots;
 	}
+
+	public List<IActionEntryLink> getSortedListOfActionLinksBasedOnActions(List<IActionEntryLink> actionEntryLinks) {
+		List<IActionEntryLink> tempLinks = new ArrayList<>();
+		getActions().stream().forEach(action -> {
+			actionEntryLinks.stream().filter(a -> a.getAction().equals(action)).findFirst().ifPresent(tempLinks::add);
+		});
+		return tempLinks;
+	}
+
 }

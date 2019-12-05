@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class RuleTest extends AbstractLfdtTest<Rule>{
-	private Rule createUnderTest(String id, Text text, List<AbstractLink<?>> conditionLinks, List<AbstractLink<?>> actionLinks) {
+	private Rule createUnderTest(String id, Text text, List<IConditionEntryLink> conditionLinks, List<IActionEntryLink> actionLinks) {
 		return new Rule(id, text, conditionLinks, actionLinks);
 	}
 
@@ -30,8 +30,8 @@ public class RuleTest extends AbstractLfdtTest<Rule>{
 	public void testRule() throws Exception {
 		String id = "10";
 		Text text = new Text("English", "docuText");
-		List<AbstractLink<?>> conditionLinks = new ArrayList<AbstractLink<?>>();
-		List<AbstractLink<?>> actionLinks = new ArrayList<AbstractLink<?>>();
+		List<IConditionEntryLink> conditionLinks = new ArrayList<>();
+		List<IActionEntryLink> actionLinks = new ArrayList<>();
 
 		Rule rule = createUnderTest(id, text, conditionLinks, actionLinks);
 
@@ -54,7 +54,7 @@ public class RuleTest extends AbstractLfdtTest<Rule>{
 		
 		Text text = new Text("English", "docuText");
 
-		List<AbstractLink<?>> conditionLinks = new ArrayList<AbstractLink<?>>();
+		List<IConditionEntryLink> conditionLinks = new ArrayList<>();
 		ConditionLink conditionLink = new ConditionLink();
 		conditionLink.setLinkedModel(condition);
 		conditionLink.setLink(condition.getUId());
@@ -67,7 +67,7 @@ public class RuleTest extends AbstractLfdtTest<Rule>{
 
 		conditionLinks.add(conditionOccurrenceLink);
 
-		List<AbstractLink<?>> actionLinks = new ArrayList<AbstractLink<?>>();
+		List<IActionEntryLink> actionLinks = new ArrayList<>();
 		ActionLink actionLink = new ActionLink();
 		actionLink.setLinkedModel(action);
 		actionLink.setLink(action.getUId());

@@ -4,7 +4,7 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 @Root(strict = false)
-public class ConditionLink extends AbstractLink<Condition> {	
+public class ConditionLink extends AbstractLink<Condition> implements IConditionEntryLink {
 	@Attribute(name = "conditionState")
 	private boolean conditionState;
 
@@ -21,4 +21,12 @@ public class ConditionLink extends AbstractLink<Condition> {
 	public boolean isOccurencesLink() {
 		return false;
 	}
+
+	@Override
+	public Condition getCondition() {
+		return getLinkedModel();
+	}
+
+
+
 }

@@ -48,4 +48,14 @@ public class ConditionOccurrence extends AbstractOccurrence {
 	public void commit(Map<String, Object> session) {
 		session.put(getUId(), this);
 	}
+
+	public boolean isFirstOccurrence() {
+		int indexOffCurrentConditionOcc = getCondition().getOccurrences().indexOf(this);
+		return indexOffCurrentConditionOcc == 0;
+	}
+
+	public boolean isLastOccurrence() {
+		int indexOffCurrentConditionOcc = getCondition().getOccurrences().indexOf(this);
+		return indexOffCurrentConditionOcc == getCondition().getOccurrences().size() - 1;
+	}
 }

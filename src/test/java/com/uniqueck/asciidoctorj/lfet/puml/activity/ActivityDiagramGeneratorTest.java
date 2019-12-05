@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ActivityDiagramGeneratorTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"smallestDecisionTable.lfet", "smallestDecisionTable_German.lfet", "smallestDecisionTableWithActionOcc.lfet", "smallestDecisionTableWithConditionOcc.lfet"})
+    @ValueSource(strings = {"decisionTableWithTwoConditions.lfet","smallestDecisionTable.lfet", "smallestDecisionTable_German.lfet", "smallestDecisionTableWithActionOcc.lfet", "smallestDecisionTableWithConditionOcc.lfet"})
     void testGenerate(String lfetFileName) throws Exception {
         List<String> generate = new ActivityDiagramGenerator().generate(new File("src/test/resources/" +  lfetFileName));
         String expectedPlantumlContent = FileUtils.readFileToString(new File("src/test/resources/" + lfetFileName + ".activity.puml.adoc"), Charset.defaultCharset());

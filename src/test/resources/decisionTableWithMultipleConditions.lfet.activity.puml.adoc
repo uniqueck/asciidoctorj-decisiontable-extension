@@ -1,0 +1,21 @@
+[plantuml, traffic_light_state_machine.lfet]
+----
+title state machine: traffic light
+
+start
+if (traffic light shows yellow) then (true)
+if (traffic light shows red) then (true)
+-new state: shows green
+else (false)
+-new state: shows red
+endif
+else (false)
+if (traffic light shows red) then (true)
+-new state: shows yellow
+-new state: shows red
+else (false)
+-new state: shows yellow
+endif
+endif
+stop
+----

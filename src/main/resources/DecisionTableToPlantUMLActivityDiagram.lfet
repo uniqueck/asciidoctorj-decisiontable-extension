@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.12.01 at 00:25:19 CET" saveUser="constantin">
+<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.12.04 at 21:36:17 CET" saveUser="constantin">
   <Conditions>
     <Condition uId="15688742557431853">
       <Title language="English" value="Step"/>
@@ -14,6 +14,9 @@
           <Title language="English" value="Condition state"/>
         </ConditionOccurrence>
       </ConditionOccurrences>
+    </Condition>
+    <Condition uId="15754904539056703">
+      <Title language="English" value="condition is already set"/>
     </Condition>
     <Condition uId="15751514609240045">
       <Title language="English" value="condition type is occurence table"/>
@@ -36,7 +39,17 @@
   </Conditions>
   <Actions>
     <Action uId="15751543055813827">
-      <Title language="English" value="get first condition"/>
+      <Title language="English" value="set condition"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="15754916910367116">
+          <Symbol language="English" value="FCR"/>
+          <Title language="English" value="first condition of rule"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="15754917094507122">
+          <Symbol language="English" value="CCE"/>
+          <Title language="English" value="current condition entry"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
     </Action>
     <Action uId="15751518086190537">
       <Title language="English" value="if with condition title and label yes"/>
@@ -82,11 +95,18 @@
       </ActionOccurrences>
     </Action>
   </Actions>
-  <Rules lastId="67">
-    <Rule id="50">
+  <Rules lastId="72">
+    <Rule id="71">
       <ConditionOccurrenceLink link="15688743152241891"/>
       <ActionOccurrenceLink link="15751516864250437"/>
-      <ActionLink link="15751543055813827"/>
+      <ConditionLink link="15754904539056703" conditionState="true"/>
+      <ActionOccurrenceLink link="15754917094507122"/>
+    </Rule>
+    <Rule id="72">
+      <ConditionOccurrenceLink link="15688743152241891"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ConditionLink link="15754904539056703" conditionState="false"/>
+      <ActionOccurrenceLink link="15754916910367116"/>
     </Rule>
     <Rule id="36">
       <ConditionOccurrenceLink link="15690209963653472"/>
@@ -203,9 +223,9 @@
       <ActionOccurrenceLink link="15688746764202107"/>
       <ConditionLink link="15751514609240045" conditionState="false"/>
       <ConditionLink link="15751514872270052" conditionState="false"/>
-      <ActionLink link="15751518185200542"/>
       <ConditionLink link="15751515467020069" conditionState="false"/>
       <ActionLink link="15751518426400558"/>
+      <ActionLink link="15751518185200542"/>
     </Rule>
   </Rules>
   <Title language="English" value="generate a plantuml activtiy diagram for a given decisiontable"/>

@@ -35,7 +35,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
     @Setter(AccessLevel.PACKAGE)
     private Rule currentRule;
     @Setter(AccessLevel.PACKAGE)
-    private AbstractLink<?> currentCondition;
+    private IConditionEntryLink currentCondition;
     private Language laguage;
     private LFDecisionTable lfDecisionTable;
 
@@ -55,16 +55,17 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
         content.add(String.format(PLANTUML_TITLE, tempDecisionTable.getTitle(language).getValue()));
         content.add("");
         content.add(PLANTUML_START);
-        content.addAll(generate(tempDecisionTable, language, tempDecisionTable.getRules().get(0)));
+        content.addAll(generate(tempDecisionTable, language, tempDecisionTable.getRules().get(0), null));
         content.add(PLANTUML_STOP);
         content.add(PLANTUML_4TIMES_HYPHEN);
         return content;
     }
 
-    List<String> generate(LFDecisionTable lfDecisionTable, Language language, Rule currentRule) {
+    List<String> generate(LFDecisionTable lfDecisionTable, Language language, Rule currentRule, IConditionEntryLink currentCondition) {
         this.lfDecisionTable = lfDecisionTable;
         this.laguage = language;
         setCurrentRule(currentRule);
+        setCurrentCondition(currentCondition);
         this.plantUmlContent = new ArrayList<>();
         new DecisionTableToPlantUMLActivityDiagramRules().execute(this);
         return plantUmlContent;
@@ -82,21 +83,17 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public boolean isCurrentOccEntryIs() {
-        return ((ConditionOccurrence)getCurrentCondition().getLinkedModel()).getSymbol().getValue().equals("*");
+        return ((IConditionOccurrenceLink)getCurrentCondition()).getSymbol().equals("*");
     }
 
     @Override
     public boolean isCurrentOccEntryIsLast() {
-        ConditionOccurrence conOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
-        int indexOffCurrentConditionOcc = conOcc.getCondition().getOccurrences().indexOf(conOcc);
-        return indexOffCurrentConditionOcc == conOcc.getCondition().getOccurrences().size() - 1;
+        return ((IConditionOccurrenceLink)getCurrentCondition()).isLastOccurrence();
     }
 
     @Override
     public boolean isCurrentOccEntryIsFirst() {
-        ConditionOccurrence conOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
-        int indexOffCurrentConditionOcc = conOcc.getCondition().getOccurrences().indexOf(conOcc);
-        return indexOffCurrentConditionOcc == 0;
+        return ((IConditionOccurrenceLink)getCurrentCondition()).isFirstOccurrence();
     }
 
     @Override
@@ -114,13 +111,8 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
 
     @Override
-    public void doGetFirstCondition() {
-        setCurrentCondition(getCurrentRule().getConditionLinks().get(0));
-    }
-
-    @Override
     public void doIfWithConditionTitleAndLabelYes() {
-        Condition condition = (Condition) getCurrentCondition().getLinkedModel();
+        Condition condition = getCurrentCondition().getCondition();
         addPlantUmlContent(PLANTUML_IF_CONDITION_TITLE, getConditionTitle(condition), getActivityLabelTrue());
     }
 
@@ -136,28 +128,26 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
 
     @Override
     public void doElseIfConditionTitleWithOccEntryAndLabelYes() {
-        ConditionOccurrence conditionOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
-        Condition condition = conditionOcc.getCondition();
-        addPlantUmlContent(PLANTUML_ELSEIF_CONDITION_OCC_TITLE, getConditionTitle(condition), getConditionOccSymbol(conditionOcc), getActivityLabelTrue());
+        Condition condition = getCurrentCondition().getCondition();
+        addPlantUmlContent(PLANTUML_ELSEIF_CONDITION_OCC_TITLE, getConditionTitle(condition), ((IConditionOccurrenceLink)getCurrentCondition()).getSymbol(), getActivityLabelTrue());
     }
 
     @Override
     public void doIfConditionTitleWithOccEntryAndLabelYes() {
-        ConditionOccurrence conditionOcc = (ConditionOccurrence) getCurrentCondition().getLinkedModel();
-        Condition condition = conditionOcc.getCondition();
-        addPlantUmlContent(PLANTUML_IF_CONDITION_OCC_TITLE, getConditionTitle(condition), getConditionOccSymbol(conditionOcc), getActivityLabelTrue());
+        Condition condition = getCurrentCondition().getCondition();
+        addPlantUmlContent(PLANTUML_IF_CONDITION_OCC_TITLE, getConditionTitle(condition), ((IConditionOccurrenceLink)getCurrentCondition()).getSymbol(), getActivityLabelTrue());
     }
 
     @Override
     public void doAddListOfActions() {
-        List<AbstractLink<?>> actionLinks = getCurrentRule().getActionLinks();
-        for (AbstractLink<?> actionLink : actionLinks) {
+        List<IActionEntryLink> actionLinks = getLfDecisionTable().getSortedListOfActionLinksBasedOnActions(getCurrentRule().getActionLinks());
+        for (IActionEntryLink actionLink : actionLinks) {
             if (actionLink.isOccurencesLink()) {
-                String actionOccTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getSymbol().getValue();
-                String actionTitle = ((ActionOccurrence)actionLink.getLinkedModel()).getAction().getTitle(getLaguage()).getValue();
+                String actionOccTitle = ((ActionOccurrenceLink)actionLink).getSymbol();
+                String actionTitle = actionLink.getAction().getTitle(getLaguage()).getValue();
                 addPlantUmlContent(PLANTUML_ACTION_OCC, actionTitle, actionOccTitle);
             } else {
-                String actionTitle = ((Action)actionLink.getLinkedModel()).getTitle(getLaguage()).getValue();
+                String actionTitle = actionLink.getAction().getTitle(getLaguage()).getValue();
                 addPlantUmlContent(PLANTUML_ACTION, actionTitle);
             }
 
@@ -172,7 +162,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
     @Override
     public void doNextRule() {
         int indexOf = getLfDecisionTable().getRules().indexOf(getCurrentRule());
-        getPlantUmlContent().addAll(new ActivityDiagramGenerator().generate(getLfDecisionTable(), getLaguage(), getLfDecisionTable().getRules().get(indexOf + 1)));
+        getPlantUmlContent().addAll(new ActivityDiagramGenerator().generate(getLfDecisionTable(), getLaguage(), getLfDecisionTable().getRules().get(indexOf + 1), getCurrentCondition()));
     }
 
     private void addPlantUmlContent(String formatString, String... args) {
@@ -183,11 +173,22 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
         return condition.getTitle(getLaguage()).getValue();
     }
 
-    private String getConditionOccSymbol(ConditionOccurrence conditionOccurrence) {
-        return conditionOccurrence.getSymbol().getValue();
-    }
-
     private String getActivityLabelTrue() {
         return getLaguage().getActvityLabelTrue();
+    }
+
+    @Override
+    public boolean isConditionIsAlreadySet() {
+        return getCurrentCondition() != null;
+    }
+
+    @Override
+    public void doSetCondition_FCR() {
+        setCurrentCondition(getCurrentRule().getConditionLinks().get(0));
+    }
+
+    @Override
+    public void doSetCondition_CCE() {
+        setCurrentCondition(getCurrentRule().getConditionLinkBasedOnCondition(getCurrentCondition().getCondition()));
     }
 }

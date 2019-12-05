@@ -18,7 +18,7 @@ public class Rule {
 					@ElementList(entry = "ConditionOccurrenceLink", inline = true, required = false, type = ConditionOccurrenceLink.class)
 			}
 	)
-	private List<AbstractLink<?>> conditionLinks;
+	private List<IConditionEntryLink> conditionLinks;
 
 	@ElementListUnion(
 			{
@@ -26,7 +26,7 @@ public class Rule {
 					@ElementList(entry = "ActionOccurrenceLink", inline = true, required = false, type = ActionOccurrenceLink.class)
 			}
 	)
-	private List<AbstractLink<?>> actionLinks;
+	private List<IActionEntryLink> actionLinks;
 
 
 	public Rule(
@@ -42,7 +42,7 @@ public class Rule {
 							@ElementList(entry = "ConditionOccurrenceLink", inline = true, required = false, type = ConditionOccurrenceLink.class)
 					}
 			)
-			List<AbstractLink<?>> conditionLinks,
+			List<IConditionEntryLink> conditionLinks,
 
 			@ElementListUnion(
 					{
@@ -50,7 +50,7 @@ public class Rule {
 							@ElementList(entry = "ActionOccurrenceLink", inline = true, required = false, type = ActionOccurrenceLink.class)
 					}
 			)
-			List<AbstractLink<?>> actionLinks
+			List<IActionEntryLink> actionLinks
 
 
 		) {
@@ -69,13 +69,18 @@ public class Rule {
 	}
 
 	@SuppressWarnings("squid:S1452")
-	public List<AbstractLink<?>> getConditionLinks() {
+	public List<IConditionEntryLink> getConditionLinks() {
 		return conditionLinks;
 	}
 
 	@SuppressWarnings("squid:S1452")
-	public List<AbstractLink<?>> getActionLinks() {
+	public List<IActionEntryLink> getActionLinks() {
 		return actionLinks;
+	}
+
+	public IConditionEntryLink getConditionLinkBasedOnCondition(Condition condition) {
+		return getConditionLinks().stream().filter(cl -> cl.getCondition().equals(condition)).findFirst().orElse(null);
+
 	}
 	
 }

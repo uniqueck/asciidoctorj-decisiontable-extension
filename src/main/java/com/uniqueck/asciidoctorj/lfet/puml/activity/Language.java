@@ -8,7 +8,6 @@ import java.util.Arrays;
 public enum Language {
     GERMAN("J", "N", "B", "Ja", "Nein"), ENGLISH("Y", "N", "C", "yes", "no");
 
-
     private final String labelTrue;
     private final String labelFalse;
     private String labelCondition;
