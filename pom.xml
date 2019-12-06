@@ -136,6 +136,10 @@
                     <groupId>org.pitest</groupId>
                     <artifactId>pitest-maven</artifactId>
                     <version>1.4.10</version>
+                    <configuration>
+                        <reportsDirectory>${project.build.directory}/pit-reports</reportsDirectory>
+                        <timestampedReports>false</timestampedReports>
+                    </configuration>
                     <dependencies>
                         <dependency>
                             <groupId>org.pitest</groupId>
@@ -206,6 +210,58 @@
 
         </plugins>
     </build>
+
+
+    <profiles>
+        <profile>
+            <id>arc42</id>
+            <properties>
+                <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+            </properties>
+            <build>
+                <defaultGoal>generate-resources</defaultGoal>
+                <plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>2.0.0-RC.1</version>
+                        <configuration>
+                            <sourceDirectory>${project.basedir}/src/docs</sourceDirectory>
+                            <sourceDocumentName>arc42-asciidoctorj-decisiontable-extension.adoc</sourceDocumentName>
+                            <backend>html5</backend>
+                            <attributes>
+                                <toc>left</toc>
+                                <sectanchors />
+                                <sectlinks />
+                                <doc-revision-version>V${project.version}</doc-revision-version>
+                                <doc-revision-date>${maven.build.timestamp}</doc-revision-date>
+                                <version-label/>
+                            </attributes>
+                            <requires>
+                                <require>asciidoctor-diagram</require>
+                            </requires>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>default</id>
+                                <phase>generate-resources</phase>
+                                <goals><goal>process-asciidoc</goal></goals>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.asciidoctor</groupId>
+                                <artifactId>asciidoctorj-diagram</artifactId>
+                                <version>1.5.18</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+
+            </build>
+        </profile>
+
+    </profiles>
 
 
 </project>

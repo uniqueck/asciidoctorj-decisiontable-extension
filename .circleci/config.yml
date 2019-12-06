@@ -5,9 +5,6 @@ jobs:
       - image: circleci/openjdk:11-jdk
     steps:
       - checkout
-      - run:
-          name: Install Graphiz
-          command: sudo apt-get install graphviz
       - run: |
           if [[ "$CIRCLE_TAG" != "" ]]; then
             VERSION="$(echo "$CIRCLE_TAG" | grep -Po '(?<=v).*')"
@@ -30,10 +27,32 @@ jobs:
           name: PITTest
           command: mvn -B org.pitest:pitest-maven:mutationCoverage
       - store_artifacts:
-          path: ~/target/pit-reports/**/*.*
+          path: ~/target/pit-reports/
       - run:
           name: Analyze on SonarCloud
           command: mvn -B verify sonar:sonar
+  build-docs:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    steps:
+      - checkout
+      - run:
+          name: Install Graphiz
+          command: sudo apt-get install graphviz
+      - run: |
+          if [[ "$CIRCLE_TAG" != "" ]]; then
+            VERSION="$(echo "$CIRCLE_TAG" | grep -Po '(?<=v).*')"
+            mvn versions:set -DnewVersion=${VERSION} versions:commit
+          fi
+      - run:
+          name: Build Arc42
+          command: mvn -Parc42
+      - store_artifacts:
+          path: ~/target/generated-docs/
+      - persist_to_workspace:
+            root: target
+            paths:
+              - generated-docs
   release:
     docker:
       - image: circleci/openjdk:11-jdk
@@ -48,7 +67,7 @@ jobs:
             mvn versions:set -DnewVersion=${VERSION} versions:commit
           fi
       - run:
-          name: Build and Test
+          name: Build and Deploy
           command: mvn -s .circleci/settings.xml -B deploy -DskipTests
   docs-deploy:
     docker:
@@ -58,14 +77,8 @@ jobs:
       - attach_workspace:
           at: ./target
       - run:
-          name: "show content of directory"
-          command: ls target/generated-docs
-      - run:
           name: "Disable jekyll builds"
           command: touch target/generated-docs/.nojekyll
-      - run:
-          name: "show content of directory"
-          command: ls target/generated-docs
       - run:
           name: "Install and configure dependencies"
           command: |
@@ -87,9 +100,23 @@ workflows:
           filters:
             tags:
               only: /.*/
+      - build-docs:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /.*/
+      - deploy-docs:
+          requires:
+            - build-docs
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
       - release:
             requires:
-              - build
+              - deploy-docs
             filters:
               tags:
                 only: /^v.*/
