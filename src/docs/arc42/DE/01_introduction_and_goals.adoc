@@ -1,0 +1,23 @@
+[[section-introduction-and-goals]]
+==	Einführung und Ziele
+
+
+
+=== Aufgabenstellung
+
+Die AsciiDoctor DecisionTable Extension ist für die Darstellung von beliebigen Entscheidungstabellen als AsciiDoc Tabelle oder Aktivitätsdiagram.
+
+=== Qualitätsziele
+
+
+
+=== Stakeholder
+
+
+
+[cols="1,1,2" options="header"]
+|===
+|Rolle |Kontakt |Erwartungshaltung
+| _<Rolle-1>_ | _<Kontakt-1>_ | _<Erwartung-1>_
+| _<Rolle-2>_ | _<Kontakt-2>_ | _<Erwartung-2>_ 
+|===
