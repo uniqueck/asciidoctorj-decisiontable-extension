@@ -37,7 +37,7 @@ The extension is available in https://bintray.com/bintray/jcenter[JCenter]. To u
 		<dependency> <!--1-->
 			<groupId>com.uniqueck</groupId>
 			<artifactId>asciidoctorj-decisiontable-extension</artifactId>
-			<version>1.0-SNAPSHOT</version> <!--2-->
+			<version>LATEST</version> <!--2-->
 		</dependency>
 	</dependencies>
 </plugin>
