@@ -49,8 +49,16 @@ class LFETBlockMacroProcessorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"smallestDecisionTable.lfet", "smallestDecisionTable_German.lfet", "smallestDecisionTableWithActionOcc.lfet", "smallestDecisionTableWithConditionOcc.lfet", "decisionTableWithMultipleConditions.lfet"})
-    void process(String lfetFileName) {
+    void process_Table(String lfetFileName) {
         String content = convert("lfet::" + lfetFileName + "[style=table]");
+        assertNotNull(content);
+        assertFalse(content.trim().isEmpty());
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"smallestDecisionTable.lfet", "smallestDecisionTable_German.lfet", "smallestDecisionTableWithActionOcc.lfet", "smallestDecisionTableWithConditionOcc.lfet", "decisionTableWithMultipleConditions.lfet"})
+    void process_ActivityDiagram(String lfetFileName) {
+        String content = convert("lfet::" + lfetFileName + "[style=activity_diagram]");
         assertNotNull(content);
         assertFalse(content.trim().isEmpty());
     }
