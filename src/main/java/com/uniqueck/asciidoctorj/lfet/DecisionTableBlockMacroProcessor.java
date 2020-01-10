@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Name("lfet")
-public class LFETBlockMacroProcessor extends BlockMacroProcessor {
+@Name("dt")
+public class DecisionTableBlockMacroProcessor extends BlockMacroProcessor {
 
     enum Style {
         UNKNOWN, TABLE, ACTIVITY_DIAGRAM;
