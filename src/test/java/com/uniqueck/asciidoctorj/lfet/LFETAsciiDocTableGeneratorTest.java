@@ -1,5 +1,7 @@
 package com.uniqueck.asciidoctorj.lfet;
 
+import com.uniqueck.asciidoctorj.exceptions.AsciiDoctorDecisionTableRuntimeException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -12,6 +14,13 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LFETAsciiDocTableGeneratorTest {
+
+    @Test
+    void readCorruptedXMLFile() {
+        AsciiDoctorDecisionTableRuntimeException exception = assertThrows(AsciiDoctorDecisionTableRuntimeException.class, () ->
+                new LFETAsciiDocTableGenerator(new File("src/test/resources/corrupted.lfet")));
+        assertEquals("Error on reading decision table file 'src/test/resources/corrupted.lfet'", exception.getMessage());
+    }
 
     @ParameterizedTest(name = "LFET: {0} - ConditionLabel: {1} - TrueLabel {2}")
     @CsvSource({"smallestDecisionTable, C, Y", "smallestDecisionTable_German, B, J"})

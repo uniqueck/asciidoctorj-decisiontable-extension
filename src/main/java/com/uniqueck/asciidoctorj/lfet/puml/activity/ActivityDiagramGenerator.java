@@ -47,7 +47,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
         try {
             tempDecisionTable = new Persister().read(LFDecisionTable.class, decisionTableFile);
         } catch (Exception e) {
-            throw new AsciiDoctorDecisionTableRuntimeException("Fehler beim Lesen der XML der LFET", e);
+            throw new AsciiDoctorDecisionTableRuntimeException("Error on reading decision table file '"+ decisionTableFile.getPath()+"'", e);
         }
         Language language = Language.getEnum(tempDecisionTable.getLanguage());
         List<String> content = new ArrayList<>();

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+  <Conditions>
+    <Condition uId="11443124863866955">
+      <Title language="English" value="traffic light shows yellow"/>
+    </Condition>
+    <Condition uId="15499263113403540">
+      <Title language="English" value="traffic light shows red"/>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="11443124863976962">
+      <Title language="English" value="new state: shows green"/>
+    </Action>
+    <Action uId="11443124877466972">
+      <Title language="English" value="new state: shows yellow"/>
+    </Action>
+    <Action uId="15499261214393509">
+      <Title language="English" value="new state: shows red"/>
+    </Action>
+  </Actions>
+  <Rules lastId="6">
+    <Rule id="3">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15499263113403540" conditionState="true"/>
+      <ActionLink link="11443124863976962"/>
+    </Rule>
+    <Rule id="4">
+      <ConditionLink link="11443124863866955" conditionState="true"/>
+      <ConditionLink link="15499263113403540" conditionState="false"/>
+      <ActionLink link="15499261214393509"/>
+    </Rule>
+    <Rule id="5">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ConditionLink link="15499263113403540" conditionState="true"/>
+      <ActionLink link="11443124877466972"/>
+      <ActionLink link="15499261214393509"/>
+    </Rule>
+    <Rule id="6">
+      <ConditionLink link="11443124863866955" conditionState="false"/>
+      <ConditionLink link="15499263113403540" conditionState="false"/>
+      <ActionLink link="11443124877466972"/>
+    </Rule>
+  </Rules>
+  <Title language="English" value="state machine: traffic light"/>
+  <UrlsOut>
+    <Url title="Folder" url="file:///./"/>
+  </UrlsOut>
+</LFET>
