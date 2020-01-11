@@ -99,7 +99,7 @@ public class LFETAsciiDocTableGenerator {
             List<String> conOccLinks = rule.getChildren("ConditionOccurrenceLink").stream().map(col -> col.getAttributeValue("link")).collect(Collectors.toList());
             Optional<Element> conditionOcc = conditionOccurrence.stream().filter(conOcc -> conOccLinks.contains(conOcc.getAttributeValue("uId"))).findFirst();
             if (conditionOcc.isPresent()) {
-                return conditionOcc.get().getChild("Symbol").getAttributeValue("value");
+                return conditionOcc.get().getChild("Symbol").getAttributeValue(ATTR_VALUE);
             }
         } else {
             Optional<Element> conditionLink = rule.getChildren("ConditionLink").stream().filter(cl -> cl.getAttributeValue("link").equalsIgnoreCase(condition.getAttributeValue("uId"))).findFirst();
@@ -117,7 +117,7 @@ public class LFETAsciiDocTableGenerator {
             List<String> actOccLinks = rule.getChildren("ActionOccurrenceLink").stream().map(acl -> acl.getAttributeValue("link")).collect(Collectors.toList());
             Optional<Element> actionOcc = actionOccurrence.stream().filter(actOcc -> actOccLinks.contains(actOcc.getAttributeValue("uId"))).findFirst();
             if (actionOcc.isPresent()) {
-                return actionOcc.get().getChild("Symbol").getAttributeValue("value");
+                return actionOcc.get().getChild("Symbol").getAttributeValue(ATTR_VALUE);
             }
         } else {
             Optional<Element> actionLink = rule.getChildren("ActionLink").stream().filter(act -> act.getAttributeValue("link").equalsIgnoreCase(action.getAttributeValue("uId"))).findFirst();
@@ -148,7 +148,7 @@ public class LFETAsciiDocTableGenerator {
     }
 
     private String getTitle() {
-        return getRootElement().getChild("Title").getAttributeValue("value");
+        return getRootElement().getChild(ELEMENT_TITLE).getAttributeValue(ATTR_VALUE);
     }
 
     private Element getRootElement() {
