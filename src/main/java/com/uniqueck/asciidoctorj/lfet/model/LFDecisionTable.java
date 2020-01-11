@@ -181,9 +181,7 @@ public class LFDecisionTable {
 
 	public List<IActionEntryLink> getSortedListOfActionLinksBasedOnActions(List<IActionEntryLink> actionEntryLinks) {
 		List<IActionEntryLink> tempLinks = new ArrayList<>();
-		getActions().stream().forEach(action -> {
-			actionEntryLinks.stream().filter(a -> a.getAction().equals(action)).findFirst().ifPresent(tempLinks::add);
-		});
+		getActions().forEach(action -> actionEntryLinks.stream().filter(a -> a.getAction().equals(action)).findFirst().ifPresent(tempLinks::add));
 		return tempLinks;
 	}
 
