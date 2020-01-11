@@ -1,5 +1,6 @@
 package com.uniqueck.asciidoctorj.lfet.puml.activity;
 
+import com.uniqueck.asciidoctorj.exceptions.AsciiDoctorDecisionTableRuntimeException;
 import com.uniqueck.asciidoctorj.lfet.model.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -46,7 +47,7 @@ class ActivityDiagramGenerator extends AbstractLFETTraceLogging implements IDeci
         try {
             tempDecisionTable = new Persister().read(LFDecisionTable.class, decisionTableFile);
         } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Lesen der XML der LFET", e);
+            throw new AsciiDoctorDecisionTableRuntimeException("Fehler beim Lesen der XML der LFET", e);
         }
         Language language = Language.getEnum(tempDecisionTable.getLanguage());
         List<String> content = new ArrayList<>();
