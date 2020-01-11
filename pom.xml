@@ -55,7 +55,7 @@
         <sonar.projectKey>uniqueck_asciidoctorj-decisiontable-extension</sonar.projectKey>
         <sonar.organization>uniqueck-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.exclusions>**/DecisionTableToPlantUMLActivityDiagramRules.java, **/IDecisionTableToPlantUMLActivityDiagram.java</sonar.exclusions>
+        <sonar.exclusions>**/DecisionTableToPlantUMLActivityDiagramRules.java, **/IDecisionTableToPlantUMLActivityDiagram.javamvn</sonar.exclusions>
 
     </properties>
 

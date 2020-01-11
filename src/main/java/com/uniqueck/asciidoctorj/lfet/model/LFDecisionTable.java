@@ -59,10 +59,6 @@ public class LFDecisionTable {
 	@ElementList(entry = "Snapshot", required = false, inline = true)	
 	private List<Snapshot> snapshots;
 	
-	public LFDecisionTable() {
-		this(null, null, null, null, null, null, null, null, null, null, null, null, null);
-	}
-
 	@SuppressWarnings("squid:S00107")
 	public LFDecisionTable(
 			@Attribute(name = "version") 
