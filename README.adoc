@@ -51,7 +51,7 @@ The extension is available in https://bintray.com/bintray/jcenter[JCenter]. To u
 === AsciiDoc source
 [source, asciidoc]
 ----
-lfet::src/test/resources/smallestDecisionTable.lfet[style=table]
+dt::src/test/resources/smallestDecisionTable.lfet[style=table]
 ----
 
 === AsciiDoc generated
