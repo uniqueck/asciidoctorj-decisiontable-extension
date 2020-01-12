@@ -235,6 +235,7 @@
                         <configuration>
                             <sourceDirectory>${project.basedir}/src/docs</sourceDirectory>
                             <sourceDocumentName>arc42-asciidoctorj-decisiontable-extension.adoc</sourceDocumentName>
+                            <outputFile>index.html</outputFile>
                             <backend>html5</backend>
                             <attributes>
                                 <toc>left</toc>

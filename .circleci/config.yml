@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Build and Deploy
           command: mvn -s .circleci/settings.xml -B deploy -DskipTests
-  docs-deploy:
+  deploy-docs:
     docker:
       - image: node:8.10.0
     steps:
@@ -83,11 +83,11 @@ jobs:
           name: "Install and configure dependencies"
           command: |
             npm install -g --silent gh-pages@2.0.1
-            git config user.email "ci-build@constantinidis.de"
+              git config user.email "ci-build@constantinidis.de"
             git config user.name "ci-build"
       - add_ssh_keys:
           fingerprints:
-            - "69:4c:df:d5:bf:e8:b0:fa:86:73:91:4b:a7:16:52:c7"
+            - "0f:55:f4:a4:3f:42:a3:c5:0d:5b:fc:7a:00:4f:fe:6f"
       - run:
           name: "Deploy docs to gh-pages branch"
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist target/generated-docs
