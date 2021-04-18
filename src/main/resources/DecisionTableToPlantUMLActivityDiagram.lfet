@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<LFET version="LF-ET 2.1.5 (190905b)" language="English" saveDate="2019.12.04 at 21:36:17 CET" saveUser="constantin">
+<LFET version="LF-ET 2.1.5 (200118a)" language="English" saveDate="2020.01.20 at 22:19:45 CET" saveUser="constantin">
   <Conditions>
     <Condition uId="15688742557431853">
       <Title language="English" value="Step"/>
@@ -95,7 +95,7 @@
       </ActionOccurrences>
     </Action>
   </Actions>
-  <Rules lastId="72">
+  <Rules lastId="76">
     <Rule id="71">
       <ConditionOccurrenceLink link="15688743152241891"/>
       <ActionOccurrenceLink link="15751516864250437"/>
@@ -126,14 +126,15 @@
       <ActionLink link="15751518426400558"/>
       <ActionOccurrenceLink link="15688746764202107"/>
     </Rule>
-    <Rule id="52">
+    <Rule id="74">
       <ConditionOccurrenceLink link="15690209963653472"/>
       <ConditionLink link="15751514609240045" conditionState="true"/>
       <ConditionLink link="15751515288830057" conditionState="false"/>
       <ConditionLink link="15751515360190061" conditionState="true"/>
       <ConditionLink link="15751515467020069" conditionState="true"/>
       <ActionLink link="15751518304570550"/>
-      <ActionOccurrenceLink link="15688746764202107"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ActionLink link="15751532623271556"/>
     </Rule>
     <Rule id="53">
       <ConditionOccurrenceLink link="15690209963653472"/>
@@ -145,7 +146,7 @@
       <ActionLink link="15751518426400558"/>
       <ActionOccurrenceLink link="15688746764202107"/>
     </Rule>
-    <Rule id="54">
+    <Rule id="73">
       <ConditionOccurrenceLink link="15690209963653472"/>
       <ConditionLink link="15751514609240045" conditionState="true"/>
       <ConditionLink link="15751515288830057" conditionState="false"/>
@@ -153,7 +154,8 @@
       <ConditionLink link="15751515411950065" conditionState="true"/>
       <ConditionLink link="15751515467020069" conditionState="true"/>
       <ActionLink link="15751518369310554"/>
-      <ActionOccurrenceLink link="15688746764202107"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ActionLink link="15751532623271556"/>
     </Rule>
     <Rule id="66">
       <ConditionOccurrenceLink link="15690209963653472"/>
@@ -168,7 +170,7 @@
       <ActionLink link="15751544357574048"/>
       <ActionLink link="15691068712907049"/>
     </Rule>
-    <Rule id="56">
+    <Rule id="75">
       <ConditionOccurrenceLink link="15690209963653472"/>
       <ConditionLink link="15751514609240045" conditionState="true"/>
       <ConditionLink link="15751515288830057" conditionState="false"/>
@@ -176,7 +178,8 @@
       <ConditionLink link="15751515411950065" conditionState="false"/>
       <ConditionLink link="15751515467020069" conditionState="true"/>
       <ActionLink link="15751518304570550"/>
-      <ActionOccurrenceLink link="15688746764202107"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ActionLink link="15751532623271556"/>
     </Rule>
     <Rule id="67">
       <ConditionOccurrenceLink link="15690209963653472"/>
@@ -190,13 +193,14 @@
       <ActionOccurrenceLink link="15688746764202107"/>
       <ActionLink link="15751544357574048"/>
     </Rule>
-    <Rule id="58">
+    <Rule id="76">
       <ConditionOccurrenceLink link="15690209963653472"/>
       <ConditionLink link="15751514609240045" conditionState="false"/>
       <ConditionLink link="15751514872270052" conditionState="true"/>
       <ConditionLink link="15751515467020069" conditionState="true"/>
       <ActionLink link="15751518086190537"/>
-      <ActionOccurrenceLink link="15688746764202107"/>
+      <ActionOccurrenceLink link="15751516864250437"/>
+      <ActionLink link="15751532623271556"/>
     </Rule>
     <Rule id="59">
       <ConditionOccurrenceLink link="15690209963653472"/>

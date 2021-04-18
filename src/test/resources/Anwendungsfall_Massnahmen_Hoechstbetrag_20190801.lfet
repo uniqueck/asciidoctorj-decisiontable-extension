@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LFET version="LF-ET 2.1.5 (181204b)" language="German" saveDate="2019.08.02 at 11:44:16 CEST" saveUser="PWeiß">
+  <Conditions>
+    <Condition uId="15428136879698644">
+      <Title language="German" value="Arbeitsschritt"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="15428137186738693">
+          <Symbol language="German" value="PruefungHoechstbetrag"/>
+          <Title language="German" value="Prüfe ggf. vorhandenen Höchstbetrag"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="15428137186758695">
+          <Symbol language="German" value="PruefungGesamtfoerderhoehe"/>
+          <Title language="German" value="Prüfe Förderhöchstbetrag 7200"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="15428183489035609">
+      <Title language="German" value="Ist der Höchstbetrag (HB) = 0 EUR oder NULL?"/>
+    </Condition>
+    <Condition uId="15428133295908640">
+      <Title language="German" value="Vergleich Höchstbetrag (HB) mit Zwischensumme (ZwS)"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="15638807592084237">
+          <Symbol language="German" value="HB &lt; ZwS"/>
+          <Title language="German" value="Höchstbetrag &lt; Zwischensumme"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="15638807592104239">
+          <Symbol language="German" value="HB = ZwS"/>
+          <Title language="German" value="Höchstbetrag = Zwischensumme"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="15638807918014246">
+          <Symbol language="German" value="HB &gt; ZwS"/>
+          <Title language="German" value="Höchstbetrag &gt; Zwischensumme"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+    </Condition>
+    <Condition uId="15644860379178053">
+      <Title language="German" value="Höchstbetrag (HB) mehr als 7 EUR (Toleranz) größer als Zwischensumme (ZwS)? k"/>
+      <ConditionOccurrences>
+        <ConditionOccurrence uId="15644865283498651">
+          <Symbol language="German" value="J"/>
+          <Title language="German" value="Ja"/>
+        </ConditionOccurrence>
+        <ConditionOccurrence uId="15644865283518653">
+          <Symbol language="German" value="N"/>
+          <Title language="German" value="Nein"/>
+        </ConditionOccurrence>
+      </ConditionOccurrences>
+      <Text language="German" value="Im Weiterbildungsstipendium gilt eine Kleinbetragsregelung (KBR), wonach Beträge von weniger als 3 EUR von der ZS nicht mehr ausgezahlt werden müssen und Beträge von weniger als 7 EUR nicht mehr vom Stipendiaten angefordert werden sollen.&lt;br/&gt;&lt;br/&gt;Sollte es zu einer Nachforderung oder Nachzahlung in der o. g. Größenordnung kommen, soll die Regulierung über das editierbare Feld Höchstbetrag erfolgen, zwei Beispiele:&lt;br/&gt;&lt;br/&gt;a) zu wenig ausbezahlt im Rahmen der KBR:&lt;br/&gt;Förderbetrag ist 1.000,00 EUR, ausgezahlt wurden aber letztendlich (nach mehrmaligen Änderungen im Laufe der Auszahlungsphase), nur 998,00 EUR. Statt eine nicht erforderliche Nachzahlung in Höhe von 2,00 EUR nun im Zahlungsplan zu erfassen, kann die ZS in diesem Fall den Höchstbetrag auf 998,00 EUR reduzieren. Ergebnis: Keine offenen Zahlungen mehr. &lt;br/&gt;&lt;br/&gt;b) zu viel ausbezahlt im Rahmen der KBR:&lt;br/&gt;Förderbetrag ist 1.000,00 EUR, ausgezahlt wurden aber letztendlich (nach mehrmaligen Änderungen im Laufe der Auszahlungsphase), 1.005,00 EUR. Statt eine nicht erforderliche Rückforderung in Höhe von 5,00 EUR nun im Zahlungsplan zu erfassen, kann die ZS in diesem Fall den Höchstbetrag auf 1.005,00 EUR setzen.&lt;br/&gt;&lt;br/&gt;Variante a) stellt grundsätzlich nie ein Problem dar - denn der Förderbetrag kann aus verschiedenen Gründen immer begrenzt bzw. kleiner als die ZwS gemacht werden über das Feld Höchstbetrag.&lt;br/&gt;&lt;br/&gt;Bei Variante b) muss man eine Prüfung einführen, sonst könnten SB den berechneten Förderbetrag einfach übersteuern und mehr auszahlen, als dem Stipendiaten zusteht. Diese Möglichkeit bzw. Abweichung ist also begrenzt auf 7,00 EUR. &lt;br/&gt;Mit Einschränkung: Immer im Rahmen der Gesamtförderhöchstgrenze von 7.200 EUR.&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;"/>
+    </Condition>
+    <Condition uId="15428143247048758">
+      <Title language="German" value="Förderbetrag (FB) + Summe(Förderbetrag andere Maßnahmen) &gt; Förderhöchstgrenze?"/>
+      <Text language="German" value="Prüfe, ob die Summe der Förderbeträge aller Maßnahmen inclusive dieser über 7.200 EUR liegt.&lt;br/&gt;"/>
+    </Condition>
+  </Conditions>
+  <Actions>
+    <Action uId="15638810175314337">
+      <Title language="German" value="Ermittele Förderhöchstgrenze des Stip k"/>
+      <Text language="German" value="Aktuell ist die Förderhöchstgrenze 7.200,- EUR&lt;br/&gt;Die neue Förderhöchstgrenze soll ab Januar 2020 8.100,- EUR betragen.&lt;br/&gt;&lt;br/&gt;Die Regeln, für welche Personen das gilt, liefern wir nach."/>
+    </Action>
+    <Action uId="11446800829627977">
+      <Title language="German" value="Setze Förderbetrag = ZwS"/>
+    </Action>
+    <Action uId="15595620197402705">
+      <Title language="German" value="lösche HB k"/>
+      <Text language="German" value="Ein Höchstbetrag kann nicht größer sein als der Förderbetrag.&lt;br/&gt;Sind Höchstbetrag und Förderbetrag identisch, wird der Höchstbetrag nicht benötigt."/>
+    </Action>
+    <Action uId="15638814363784595">
+      <Title language="German" value="Meldung zu Höchstbetrag"/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="15644922403000935">
+          <Symbol language="German" value="MeldungHB1"/>
+          <Title language="German" value="Der Höchstbetrag ist geringfügig größer als der Förderbetrag. Diese Anpassung ist nur zum Zwecke der Kleinbetragsregelung zulässig."/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="15638814563354727">
+          <Symbol language="German" value="MeldungHB2"/>
+          <Title language="German" value="Der Höchstbetrag kann nicht größer sein als der Förderbetrag.  Passen Sie bei Bedarf die Höhe der einzelnen förderfähigen Beträge an."/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+    <Action uId="15428798956915810">
+      <Title language="German" value="Setze HB = Förderhöchstgrenze - Summe(Förderbetrag andere Maßnahmen)"/>
+    </Action>
+    <Action uId="15428138696988734">
+      <Title language="German" value="Setze FB = HB"/>
+    </Action>
+    <Action uId="15428139268888738">
+      <Title language="German" value="Gehe zu Arbeitsschritt ..."/>
+      <ActionOccurrences>
+        <ActionOccurrence uId="15428140579578753">
+          <Symbol language="German" value="AutoHoe"/>
+          <Title language="German" value="Prüfe Förderhöchstbetrag7200"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="15428146605168838">
+          <Symbol language="German" value="Ende"/>
+          <Title language="German" value="Ende"/>
+        </ActionOccurrence>
+        <ActionOccurrence uId="15638806179704145">
+          <Symbol language="German" value="PruefungGesamtfoerderhoehe"/>
+          <Title language="German" value="Prüfe Förderhöchstbetrag 7200"/>
+        </ActionOccurrence>
+      </ActionOccurrences>
+    </Action>
+  </Actions>
+  <Rules lastId="33">
+    <Rule id="32">
+      <ConditionOccurrenceLink link="15428137186738693"/>
+      <ConditionLink link="15428183489035609" conditionState="true"/>
+      <ActionOccurrenceLink link="15638806179704145"/>
+      <ActionLink link="15638810175314337"/>
+    </Rule>
+    <Rule id="22">
+      <ConditionOccurrenceLink link="15428137186738693"/>
+      <ActionLink link="15428138696988734"/>
+      <ActionOccurrenceLink link="15638806179704145"/>
+      <ConditionLink link="15428183489035609" conditionState="false"/>
+      <ConditionOccurrenceLink link="15638807592084237"/>
+      <ActionLink link="15638810175314337"/>
+    </Rule>
+    <Rule id="23">
+      <ActionLink link="11446800829627977"/>
+      <ConditionOccurrenceLink link="15428137186738693"/>
+      <ActionOccurrenceLink link="15638806179704145"/>
+      <ConditionLink link="15428183489035609" conditionState="false"/>
+      <ActionLink link="15595620197402705"/>
+      <ConditionOccurrenceLink link="15638807592104239"/>
+      <ActionLink link="15638810175314337"/>
+    </Rule>
+    <Rule id="29">
+      <ConditionOccurrenceLink link="15428137186738693"/>
+      <ConditionLink link="15428183489035609" conditionState="false"/>
+      <ConditionOccurrenceLink link="15638807918014246"/>
+      <ActionLink link="15638810175314337"/>
+      <ActionOccurrenceLink link="15638806179704145"/>
+      <ActionOccurrenceLink link="15638814563354727"/>
+      <ActionLink link="15428138696988734"/>
+      <ConditionOccurrenceLink link="15644865283498651"/>
+    </Rule>
+    <Rule id="31">
+      <ConditionOccurrenceLink link="15428137186738693"/>
+      <ConditionLink link="15428183489035609" conditionState="false"/>
+      <ConditionOccurrenceLink link="15638807918014246"/>
+      <ActionLink link="11446800829627977"/>
+      <ActionLink link="15595620197402705"/>
+      <ActionLink link="15638810175314337"/>
+      <ActionOccurrenceLink link="15644922403000935"/>
+      <ActionOccurrenceLink link="15638806179704145"/>
+      <ConditionOccurrenceLink link="15644865283518653"/>
+    </Rule>
+    <Rule id="19">
+      <ConditionOccurrenceLink link="15428137186758695"/>
+      <ConditionLink link="15428143247048758" conditionState="true"/>
+      <ActionOccurrenceLink link="15428146605168838"/>
+      <ActionLink link="15428798956915810"/>
+      <ActionLink link="15428138696988734"/>
+    </Rule>
+    <Rule id="33">
+      <ConditionOccurrenceLink link="15428137186758695"/>
+      <ConditionLink link="15428143247048758" conditionState="false"/>
+      <ActionOccurrenceLink link="15428146605168838"/>
+      <ActionLink link="11446800829627977"/>
+    </Rule>
+  </Rules>
+  <Title language="German" value="Hoechstbetrag, zu prüfen bei jeder Aktualisierung eines Betragsfeldes k"/>
+  <UrlsOut>
+    <Url title="Ordner" url="file:///./"/>
+  </UrlsOut>
+  <Text language="German" value="Höchstbetrag:&lt;br/&gt;- Wird eine neue Maßnahme geöffnet, bleibt das Höchstbetragfeld zunächst leer.&lt;br/&gt;- Wird ein Betrag irgendwo eingetragen oder aktualisiert, wird die hier abgebildete Logik durchlaufen.&lt;br/&gt;"/>
+</LFET>

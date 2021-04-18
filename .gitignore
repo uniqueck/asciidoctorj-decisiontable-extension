@@ -8,3 +8,4 @@
 /.asciidoctor/
 **/*/*.lfet.*.$bak
 **/*/*.lfet_$temp
+src/test/resources/.asciidoctor/
