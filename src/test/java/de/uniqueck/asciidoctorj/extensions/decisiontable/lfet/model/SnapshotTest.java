@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class SnapshotTest extends AbstractLfdtTest<Snapshot> {
+class SnapshotTest extends AbstractLfdtTest<Snapshot> {
 	private Snapshot createUnderTest() {
 		return new Snapshot("crDat", "rSeq", "scm", "cars", "focR", "focCA");
 	}
@@ -14,20 +14,20 @@ public class SnapshotTest extends AbstractLfdtTest<Snapshot> {
 	}
 
 	@Test
-	public void testSnapshot() throws Exception {
+	void testSnapshot() throws Exception {
 		Snapshot snapshot = createUnderTest();
 		assertSnapshot(snapshot, "crDat", "rSeq", "scm", "cars", "focR", "focCA");
 	}
 
 	@Test
-	public void testPersistSnapshot() throws Exception {
+	void testPersistSnapshot() throws Exception {
 		Snapshot snapshot = createUnderTest();
 		String xml = persist(snapshot);
 		assertEquals(createExpectedXml(), xml);
 	}
 
 	@Test
-	public void testConvertTitleXML() throws Exception {
+	void testConvertTitleXML() throws Exception {
 		Snapshot snapshot = convertToModel(createExpectedXml());
 		assertSnapshot(snapshot, "crDat", "rSeq", "scm", "cars", "focR", "focCA");
 	}

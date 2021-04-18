@@ -5,7 +5,7 @@ import org.simpleframework.xml.core.AttributeException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SymbolTest extends AbstractLfdtTest<Symbol> {
+class SymbolTest extends AbstractLfdtTest<Symbol> {
 	private Symbol createUnderTest() {
 		return createUnderTest("English", "myValue");
 	}
@@ -19,7 +19,7 @@ public class SymbolTest extends AbstractLfdtTest<Symbol> {
 	}
 
 	@Test
-	public void testSymbol() throws Exception {
+	void testSymbol() throws Exception {
 		Symbol symbol = createUnderTest("English", null);
 		assertSymbol(symbol, null, "English");
 		
@@ -28,14 +28,14 @@ public class SymbolTest extends AbstractLfdtTest<Symbol> {
 	}
 	
 	@Test
-	public void testPersistSymbol_LanguageAndValueGiven_noError() throws Exception {
+	void testPersistSymbol_LanguageAndValueGiven_noError() throws Exception {
 		Symbol value = createUnderTest();
 		String xml = persist(value);
 		assertEquals(createExpectedXml(), xml);
 	}
 
 	@Test
-	public void testPersistSymbol_ValueNotGiven_error() throws Exception {
+	void testPersistSymbol_ValueNotGiven_error() throws Exception {
 		Symbol symbol = createUnderTest("English", null);
 		
 		try {
@@ -47,7 +47,7 @@ public class SymbolTest extends AbstractLfdtTest<Symbol> {
 	}
 	
 	@Test
-	public void testPersistSymbol_LanguageNotGiven_error() throws Exception {
+	void testPersistSymbol_LanguageNotGiven_error() throws Exception {
 		Symbol symbol = createUnderTest(null, "myValue");
 		
 		try {
@@ -59,7 +59,7 @@ public class SymbolTest extends AbstractLfdtTest<Symbol> {
 	}
 	
 	@Test
-	public void testConvertSymbolXML() throws Exception {
+	void testConvertSymbolXML() throws Exception {
 		Symbol symbol = convertToModel(createExpectedXml());
 		assertSymbol(symbol, "myValue", "English");
 	}

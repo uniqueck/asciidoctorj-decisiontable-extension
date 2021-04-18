@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ActionLinkTest extends AbstractLfdtTest<ActionLink> {
+class ActionLinkTest extends AbstractLfdtTest<ActionLink> {
 	private ActionLink createUnderTest() {
 		return new ActionLink();
 	}
@@ -17,14 +17,14 @@ public class ActionLinkTest extends AbstractLfdtTest<ActionLink> {
 	}
 
 	@Test
-	public void testActionLink() throws Exception {
+	void testActionLink() throws Exception {
 		ActionLink actionLink = createUnderTest();
 		assertNull(actionLink.getLinkedModel());
 		assertNull(actionLink.getLink());
 	}
 
 	@Test
-	public void testPersistActionLink() throws Exception {
+	void testPersistActionLink() throws Exception {
 		Action action = new Action("actionId", Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null, null);
 
 		ActionLink actionLink = createUnderTest();

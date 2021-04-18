@@ -5,7 +5,7 @@ import org.simpleframework.xml.core.AttributeException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AbstractValueTest extends AbstractLfdtTest<AbstractValue> {
+class AbstractValueTest extends AbstractLfdtTest<AbstractValue> {
 	private AbstractValue createUnderTest(String value) {
 		return new AbstractValue(value) {};
 	}
@@ -15,20 +15,20 @@ public class AbstractValueTest extends AbstractLfdtTest<AbstractValue> {
 	}
 
 	@Test
-	public void testValue() throws Exception {
+	void testValue() throws Exception {
 		AbstractValue value = createUnderTest("myValue");
 		assertEquals("myValue", value.getValue());
 	}
 	
 	@Test
-	public void testPersistValue_ValueGiven_noError() throws Exception {
+	void testPersistValue_ValueGiven_noError() throws Exception {
 		AbstractValue value = createUnderTest("myValue");
 		String xml = persist(value);
 		assertEquals(createExpectedXml(), xml);
 	}
 
 	@Test
-	public void testPersistValue_ValueNotGiven_error() throws Exception {
+	void testPersistValue_ValueNotGiven_error() throws Exception {
 		AbstractValue value = createUnderTest(null);
 		
 		try {

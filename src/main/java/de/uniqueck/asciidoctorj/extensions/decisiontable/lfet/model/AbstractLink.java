@@ -15,7 +15,7 @@ public abstract class AbstractLink<T> {
 	
 	private T linkedModel;
 	
-	public AbstractLink() {
+	protected AbstractLink() {
 		this.link = null;
 		this.linkedModel = null;
 	}

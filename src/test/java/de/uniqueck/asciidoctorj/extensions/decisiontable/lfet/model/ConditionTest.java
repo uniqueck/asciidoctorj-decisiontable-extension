@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ConditionTest extends AbstractLfdtTest<Condition> {
+class ConditionTest extends AbstractLfdtTest<Condition> {
 	private Condition createUnderTest(String uid, Title title, Text text, List<SourceCode> sourceCodes, List<ConditionOccurrence> occurences, List<Url> urls) {
 		return new Condition(uid, Arrays.asList(title), text, sourceCodes, occurences, urls);
 	}
@@ -66,7 +66,7 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 	}
 
 	@Test
-	public void testCondition() throws Exception {
+	void testCondition() throws Exception {
 		String uid = "12345";
 		Title title = new Title("English", "title");
 		Text text = new Text("English", "docuText");
@@ -91,7 +91,7 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 	}
 
 	@Test
-	public void testPersistModel_withoutOccurencesAndUrls() throws Exception {
+	void testPersistModel_withoutOccurencesAndUrls() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Java", "LogArg", "value1");
 		SourceCode sourceCode2 = new SourceCode("Java", "Prolog", "value2");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -106,7 +106,7 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 	}
 	
 	@Test
-	public void testPersistModel_withOccurences() throws Exception {
+	void testPersistModel_withOccurences() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Java", "LogArg", "value1");
 		SourceCode sourceCode2 = new SourceCode("Java", "Prolog", "value2");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -143,7 +143,7 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 	}
 	
 	@Test
-	public void testConvertActionXML_withoutOccurencesAndUrls() throws Exception {
+	void testConvertActionXML_withoutOccurencesAndUrls() throws Exception {
 		Condition condition = convertToModel(createExpectedXml_withoutOccurencesAndUrls());
 		
 		assertEquals("12345", condition.getUId());
@@ -157,7 +157,7 @@ public class ConditionTest extends AbstractLfdtTest<Condition> {
 	}
 	
 	@Test
-	public void testConvertActionXML_withOccurencesAndUrls() throws Exception {
+	void testConvertActionXML_withOccurencesAndUrls() throws Exception {
 		Condition condition = convertToModel(createExpectedXml_withOccurencesAndUrls());
 		
 		assertEquals("12345", condition.getUId());

@@ -6,7 +6,7 @@ public abstract class AbstractValueBasedOnLanguage extends AbstractValue {
 	@Attribute(name = "language")
 	private String language;
 
-	public AbstractValueBasedOnLanguage(String language, String value) {
+	protected AbstractValueBasedOnLanguage(String language, String value) {
 		super(value);
 		this.language = language;
 	}

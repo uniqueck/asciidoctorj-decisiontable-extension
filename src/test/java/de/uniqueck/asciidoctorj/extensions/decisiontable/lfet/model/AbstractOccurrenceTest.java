@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class AbstractOccurrenceTest extends AbstractLfdtTest<AbstractOccurrence> {
+class AbstractOccurrenceTest extends AbstractLfdtTest<AbstractOccurrence> {
 	private AbstractOccurrence createUnderTest(String uid, Symbol symbol, Title title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
 		return new AbstractOccurrence(uid, symbol, Arrays.asList(title), text, sourceCodes, urls) {};
 	}
@@ -31,7 +31,7 @@ public class AbstractOccurrenceTest extends AbstractLfdtTest<AbstractOccurrence>
 	}
 	
 	@Test
-	public void testOccurences() throws Exception {
+	void testOccurences() throws Exception {
 		String uid = "12345";
 		Symbol symbol = new Symbol("English", "symbol");
 		Title title = new Title("English", "title");
@@ -57,7 +57,7 @@ public class AbstractOccurrenceTest extends AbstractLfdtTest<AbstractOccurrence>
 	}
 
 	@Test
-	public void testPersistModel() throws Exception {
+	void testPersistModel() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Java", "LogArg", "value1");
 		SourceCode sourceCode2 = new SourceCode("Java", "Prolog", "value2");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();

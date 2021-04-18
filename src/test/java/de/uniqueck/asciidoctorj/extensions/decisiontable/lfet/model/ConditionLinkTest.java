@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ConditionLinkTest extends AbstractLfdtTest<ConditionLink> {
+class ConditionLinkTest extends AbstractLfdtTest<ConditionLink> {
 	private ConditionLink createUnderTest() {
 		return new ConditionLink();
 	}
@@ -16,7 +16,7 @@ public class ConditionLinkTest extends AbstractLfdtTest<ConditionLink> {
 	}
 
 	@Test
-	public void testConditionLink() throws Exception {
+	void testConditionLink() throws Exception {
 		ConditionLink conditionLink = createUnderTest();
 		assertNull(conditionLink.getLinkedModel());
 		assertNull(conditionLink.getLink());
@@ -24,7 +24,7 @@ public class ConditionLinkTest extends AbstractLfdtTest<ConditionLink> {
 	}
 
 	@Test
-	public void testPersistConditionLink() throws Exception {
+	void testPersistConditionLink() throws Exception {
 		Condition condition = new Condition("condId", Arrays.asList(new Title("English", "title")), new Text("English", "text"), null, null, null);
 
 		ConditionLink conditionLink = createUnderTest();

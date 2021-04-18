@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
+class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	private LFDecisionTable createUnderTest(String version, String language, String saveUser, String saveDate,
 			Title title, Text text, List<SourceCode> sourceCodes, List<Condition> conditions, List<Action> actions,
 			List<Rule> rules, List<Url> urls, String lastId, List<Snapshot> snapshots) {
@@ -31,7 +31,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	}
 
 	@Test
-	public void testLFDecisionTable() throws Exception {
+	void testLFDecisionTable() throws Exception {
 		Title title = new Title("English", "title");
 		Text text = new Text("English", "text");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -60,7 +60,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	}
 
 	@Test
-	public void testPersistModel() throws Exception {
+	void testPersistModel() throws Exception {
 		Title title = new Title("English", "title");
 		Text text = new Text("English", "text");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -78,7 +78,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	}
 
 	@Test
-	public void testLFDT_AbfallGetEvents() throws Exception {
+	void testLFDT_AbfallGetEvents() throws Exception {
 		LFDecisionTable lfet = new Persister().read(LFDecisionTable.class, new File("src/test/resources/ABFALL_getEvents.lfet"));
 		
 		assertNotNull(lfet);
@@ -134,7 +134,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	}
 
 	@Test
-	public void testLFDT_StateMachine_1_Eng() throws Exception {
+	void testLFDT_StateMachine_1_Eng() throws Exception {
 		LFDecisionTable lfet = new Persister().read(LFDecisionTable.class, new File("src/test/resources/StateMachine_1_Eng.lfet"));
 		
 		assertNotNull(lfet);
@@ -212,7 +212,7 @@ public class LFDecisionTableTest extends AbstractLfdtTest<LFDecisionTable> {
 	}
 	
 	@Test
-	public void testLFDT_DTWhichContainsAllPossibleFeatures() throws Exception {
+	void testLFDT_DTWhichContainsAllPossibleFeatures() throws Exception {
 		LFDecisionTable lfet = new Persister().read(LFDecisionTable.class, new File("src/test/resources/lfet_all_features_used.lfet"));
 		
 		assertNotNull(lfet);

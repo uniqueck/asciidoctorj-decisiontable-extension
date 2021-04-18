@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TitleTest extends AbstractLfdtTest<Title> {
+class TitleTest extends AbstractLfdtTest<Title> {
 	private Title createUnderTest() {
 		return createUnderTest("English", "myTitle");
 	}
@@ -21,7 +21,7 @@ public class TitleTest extends AbstractLfdtTest<Title> {
 	}
 
 	@Test
-	public void testTitle() throws Exception {
+	void testTitle() throws Exception {
 		Title title = createUnderTest("English", null);
 		assertTitle(Arrays.asList(title), null, "English");
 		
@@ -30,14 +30,14 @@ public class TitleTest extends AbstractLfdtTest<Title> {
 	}
 	
 	@Test
-	public void testPersistTitle_LanguageAndValueGiven_noError() throws Exception {
+	void testPersistTitle_LanguageAndValueGiven_noError() throws Exception {
 		Title title = createUnderTest();
 		String xml = persist(title);
 		assertEquals(createExpectedXml(), xml);
 	}
 
 	@Test
-	public void testPersistTitle_ValueNotGiven_error() throws Exception {
+	void testPersistTitle_ValueNotGiven_error() throws Exception {
 		Title title = createUnderTest("English", null);
 		
 		try {
@@ -49,7 +49,7 @@ public class TitleTest extends AbstractLfdtTest<Title> {
 	}
 	
 	@Test
-	public void testPersistTitle_LanguageNotGiven_error() throws Exception {
+	void testPersistTitle_LanguageNotGiven_error() throws Exception {
 		Title title = createUnderTest(null, "myTitle");
 		
 		try {
@@ -61,7 +61,7 @@ public class TitleTest extends AbstractLfdtTest<Title> {
 	}
 	
 	@Test
-	public void testConvertTitleXML() throws Exception {
+	void testConvertTitleXML() throws Exception {
 		Title title = convertToModel(createExpectedXml());
 		assertTitle(Arrays.asList(title), "myTitle", "English");
 	}

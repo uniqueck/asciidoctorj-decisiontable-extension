@@ -4,6 +4,8 @@
 image:https://github.com/uniqueck/asciidoctorj-decisiontable-extension/actions/workflows/ci.yaml/badge.svg?branch=master["GitHub Actions", link="https://github.com/uniqueck/asciidoctorj-decisiontable-extension/actions/workflows/ci.yaml?branch=master"]
 image:https://img.shields.io/badge/License-MIT-yellow.svg["MIT License", link="https://opensource.org/licenses/MIT"]
 image:https://maven-badges.herokuapp.com/maven-central/de.uniqueck.asciidoctorj.extensions/asciidoctorj-decisiontable-extension/badge.svg?style=plastic[link="https://maven-badges.herokuapp.com/maven-central/de.uniqueck.asciidoctorj.extensions/asciidoctorj-decisiontable-extension"]
+image:https://sonarcloud.io/api/project_badges/measure?project=uniqueck_asciidoctorj-decisiontable-extension&metric=alert_status[link="https://sonarcloud.io/api/project_badges/measure?project=uniqueck_asciidoctorj-decisiontable-extension&metric=alert_status"]
+
 
 This AsciidoctorJ extension helps you to integrate https://www.lohrfink.de/de/startseite/[decision tables] in your AsciiDoc toolchain.
 

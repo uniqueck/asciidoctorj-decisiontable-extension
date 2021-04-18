@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class AbstractRulePartTest extends AbstractLfdtTest<AbstractRulePart<AbstractOccurrence>> {
+class AbstractRulePartTest extends AbstractLfdtTest<AbstractRulePart<AbstractOccurrence>> {
 	private AbstractRulePart<AbstractOccurrence> createUnderTest(String uid, Title title, Text text, List<SourceCode> sourceCodes, List<AbstractOccurrence> occurences, List<Url> urls) {
 		return new AbstractRulePart<AbstractOccurrence>(uid, Arrays.asList(title), text, sourceCodes, occurences, urls) {};
 	}
@@ -43,7 +43,7 @@ public class AbstractRulePartTest extends AbstractLfdtTest<AbstractRulePart<Abst
 	}
 	
 	@Test
-	public void testAbstractRulePart() throws Exception {
+	void testAbstractRulePart() throws Exception {
 		String uid = "12345";
 		Title title = new Title("English", "title");
 		Text text = new Text("English", "docuText");
@@ -66,7 +66,7 @@ public class AbstractRulePartTest extends AbstractLfdtTest<AbstractRulePart<Abst
 	}
 
 	@Test
-	public void testPersistModel_withoutOccurencesAndWithoutUrls() throws Exception {
+	void testPersistModel_withoutOccurencesAndWithoutUrls() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Perl", "LogArg", "$foundItem");
 		SourceCode sourceCode2 = new SourceCode("Perl", "Prolog", "$foundItem = ();");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -81,7 +81,7 @@ public class AbstractRulePartTest extends AbstractLfdtTest<AbstractRulePart<Abst
 	}
 
 	@Test
-	public void testPersistModel_withOccurencesAndUrls() throws Exception {
+	void testPersistModel_withOccurencesAndUrls() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Perl", "LogArg", "$foundItem");
 		SourceCode sourceCode2 = new SourceCode("Perl", "Prolog", "$foundItem = ();");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();

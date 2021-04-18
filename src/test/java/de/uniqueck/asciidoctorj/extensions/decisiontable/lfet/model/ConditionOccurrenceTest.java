@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public class ConditionOccurrenceTest extends AbstractLfdtTest<ConditionOccurrence> {
+class ConditionOccurrenceTest extends AbstractLfdtTest<ConditionOccurrence> {
 	private ConditionOccurrence createUnderTest(String uid, Symbol symbol, Title title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
 		return new ConditionOccurrence(uid, symbol, Arrays.asList(title), text, sourceCodes, urls);
 	}
@@ -31,7 +31,7 @@ public class ConditionOccurrenceTest extends AbstractLfdtTest<ConditionOccurrenc
 	}
 	
 	@Test
-	public void testActionOccurrence() throws Exception {
+	void testActionOccurrence() throws Exception {
 		String uid = "12345";
 		Symbol symbol = new Symbol("English", "symbol");
 		Title title = new Title("English", "title");
@@ -57,7 +57,7 @@ public class ConditionOccurrenceTest extends AbstractLfdtTest<ConditionOccurrenc
 	}
 
 	@Test
-	public void testPersistModel() throws Exception {
+	void testPersistModel() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Java", "LogArg", "value1");
 		SourceCode sourceCode2 = new SourceCode("Java", "Prolog", "value2");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -75,7 +75,7 @@ public class ConditionOccurrenceTest extends AbstractLfdtTest<ConditionOccurrenc
 	}
 	
 	@Test
-	public void testConvertConditionOccurrenceXML_withoutOccurencesAndUrls() throws Exception {
+	void testConvertConditionOccurrenceXML_withoutOccurencesAndUrls() throws Exception {
 		ConditionOccurrence conditionOccurrence = convertToModel(createExpectedXml());
 		
 		assertEquals("12345", conditionOccurrence.getUId());

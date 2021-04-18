@@ -5,7 +5,7 @@ import org.simpleframework.xml.core.AttributeException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SourceCodeTest extends AbstractLfdtTest<SourceCode> {
+class SourceCodeTest extends AbstractLfdtTest<SourceCode> {
 	private SourceCode createUnderTest() {
 		return createUnderTest("Java", "LogArg", "value");
 	}
@@ -19,20 +19,20 @@ public class SourceCodeTest extends AbstractLfdtTest<SourceCode> {
 	}
 
 	@Test
-	public void testSourceCode() throws Exception {
+	void testSourceCode() throws Exception {
 		SourceCode sourceCode = createUnderTest();
 		assertSourceCode(sourceCode, "Java", "LogArg", "value");
 	}
 
 	@Test
-	public void testPersistSourceCode_codeLanguageAndTypeAndValueGiven_noError() throws Exception {
+	void testPersistSourceCode_codeLanguageAndTypeAndValueGiven_noError() throws Exception {
 		SourceCode sourceCode = createUnderTest();
 		String xml = persist(sourceCode);
 		assertEquals(createExpectedXml(), xml);
 	}
 	
 	@Test
-	public void testPersistSourceCode_codeLanguageNotGiven_Error() throws Exception {
+	void testPersistSourceCode_codeLanguageNotGiven_Error() throws Exception {
 		SourceCode sourceCode = createUnderTest(null, "LogArg", "value");
 		
 		try {
@@ -44,7 +44,7 @@ public class SourceCodeTest extends AbstractLfdtTest<SourceCode> {
 	}
 
 	@Test
-	public void testPersistSourceCode_sourceCodeTypeNotGiven_Error() throws Exception {
+	void testPersistSourceCode_sourceCodeTypeNotGiven_Error() throws Exception {
 		SourceCode sourceCode = createUnderTest("Java", null, "value");
 		
 		try {
@@ -56,7 +56,7 @@ public class SourceCodeTest extends AbstractLfdtTest<SourceCode> {
 	}
 
 	@Test
-	public void testPersistSourceCode_valueNotGiven_Error() throws Exception {
+	void testPersistSourceCode_valueNotGiven_Error() throws Exception {
 		SourceCode sourceCode = createUnderTest("Java", "LogArg", null);
 		
 		try {
@@ -68,7 +68,7 @@ public class SourceCodeTest extends AbstractLfdtTest<SourceCode> {
 	}
 
 	@Test
-	public void testConvertSourceCodeXML() throws Exception {
+	void testConvertSourceCodeXML() throws Exception {
 		SourceCode sourceCode = convertToModel(createExpectedXml());
 		assertSourceCode(sourceCode, "Java", "LogArg", "value");
 	}

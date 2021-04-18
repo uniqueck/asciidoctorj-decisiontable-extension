@@ -32,13 +32,4 @@ class ActivityDiagramGeneratorTest {
         assertEquals("Error on reading decision table file 'src/test/resources/corrupted.lfet'",exception.getMessage());
     }
 
-
-    @Test
-    void bla() {
-        List<String> generate = new ActivityDiagramGenerator().generate(new File("src/test/resources/Anwendungsfall_Massnahmen_Hoechstbetrag_20190801.lfet"));
-    }
-
-
-
-
 }

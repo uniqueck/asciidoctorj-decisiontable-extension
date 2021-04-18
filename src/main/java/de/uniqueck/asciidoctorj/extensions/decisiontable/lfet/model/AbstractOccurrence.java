@@ -32,7 +32,7 @@ public abstract class AbstractOccurrence {
 	@ElementList(entry = "Url", required = false, inline = true) 
 	private List<Url> urls;
 
-	public AbstractOccurrence(String uId, Symbol symbol, List<Title> title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
+	protected AbstractOccurrence(String uId, Symbol symbol, List<Title> title, Text text, List<SourceCode> sourceCodes, List<Url> urls) {
 		this.uId = uId;
 		this.symbol = symbol;
 		this.title = title;

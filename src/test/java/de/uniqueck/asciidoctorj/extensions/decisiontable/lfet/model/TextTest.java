@@ -5,7 +5,7 @@ import org.simpleframework.xml.core.AttributeException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TextTest extends AbstractLfdtTest<Text> {
+class TextTest extends AbstractLfdtTest<Text> {
 	private Text createUnderTest() {
 		return createUnderTest("English", "this is a docu");
 	}
@@ -19,7 +19,7 @@ public class TextTest extends AbstractLfdtTest<Text> {
 	}
 
 	@Test
-	public void testText() throws Exception {
+	void testText() throws Exception {
 		Text text = createUnderTest("English", null);
 		assertText(text, null, "English");
 		
@@ -28,7 +28,7 @@ public class TextTest extends AbstractLfdtTest<Text> {
 	}
 	
 	@Test
-	public void testPersistText_LanguageAndValueGiven_noError() throws Exception {
+	void testPersistText_LanguageAndValueGiven_noError() throws Exception {
 		Text text = createUnderTest();
 		String xml = persist(text);
 		assertEquals(createExpectedXml(), xml);
@@ -47,7 +47,7 @@ public class TextTest extends AbstractLfdtTest<Text> {
 	}
 	
 	@Test
-	public void testPersistText_LanguageNotGiven_error() throws Exception {
+	void testPersistText_LanguageNotGiven_error() throws Exception {
 		Text text = createUnderTest(null, "this is a docu");
 		
 		try {
@@ -59,7 +59,7 @@ public class TextTest extends AbstractLfdtTest<Text> {
 	}
 	
 	@Test
-	public void testConvertTextXML() throws Exception {
+	void testConvertTextXML() throws Exception {
 		Text text = convertToModel(createExpectedXml());
 		assertText(text, "this is a docu", "English");
 	}

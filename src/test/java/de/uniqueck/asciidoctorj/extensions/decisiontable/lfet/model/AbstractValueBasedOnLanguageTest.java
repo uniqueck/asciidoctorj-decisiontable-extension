@@ -5,7 +5,7 @@ import org.simpleframework.xml.core.AttributeException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AbstractValueBasedOnLanguageTest extends AbstractLfdtTest<AbstractValueBasedOnLanguage> {
+class AbstractValueBasedOnLanguageTest extends AbstractLfdtTest<AbstractValueBasedOnLanguage> {
 	private AbstractValueBasedOnLanguage createUnderTest() {
 		return createUnderTest("English", "myValue");
 	}
@@ -19,7 +19,7 @@ public class AbstractValueBasedOnLanguageTest extends AbstractLfdtTest<AbstractV
 	}
 
 	@Test
-	public void testAbstractValueBasedOnLanguage() throws Exception {
+	void testAbstractValueBasedOnLanguage() throws Exception {
 		AbstractValueBasedOnLanguage value = createUnderTest("English", null);
 		assertEquals("English", value.getLanguage());
 		assertNull(value.getValue());
@@ -30,14 +30,14 @@ public class AbstractValueBasedOnLanguageTest extends AbstractLfdtTest<AbstractV
 	}
 	
 	@Test
-	public void testPersistAbstractValueBasedOnLanguage_LanguageAndValueGiven_noError() throws Exception {
+	void testPersistAbstractValueBasedOnLanguage_LanguageAndValueGiven_noError() throws Exception {
 		AbstractValueBasedOnLanguage value = createUnderTest();
 		String xml = persist(value);
 		assertEquals(createExpectedXml(), xml);
 	}
 
 	@Test
-	public void testPersistAbstractValueBasedOnLanguage_ValueNotGiven_error() throws Exception {
+	void testPersistAbstractValueBasedOnLanguage_ValueNotGiven_error() throws Exception {
 		AbstractValueBasedOnLanguage value = createUnderTest("English", null);
 		
 		try {
@@ -49,7 +49,7 @@ public class AbstractValueBasedOnLanguageTest extends AbstractLfdtTest<AbstractV
 	}
 	
 	@Test
-	public void testPersistAbstractValueBasedOnLanguage_LanguageNotGiven_error() throws Exception {
+	void testPersistAbstractValueBasedOnLanguage_LanguageNotGiven_error() throws Exception {
 		AbstractValueBasedOnLanguage value = createUnderTest(null, "myValue");
 		
 		try {

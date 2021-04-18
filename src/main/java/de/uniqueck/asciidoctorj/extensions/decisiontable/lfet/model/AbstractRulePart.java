@@ -34,7 +34,7 @@ public abstract class AbstractRulePart<T extends AbstractOccurrence> {
 	@ElementList(entry = "Url", required = false, inline = true) 
 	private List<Url> urls;
 
-	public AbstractRulePart(String uid, List<Title> title, Text text, List<SourceCode> sourceCodes, List<T> occurrences, List<Url> urls) {
+	protected AbstractRulePart(String uid, List<Title> title, Text text, List<SourceCode> sourceCodes, List<T> occurrences, List<Url> urls) {
 		this.uId = uid;
 		this.title = title;
 		this.text = text;

@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ActionTest extends AbstractLfdtTest<Action> {
+class ActionTest extends AbstractLfdtTest<Action> {
 	private Action createUnderTest(String uid, Title title, Text text, List<SourceCode> sourceCodes, List<ActionOccurrence> occurences, List<Url> urls) {
 		return new Action(uid, Arrays.asList(title), text, sourceCodes, occurences, urls);
 	}
@@ -66,7 +66,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 	}
 	
 	@Test
-	public void testAction() throws Exception {
+	void testAction() throws Exception {
 		String uid = "12345";
 		Title title = new Title("English", "title");
 		Text text = new Text("English", "docuText");
@@ -92,7 +92,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 	}
 
 	@Test
-	public void testPersistModel_withoutOccurencesAndUrls() throws Exception {
+	void testPersistModel_withoutOccurencesAndUrls() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Java", "LogArg", "value1");
 		SourceCode sourceCode2 = new SourceCode("Java", "Prolog", "value2");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -107,7 +107,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 	}
 	
 	@Test
-	public void testPersistModel_withOccurences() throws Exception {
+	void testPersistModel_withOccurences() throws Exception {
 		SourceCode sourceCode1 = new SourceCode("Java", "LogArg", "value1");
 		SourceCode sourceCode2 = new SourceCode("Java", "Prolog", "value2");
 		List<SourceCode> sourceCodes = new ArrayList<SourceCode>();
@@ -146,7 +146,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 	}
 	
 	@Test
-	public void testConvertActionXML_withoutOccurencesAndUrls() throws Exception {
+	void testConvertActionXML_withoutOccurencesAndUrls() throws Exception {
 		Action action = convertToModel(createExpectedXml_withoutOccurencesAndUrls());
 		
 		assertEquals("12345", action.getUId());
@@ -160,7 +160,7 @@ public class ActionTest extends AbstractLfdtTest<Action> {
 	}
 	
 	@Test
-	public void testConvertActionXML_withOccurencesAndUrls() throws Exception {
+	void testConvertActionXML_withOccurencesAndUrls() throws Exception {
 		Action action = convertToModel(createExpectedXml_withOccurencesAndUrls());
 		
 		assertEquals("12345", action.getUId());
