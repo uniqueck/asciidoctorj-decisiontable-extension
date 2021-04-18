@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.uniqueck</groupId>
+    <groupId>de.uniqueck.asciidoctorj.extensions</groupId>
     <artifactId>asciidoctorj-decisiontable-extension</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -21,12 +21,24 @@
         </developer>
     </developers>
 
+    <url>https://github.com/uniqueck/asciidoctorj-decisiontable-extension</url>
+    <name>AsciidoctorJ Lohrfink Decisiontable Extension</name>
+    <description>Asciidoctor extension to render LF decisiontables as table</description>
+    <licenses>
+        <license>
+            <name>MIT</name>
+            <url>https://github.com/uniqueck/asciidoctorj-decisiontable-extension/blob/master/LICENSE</url>
+        </license>
+    </licenses>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>bintray</id>
-            <name>uniqueck-asciidoctorj-decisiontable-extension</name>
-            <url>https://api.bintray.com/maven/uniqueck/asciidoctorj/${project.artifactId}/;publish=1</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
@@ -76,12 +88,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.asciidoctor</groupId>
-            <artifactId>asciidoctorj</artifactId>
-            <version>${asciidoctorj.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <version>2.0.6</version>
@@ -112,10 +118,23 @@
         </dependency>
 
         <dependency>
+            <groupId>de.uniqueck.asciidoctorj.extensions</groupId>
+            <artifactId>asciidoctorj-extension-support</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>de.uniqueck.asciidoctorj.extensions</groupId>
+            <artifactId>asciidoctorj-extension-test-support</artifactId>
+            <version>0.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
             <groupId>org.asciidoctor</groupId>
             <artifactId>asciidoctorj-diagram</artifactId>
-            <version>1.5.18</version>
-            <scope>test</scope>
+            <version>2.0.0</version>
         </dependency>
 
     </dependencies>
@@ -168,33 +187,6 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals><goal>jar</goal></goals>
-                        <configuration>
-                            <source>${maven.compiler.source}</source>
-                        </configuration>
-                    </execution>
-
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals><goal>jar</goal></goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
@@ -218,58 +210,75 @@
         </plugins>
     </build>
 
-
     <profiles>
         <profile>
-            <id>arc42</id>
-            <properties>
-                <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-            </properties>
+            <id>deploy-to-sonatype</id>
             <build>
-                <defaultGoal>generate-resources</defaultGoal>
                 <plugins>
                     <plugin>
-                        <groupId>org.asciidoctor</groupId>
-                        <artifactId>asciidoctor-maven-plugin</artifactId>
-                        <version>2.0.0-RC.1</version>
-                        <configuration>
-                            <sourceDirectory>${project.basedir}/src/docs</sourceDirectory>
-                            <sourceDocumentName>arc42-asciidoctorj-decisiontable-extension.adoc</sourceDocumentName>
-                            <outputFile>index.html</outputFile>
-                            <backend>html5</backend>
-                            <attributes>
-                                <toc>left</toc>
-                                <sectanchors />
-                                <sectlinks />
-                                <doc-revision-version>V${project.version}</doc-revision-version>
-                                <doc-revision-date>${maven.build.timestamp}</doc-revision-date>
-                                <version-label/>
-                            </attributes>
-                            <requires>
-                                <require>asciidoctor-diagram</require>
-                            </requires>
-                        </configuration>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
-                                <id>default</id>
-                                <phase>generate-resources</phase>
-                                <goals><goal>process-asciidoc</goal></goals>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <source>${maven.compiler.source}</source>
+                                </configuration>
+                            </execution>
+
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.asciidoctor</groupId>
-                                <artifactId>asciidoctorj-diagram</artifactId>
-                                <version>1.5.18</version>
-                            </dependency>
-                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
                     </plugin>
                 </plugins>
-
             </build>
         </profile>
-
     </profiles>
-
 
 </project>

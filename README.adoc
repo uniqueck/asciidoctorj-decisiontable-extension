@@ -1,9 +1,9 @@
 :icons: font
 = AsciidoctorJ Decisiontable Extension
 
-image:https://circleci.com/gh/uniqueck/asciidoctorj-decisiontable-extension/tree/master.svg?style=shield["CircleCI", link="https://circleci.com/gh/uniqueck/asciidoctorj-decisiontable-extension/tree/master"]
+image:https://github.com/uniqueck/asciidoctorj-decisiontable-extension/actions/workflows/ci.yaml/badge.svg?branch=master["GitHub Actions", link="https://github.com/uniqueck/asciidoctorj-decisiontable-extension/actions/workflows/ci.yaml?branch=master"]
 image:https://img.shields.io/badge/License-MIT-yellow.svg["MIT License", link="https://opensource.org/licenses/MIT"]
-image:https://api.bintray.com/packages/uniqueck/asciidoctorj/asciidoctorj-decisiontable-extension/images/download.svg[link="https://bintray.com/uniqueck/asciidoctorj/asciidoctorj-decisiontable-extension/_latestVersion"]
+image:https://maven-badges.herokuapp.com/maven-central/de.uniqueck.asciidoctorj.extensions/asciidoctorj-decisiontable-extension/badge.svg?style=plastic[link="https://maven-badges.herokuapp.com/maven-central/de.uniqueck.asciidoctorj.extensions/asciidoctorj-decisiontable-extension"]
 
 This AsciidoctorJ extension helps you to integrate https://www.lohrfink.de/de/startseite/[decision tables] in your AsciiDoc toolchain.
 
@@ -12,8 +12,6 @@ Currently supported decision table formats
 * https://www.lohrfink.de/de/startseite/[lohrfink decision tables]
 
 == Installation
-
-The extension is available in https://bintray.com/bintray/jcenter[JCenter]. To use this extension declare it as a dependency in asciidoctor-maven-plugin configuration.
 
 [source, xml]
 ----
@@ -35,7 +33,7 @@ The extension is available in https://bintray.com/bintray/jcenter[JCenter]. To u
 	</executions>
 	<dependencies>
 		<dependency> <!--1-->
-			<groupId>com.uniqueck</groupId>
+			<groupId>de.uniqueck.asciidoctorj.extensions</groupId>
 			<artifactId>asciidoctorj-decisiontable-extension</artifactId>
 			<version>LATEST</version> <!--2-->
 		</dependency>
@@ -44,7 +42,7 @@ The extension is available in https://bintray.com/bintray/jcenter[JCenter]. To u
 ----
 
 <1> asciidoctorj-decisiontables-extension is added
-<2> check for the latest version at https://bintray.com/bintray/jcenter[JCenter]
+<2> check for the latest version at https://maven-badges.herokuapp.com/maven-central/de.uniqueck.asciidoctorj.extensions/asciidoctorj-decisiontable-extension[Maven central]
 
 == lfet macro
 
