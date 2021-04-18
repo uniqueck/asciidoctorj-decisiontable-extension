@@ -8,6 +8,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
+import javax.xml.XMLConstants;
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -26,7 +27,10 @@ public class LFETAsciiDocTableGenerator {
 
     public LFETAsciiDocTableGenerator(File sourceFile) {
         try {
-            lfetDocument = new SAXBuilder().build(sourceFile);
+            SAXBuilder builder = new SAXBuilder();
+            builder.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            builder.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+            lfetDocument = builder.build(sourceFile);
             lfetLanguage = Language.getEnum(lfetDocument.getRootElement().getAttributeValue("language"));
         } catch (Exception e) {
             throw new AsciiDoctorDecisionTableRuntimeException("Error on reading decision table file '" + sourceFile.getPath() + "'", e);
